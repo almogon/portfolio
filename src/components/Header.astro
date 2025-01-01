@@ -1,0 +1,241 @@
+---
+const styleFlag = {
+  objectFit: 'none',
+  borderRadius: '20%',
+  zoom: '25%',
+  width: '120px',
+  height: '80px',
+};
+const styleEnFlag = {
+  ...styleFlag,
+
+  objectPosition: '-570px -45px',
+};
+const styleEsFlag = {
+  ...styleFlag,
+  objectPosition: '-568px -233px',
+};
+const styleDeFlag = {
+  ...styleFlag,
+  objectPosition: '-370px -421px',
+};
+---
+
+<header>
+  <nav class="navigation">
+    <div class="nav-content">
+      <div class="flex direction-row items-center gap-4">
+        <div class="svg-container">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            width="50"
+            height="50"
+          >
+            <g>
+              <g>
+                <path
+                  d="M460.8,0C442.593,0,67.825,0,51.2,0C22.968,0,0,22.968,0,51.2c0,18.207,0,392.975,0,409.6C0,489.032,22.968,512,51.2,512
+            c18.207,0,392.975,0,409.6,0c28.232,0,51.2-22.968,51.2-51.2c0-18.207,0-392.975,0-409.6C512,22.968,489.032,0,460.8,0z
+             M159.289,477.867H51.2c-9.411,0-17.067-7.656-17.067-17.067V352.711h125.156V477.867z M159.289,318.578H34.133V193.422h125.156
+            V318.578z M159.289,159.289H34.133V51.2c0-9.411,7.656-17.067,17.067-17.067h108.089V159.289z M318.578,477.867H193.422V352.711
+            h125.156V477.867z M318.578,318.578H193.422V193.422h125.156V318.578z M318.578,159.289H193.422V34.133h125.156V159.289z
+             M477.867,460.8c0,9.411-7.656,17.067-17.067,17.067H352.711V352.711h125.156V460.8z M477.867,318.578H352.711V193.422h125.156
+            V318.578z M477.867,159.289H352.711V34.133H460.8c9.411,0,17.067,7.656,17.067,17.067V159.289z"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <a
+          href="#about-me"
+          class="logo-link gap-4 text-3xl"
+          aria-label="Back to top"
+        >
+          <span class="font-fantasy">Alvaro M.</span>
+        </a>
+      </div>
+
+      <div class="menu-overlay">
+        <div class="menu-container">
+          <ul class="menu">
+            <li class="menu-item">
+              <a href="#experience" class="menu-link">
+                <span class="menu-text experience">Experience</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#education" class="menu-link">
+                <span class="menu-text education">Education</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#skills" class="menu-link">
+                <span class="menu-text skills">Skills</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#references" class="menu-link">
+                <span class="menu-text references">References</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#contact" class="menu-link">
+                <span class="menu-text contact">Contact</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <div class="box-flag">
+        <button>
+          <Image src={flagsImage} alt="English" style={styleEnFlag} />
+        </button>
+        <button>
+          <Image src={flagsImage} alt="Español" style={styleEsFlag} />
+        </button>
+        <button>
+          <Image src={flagsImage} alt="Deutsch" style={styleDeFlag} />
+        </button>
+      </div> -->
+    </div>
+  </nav>
+</header>
+
+<style>
+  .svg-container {
+    opacity: 1;
+    transition:
+      transform 0.5s ease,
+      fill 0.5s ease;
+  }
+
+  svg path {
+    fill: white;
+    transition: fill 0.5s ease;
+  }
+
+  /* Hover animation */
+  li.menu-item:hover ~ .svg-container {
+    transform: rotate(180deg);
+  }
+
+  /* li.menu-item:hover ~ .svg-container svg path {
+    fill: blue;
+  } */
+
+  header {
+    @apply p-4;
+  }
+
+  .box-flag {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+  }
+
+  .nav-content {
+    position: relative;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .menu-overlay {
+  }
+
+  .menu-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .menu-item {
+    overflow: hidden;
+  }
+
+  .menu-text.experience:hover {
+    color: rgb(0, 51, 204); /* Blue */
+  }
+  .menu-text.education:hover {
+    color: rgb(0, 204, 0); /* Green */
+  }
+  .menu-text.skills:hover {
+    color: rgb(255, 255, 0); /* Yellow */
+  }
+  .menu-text.references:hover {
+    color: rgb(255, 102, 0); /* Orange */
+  }
+  .menu-text.contact:hover {
+    color: rgb(204, 0, 0); /* Red */
+  }
+
+  .menu-link {
+    font-size: clamp(1.5rem, 10vw, 1rem);
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1;
+    display: block;
+    opacity: 0.7;
+  }
+  .menu-item:hover .menu-link {
+    opacity: 1;
+  }
+
+  .logo-link {
+    min-width: 200px;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    color: var(--text);
+    opacity: 0.7;
+  }
+
+  .logo-link:hover {
+    opacity: 1;
+  }
+
+  @media (min-width: 769px) {
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 5%;
+    }
+    .menu-overlay[data-astro-cid-pux6a34n] {
+      position: static;
+      height: auto;
+      background: none;
+      transform: none;
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      margin-left: 4rem;
+    }
+    .logo-link {
+      height: 2.5rem;
+    }
+  }
+</style>
