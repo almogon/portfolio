@@ -1,26 +1,25 @@
 ---
 const intro = `
-    Hi, I am Alvaro Morales, a software engineer that have been worked in the industry for over 8 years. I love programming and learning new technologies
+    Hi, I'm Alvaro, software engineer and gamer in my free time.
 `;
 const work = `
-    I am always looking for new challenges and opportunities to grow professionally
-`;
-const free = `
-    In my free time, I enjoy play games, do sport and spent time with my family
+    I am always looking for new challenges, technologies and opportunities.
 `;
 ---
 
 <h1 class="title">
-  Software <span class="blue-green">Eng</span><span class="yellow-orange"
-    >inee</span
-  ><span class="red">r</span>
+  Software <span class="blue-green">Eng</span><span class="yellow-orange">inee</span><span class="red">r</span>
 </h1>
 <h2 class="subtitle">& full stack developer</h2>
 
-<div class="intro-text">
-  <p>{intro}</p>
-  <p>{work}</p>
-  <p>{free}</p>
+
+<div class="intro-container">
+  <div class="intro-borders intro-top-left"></div>
+  <div class="intro-borders intro-bottom-right"></div>
+  <div class="intro-text">
+    <p>{intro}</p>
+    <p>{work}</p>
+  </div>
 </div>
 
 <style>
@@ -59,60 +58,72 @@ const free = `
     position: relative;
     padding: 20px;
     text-align: end;
+    font-size: larger;
+  }
+  .intro-container {
+    position: relative;
+    display: inline-block;
+    padding: 20px;
+    width: 100%;
   }
 
-  .intro-text::before,
-  .intro-text::after,
-  .intro-text::part-top,
-.intro-text::part-right {
+  .intro-borders {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  /* Top and Left Borders */
+  .intro-top-left {
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 60%;
+  }
+
+  .intro-top-left::before,
+  .intro-top-left::after {
     content: '';
     position: absolute;
-    border: 1px solid white;
+    background-color: white;
   }
-
-  
-/* Top border */
-.intro-text::before {
-  width: 60%; /* Covers 60% of the width */
-  height: 2px; /* Horizontal border */
-  top: 0; /* Position at the top */
-  left: 20%; /* Center horizontally */
-}
-
-/* Left border */
-.intro-text::after {
-  height: 60%; /* Covers 60% of the height */
-  width: 2px; /* Vertical border */
-  top: 20%; /* Center vertically */
-  left: 0; /* Position at the left */
-}
-
-/* Bottom border */
-.intro-text::part-bottom {
-  width: 60%; /* Covers 60% of the width */
-  height: 2px; /* Horizontal border */
-  bottom: 0; /* Position at the bottom */
-  left: 20%; /* Center horizontally */
-}
-
-/* Right border */
-.intro-text::part-right {
-  height: 60%; /* Covers 60% of the height */
-  width: 2px; /* Vertical border */
-  top: 20%; /* Center vertically */
-  right: 0; /* Position on the right */
-}
-  /* .intro-text::before {
-    width: 55%;
+  .intro-top-left::before {
+    width: 60%;
     height: 2px;
     top: 0;
-    left: 4%;
+    left: 0;
+  }
+  .intro-top-left::after {
+    width: 2px;
+    height: 60%;
+    top: 0;
+    left: 0;
   }
 
-  .intro-text::after {
-    height: 50%;
+  /* Bottom and Right Borders */
+  .intro-bottom-right {
+    bottom: 0;
+    right: 0;
+    width: 60%;
+    height: 60%;
+  }
+
+  .intro-bottom-right::before,
+  .intro-bottom-right::after {
+    content: '';
+    position: absolute;
+    background-color: white; 
+  }
+  .intro-bottom-right::before {
+    width: 60%;
+    height: 2px;
+    bottom: 0;
+    right: 0;
+  }
+  .intro-bottom-right::after {
     width: 2px;
-    left: 0;
-    top: 15%;
-  } */
+    height: 60%;
+    bottom: 0;
+    right: 0;
+  }
+
 </style>
