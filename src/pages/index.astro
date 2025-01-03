@@ -12,18 +12,18 @@ const sections = [
   {
     id: 'about-me',
   },
-//   {
-//     id: 'experience',
-//   },
-//   {
-//     id: 'hobbies',
-//   },
-//   {
-//     id: 'skills',
-//   },
-//   {
-//     id: 'studies',
-//   }
+  //   {
+  //     id: 'experience',
+  //   },
+  //   {
+  //     id: 'hobbies',
+  //   },
+  //   {
+  //     id: 'skills',
+  //   },
+  //   {
+  //     id: 'studies',
+  //   }
 ];
 ---
 
@@ -32,7 +32,7 @@ const sections = [
   <main>
     {
       sections.map((section) => (
-        <section id={section.id} class={section.id}>
+        <section id={section.id} class="container">
           {section.id === 'about-me' && <AboutMe />}
           {section.id === 'experience' && <Experience />}
           {section.id === 'hobbies' && <Hobbies />}
@@ -52,12 +52,5 @@ const sections = [
   }
   section {
     padding: var(--section-spacing) 0;
-  }
-  .about-me {
-	min-height: 100vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 0 0 var(--space-xl)
   }
 </style>

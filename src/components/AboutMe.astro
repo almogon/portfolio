@@ -1,11 +1,118 @@
 ---
-const aboutMeText = `
-    ¡Hola! Soy un desarrollador apasionado por la tecnología y la programación. 
-    Me encanta aprender nuevas tecnologías y aplicarlas en proyectos interesantes. 
-    En mi tiempo libre, disfruto de la lectura, el senderismo y explorar nuevas culturas. 
-    Siempre estoy buscando nuevos desafíos y oportunidades para crecer profesionalmente.
+const intro = `
+    Hi, I am Alvaro Morales, a software engineer that have been worked in the industry for over 8 years. I love programming and learning new technologies
+`;
+const work = `
+    I am always looking for new challenges and opportunities to grow professionally
+`;
+const free = `
+    In my free time, I enjoy play games, do sport and spent time with my family
 `;
 ---
 
+<h1 class="title">
+  Software <span class="blue-green">Eng</span><span class="yellow-orange"
+    >inee</span
+  ><span class="red">r</span>
+</h1>
+<h2 class="subtitle">& full stack developer</h2>
 
-<p>{aboutMeText}</p>
+<div class="intro-text">
+  <p>{intro}</p>
+  <p>{work}</p>
+  <p>{free}</p>
+</div>
+
+<style>
+  .title {
+    font-size: clamp(2.5rem, 10vw, 8rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-family: 'lato';
+  }
+  .title span {
+    opacity: 0.8;
+  }
+  .title .blue-green {
+    background: linear-gradient(to right, var(--c-blue), var(--c-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .title .yellow-orange {
+    background: linear-gradient(to right, var(--c-yellow), var(--c-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .title .red {
+    color: var(--c-red);
+  }
+  .subtitle {
+    font-size: clamp(1rem, 5vw, 4rem);
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-md);
+  }
+
+  .intro-text {
+    position: relative;
+    padding: 20px;
+    text-align: end;
+  }
+
+  .intro-text::before,
+  .intro-text::after,
+  .intro-text::part-top,
+.intro-text::part-right {
+    content: '';
+    position: absolute;
+    border: 1px solid white;
+  }
+
+  
+/* Top border */
+.intro-text::before {
+  width: 60%; /* Covers 60% of the width */
+  height: 2px; /* Horizontal border */
+  top: 0; /* Position at the top */
+  left: 20%; /* Center horizontally */
+}
+
+/* Left border */
+.intro-text::after {
+  height: 60%; /* Covers 60% of the height */
+  width: 2px; /* Vertical border */
+  top: 20%; /* Center vertically */
+  left: 0; /* Position at the left */
+}
+
+/* Bottom border */
+.intro-text::part-bottom {
+  width: 60%; /* Covers 60% of the width */
+  height: 2px; /* Horizontal border */
+  bottom: 0; /* Position at the bottom */
+  left: 20%; /* Center horizontally */
+}
+
+/* Right border */
+.intro-text::part-right {
+  height: 60%; /* Covers 60% of the height */
+  width: 2px; /* Vertical border */
+  top: 20%; /* Center vertically */
+  right: 0; /* Position on the right */
+}
+  /* .intro-text::before {
+    width: 55%;
+    height: 2px;
+    top: 0;
+    left: 4%;
+  }
+
+  .intro-text::after {
+    height: 50%;
+    width: 2px;
+    left: 0;
+    top: 15%;
+  } */
+</style>

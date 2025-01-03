@@ -4,7 +4,8 @@ export default {
 	theme: {
 		extend: {},
 		fontFamily: {
-			'fantasy': ['fantasy']
+			'fantasy': ['fantasy'],
+			'lato': ['Lato'],
 		}
 	},
 	plugins: [],
