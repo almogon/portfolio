@@ -32,7 +32,7 @@ const sections = [
   <main>
     {
       sections.map((section) => (
-        <section id={section.id} class="container">
+        <section id={section.id}>
           {section.id === 'about-me' && <AboutMe />}
           {section.id === 'experience' && <Experience />}
           {section.id === 'hobbies' && <Hobbies />}
@@ -52,5 +52,10 @@ const sections = [
   }
   section {
     padding: var(--section-spacing) 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 </style>
