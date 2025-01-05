@@ -9,5 +9,36 @@ const aboutMeText = `
 ---
 
 <div class="container-section">
-    <h2 class="section-title">Experience</h2>
+    <div class="">
+        <h2 class="section-title">Experience</h2>
+    </div>
+    
+    <div class="box-experience">
+        <div>
+            <h3>Schrankerl</h3>
+            <p>Company that offers freshly, prepared, delicious and varied food for companies. Prepare custom menues base on preferencies and profiles</p>
+        </div>
+        <div>
+            <div>
+                <h4>Full stack developer</h4>
+                <span>February 2022 / Present</span>
+            </div>
+            <p>Text telling what i do</p>
+        </div>
+    </div>
 </div>
+
+<style>
+    .container-section {
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 90%;
+    }
+    .box-experience {
+        min-width: 100%;
+        border: 1px solid var(--c-blue);
+        border-radius: 10px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+</style>

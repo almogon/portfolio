@@ -59,6 +59,7 @@ const styleDeFlag = {
 
 <header>
   <nav class="navigation">
+    <div id="filter-background"></div>
     <div class="nav-content">
       <div class="flex direction-row items-center gap-4">
         <div class="svg-container">
@@ -160,6 +161,17 @@ const styleDeFlag = {
     left: 0;
     width: 100%;
     z-index: 100;
+  }
+
+  #filter-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    background: var(--background);
+    filter: blur(10px);
   }
 
   .nav-content {
