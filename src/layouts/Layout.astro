@@ -16,9 +16,7 @@ const { title }: LayoutProps = Astro.props as LayoutProps;
     <title>{title}</title>
   </head>
   <body>
-    <div>
-      <slot />
-    </div>
+    <slot />
   </body>
 </html>
 
@@ -33,6 +31,13 @@ const { title }: LayoutProps = Astro.props as LayoutProps;
     --space-xl: clamp(4rem, 8vw, 6rem);
     --space-2xl: clamp(6rem, 10vw, 8rem);
     --section-spacing: var(--space-2xl);
+    --c-blue: rgb(67 114 255);
+    --c-green: rgb(0, 204, 0);
+    --c-yellow: rgb(255, 255, 0);
+    --c-orange: rgb(255, 102, 0);
+    --c-red: rgb(204, 0, 0);
+    --min-width-responsive-m: 769px;
+    --min-width-responsive-xl: 1200px;
   }
   html {
     font-family: system-ui, sans-serif, serif, monospace, BlinkMacSystemFont,
@@ -44,10 +49,60 @@ const { title }: LayoutProps = Astro.props as LayoutProps;
     width: 100%;
   }
   body {
-    @apply grid place-content-center;
     height: inherit;
     width: inherit;
     background: var(--background);
     color: var(--text);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 2%;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .container-section {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 5%;
+  }
+
+  .section-title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  @font-face {
+    font-family: 'Lato';
+    src: url('/fonts/Lato/Lato-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Lato';
+    src: url('/fonts/Lato/Lato-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Lato';
+    src: url('/fonts/Lato/Lato-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Lato';
+    src: url('/fonts/Lato/Lato-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
   }
 </style>

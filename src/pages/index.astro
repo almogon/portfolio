@@ -12,35 +12,33 @@ const sections = [
   {
     id: 'about-me',
   },
-//   {
-//     id: 'experience',
-//   },
-//   {
-//     id: 'hobbies',
-//   },
-//   {
-//     id: 'skills',
-//   },
-//   {
-//     id: 'studies',
-//   }
+    {
+      id: 'experience',
+    },
+  //   {
+  //     id: 'hobbies',
+  //   },
+  //   {
+  //     id: 'skills',
+  //   },
+  //   {
+  //     id: 'studies',
+  //   }
 ];
 ---
 
 <Layout title={title}>
   <Header />
   <main>
-    {
-      sections.map((section) => (
-        <section id={section.id} class={section.id}>
-          {section.id === 'about-me' && <AboutMe />}
-          {section.id === 'experience' && <Experience />}
-          {section.id === 'hobbies' && <Hobbies />}
-          {section.id === 'skills' && <Skills />}
-          {section.id === 'studies' && <Studies />}
-        </section>
-      ))
-    }
+  {sections.map((section) => (
+    <section id={section.id}>
+      {section.id === 'about-me' && <AboutMe />}
+      {section.id === 'experience' && <Experience />}
+      {section.id === 'hobbies' && <Hobbies />}
+      {section.id === 'skills' && <Skills />}
+      {section.id === 'studies' && <Studies />}
+    </section>
+  ))}
   </main>
 </Layout>
 
@@ -52,12 +50,10 @@ const sections = [
   }
   section {
     padding: var(--section-spacing) 0;
-  }
-  .about-me {
-	min-height: 100vh;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    position: relative;
-    padding: 0 0 var(--space-xl)
   }
 </style>

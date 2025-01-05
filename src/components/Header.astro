@@ -8,7 +8,6 @@ const styleFlag = {
 };
 const styleEnFlag = {
   ...styleFlag,
-
   objectPosition: '-570px -45px',
 };
 const styleEsFlag = {
@@ -21,6 +20,43 @@ const styleDeFlag = {
 };
 ---
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuTextItems = document.querySelectorAll('.menu-item');
+    const svgElement = document.querySelector('.rotating-svg');
+
+    // Function to rotate the SVG
+    let currentRotation = 0;
+    const rotateSvg = (element) => {
+      currentRotation += 180; // Increment the rotation by 180 degrees
+      element.style.transform = `rotate(${currentRotation}deg)`;
+      element.style.transition = 'transform 0.5s ease'; // Smooth rotation
+    };
+
+    menuTextItems.forEach((menuText) => {
+      menuText.addEventListener('mouseenter', () => {
+        rotateSvg(svgElement);
+        if (menuText.classList.contains('experience')) {
+          svgElement.querySelector('path').style.fill = 'var(--c-blue)';
+        } else if (menuText.classList.contains('education')) {
+          svgElement.querySelector('path').style.fill = 'var(--c-green)';
+        } else if (menuText.classList.contains('skills')) {
+          svgElement.querySelector('path').style.fill = 'var(--c-yellow)';
+        } else if (menuText.classList.contains('references')) {
+          svgElement.querySelector('path').style.fill = 'var(--c-orange)';
+        } else if (menuText.classList.contains('contact')) {
+          svgElement.querySelector('path').style.fill = 'var(--c-red)';
+        }
+      });
+
+      menuText.addEventListener('mouseleave', () => {
+        // rotateSvg(svgElement);
+        svgElement.querySelector('path').style.fill = 'white';
+      });
+    });
+  });
+</script>
+
 <header>
   <nav class="navigation">
     <div class="nav-content">
@@ -31,6 +67,7 @@ const styleDeFlag = {
             viewBox="0 0 512 512"
             width="50"
             height="50"
+            class="rotating-svg"
           >
             <g>
               <g>
@@ -47,41 +84,37 @@ const styleDeFlag = {
             </g>
           </svg>
         </div>
-        <a
-          href="#about-me"
-          class="logo-link gap-4 text-3xl"
-          aria-label="Back to top"
-        >
-          <span class="font-fantasy">Alvaro M.</span>
+        <a href="#about-me" class="logo-link text-3xl" aria-label="Back to top">
+          <span class="font-fantasy">Alvaro Morales</span>
         </a>
       </div>
 
       <div class="menu-overlay">
         <div class="menu-container">
           <ul class="menu">
-            <li class="menu-item">
+            <li class="menu-item experience">
               <a href="#experience" class="menu-link">
-                <span class="menu-text experience">Experience</span>
+                <span class="menu-text">Experience</span>
               </a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item education">
               <a href="#education" class="menu-link">
-                <span class="menu-text education">Education</span>
+                <span class="menu-text">Education</span>
               </a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item skills">
               <a href="#skills" class="menu-link">
-                <span class="menu-text skills">Skills</span>
+                <span class="menu-text">Skills</span>
               </a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item references">
               <a href="#references" class="menu-link">
-                <span class="menu-text references">References</span>
+                <span class="menu-text">References</span>
               </a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item contact">
               <a href="#contact" class="menu-link">
-                <span class="menu-text contact">Contact</span>
+                <span class="menu-text">Contact</span>
               </a>
             </li>
           </ul>
@@ -104,29 +137,15 @@ const styleDeFlag = {
 </header>
 
 <style>
-  .svg-container {
-    opacity: 1;
-    transition:
-      transform 0.5s ease,
-      fill 0.5s ease;
+  /* Smooth transition for SVG rotation and color change */
+  .rotating-svg {
+    display: block;
+    margin: 0 auto;
   }
 
   svg path {
     fill: white;
     transition: fill 0.5s ease;
-  }
-
-  /* Hover animation */
-  li.menu-item:hover ~ .svg-container {
-    transform: rotate(180deg);
-  }
-
-  /* li.menu-item:hover ~ .svg-container svg path {
-    fill: blue;
-  } */
-
-  header {
-    @apply p-4;
   }
 
   .box-flag {
@@ -168,28 +187,28 @@ const styleDeFlag = {
     margin: 0;
     display: flex;
     flex-direction: row;
-    gap: 2rem;
     text-align: center;
   }
 
   .menu-item {
     overflow: hidden;
+    padding: 0px 10px;
   }
 
-  .menu-text.experience:hover {
-    color: rgb(0, 51, 204); /* Blue */
+  .menu-item.experience:hover .menu-text {
+    color: var(--c-blue); 
   }
-  .menu-text.education:hover {
-    color: rgb(0, 204, 0); /* Green */
+  .menu-item.education:hover .menu-text {
+    color: var(--c-green);
   }
-  .menu-text.skills:hover {
-    color: rgb(255, 255, 0); /* Yellow */
+  .menu-item.skills:hover .menu-text {
+    color: var(--c-yellow);
   }
-  .menu-text.references:hover {
-    color: rgb(255, 102, 0); /* Orange */
+  .menu-item.references:hover .menu-text {
+    color: var(--c-orange);
   }
-  .menu-text.contact:hover {
-    color: rgb(204, 0, 0); /* Red */
+  .menu-item.contact:hover .menu-text {
+    color: var(--c-red);
   }
 
   .menu-link {
@@ -218,21 +237,11 @@ const styleDeFlag = {
     opacity: 1;
   }
 
-  @media (min-width: 769px) {
+  @media (min-width: var(--min-width-responsive-m)) {
     .nav-content {
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem 5%;
-    }
-    .menu-overlay[data-astro-cid-pux6a34n] {
-      position: static;
-      height: auto;
-      background: none;
-      transform: none;
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
-      margin-left: 4rem;
     }
     .logo-link {
       height: 2.5rem;

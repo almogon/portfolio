@@ -1,11 +1,190 @@
 ---
-const aboutMeText = `
-    ¡Hola! Soy un desarrollador apasionado por la tecnología y la programación. 
-    Me encanta aprender nuevas tecnologías y aplicarlas en proyectos interesantes. 
-    En mi tiempo libre, disfruto de la lectura, el senderismo y explorar nuevas culturas. 
-    Siempre estoy buscando nuevos desafíos y oportunidades para crecer profesionalmente.
+const intro = `
+    Hi, I'm Alvaro, software engineer and gamer in my free time.
+`;
+const work = `
+    I am always looking for new challenges, technologies and opportunities.
 `;
 ---
 
+<div class="container-section">
+  <h1 class="title">
+    Software <span class="blue-green">Eng</span><span class="yellow-orange"
+      >inee</span
+    ><span class="red">r</span>
+  </h1>
+  <h2 class="subtitle">& full stack developer</h2>
 
-<p>{aboutMeText}</p>
+  <div class="intro-container">
+    <div class="intro-borders intro-top-left"></div>
+    <div class="intro-borders intro-bottom-right"></div>
+    <div class="intro-text">
+      <p>
+        Hi, I'm Alvaro, software engineer and gamer in my free time.
+        <br />I am always looking for new challenges, technologies and
+        opportunities.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="scroll-indicator">
+    <span class="scroll-text">Scroll to see more</span>
+    <svg
+      class="scroll-arrow"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M12 4V20M12 20L18 14M12 20L6 14"
+        stroke="currentColor"
+        stroke-width="2"></path>
+    </svg>
+  </div>
+
+<style>
+  .title {
+    font-size: clamp(2.5rem, 10vw, 8rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-family: 'lato';
+  }
+  .title span {
+    opacity: 0.8;
+  }
+  .title .blue-green {
+    background: linear-gradient(to right, var(--c-blue), var(--c-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .title .yellow-orange {
+    background: linear-gradient(to right, var(--c-yellow), var(--c-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .title .red {
+    color: var(--c-red);
+  }
+  .subtitle {
+    font-size: clamp(1rem, 5vw, 4rem);
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-md);
+  }
+
+  .intro-text {
+    position: relative;
+    padding: 20px;
+    text-align: end;
+    font-size: larger;
+  }
+  .intro-container {
+    position: relative;
+    display: inline-block;
+    padding: 20px;
+    width: 100%;
+  }
+
+  .intro-borders {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  /* Top and Left Borders */
+  .intro-top-left {
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 60%;
+  }
+
+  .intro-top-left::before,
+  .intro-top-left::after {
+    content: '';
+    position: absolute;
+    background-color: white;
+  }
+  .intro-top-left::before {
+    width: 60%;
+    height: 2px;
+    top: 0;
+    left: 0;
+  }
+  .intro-top-left::after {
+    width: 2px;
+    height: 60%;
+    top: 0;
+    left: 0;
+  }
+
+  /* Bottom and Right Borders */
+  .intro-bottom-right {
+    bottom: 0;
+    right: 0;
+    width: 60%;
+    height: 60%;
+  }
+
+  .intro-bottom-right::before,
+  .intro-bottom-right::after {
+    content: '';
+    position: absolute;
+    background-color: white;
+  }
+  .intro-bottom-right::before {
+    width: 60%;
+    height: 2px;
+    bottom: 0;
+    right: 0;
+  }
+  .intro-bottom-right::after {
+    width: 2px;
+    height: 60%;
+    bottom: 0;
+    right: 0;
+  }
+
+  .scroll-indicator {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    z-index: 1;
+    opacity: 0;
+    animation: fade-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 1s;
+  }
+
+  .scroll-text {
+    font-size: 0.875rem;
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+  }
+
+  .scroll-arrow {
+    animation: jump 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes jump {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+</style>
