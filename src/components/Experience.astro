@@ -9,36 +9,142 @@ const aboutMeText = `
 ---
 
 <div class="container-section">
-    <div class="">
-        <h2 class="section-title">Experience</h2>
-    </div>
-    
-    <div class="box-experience">
-        <div>
-            <h3>Schrankerl</h3>
-            <p>Company that offers freshly, prepared, delicious and varied food for companies. Prepare custom menues base on preferencies and profiles</p>
+  <div class="">
+    <h2 class="section-title">Experience</h2>
+  </div>
+
+  <a href="https://schrankerl.at" target="_blank" rel="noopener">
+    <div id="box" class="box-experience">
+      <div id="box-left" class="box-section">
+        <div class="flex flex-row justify-start items-center gap-2">
+          <h3>Schrankerl</h3>
+          <!-- <div class="link-icon">
+            <svg
+              width="40px"
+              height="40px"
+              viewBox="0 0 24 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 12C14 14.7614 11.7614 17 9 17H7C4.23858 17 2 14.7614 2 12C2 9.23858 4.23858 7 7 7H7.5M10 12C10 9.23858 12.2386 7 15 7H17C19.7614 7 22 9.23858 22 12C22 14.7614 19.7614 17 17 17H16.5"
+                stroke="#cccccc"
+                stroke-width="2"
+                stroke-linecap="round"></path>
+            </svg>
+          </div> -->
         </div>
-        <div>
-            <div>
-                <h4>Full stack developer</h4>
-                <span>February 2022 / Present</span>
-            </div>
-            <p>Text telling what i do</p>
+
+        <p>
+          Company that offers freshly and varied food for companies, preparing
+          custom menus base on preferencies and profiles.
+        </p>
+      </div>
+      <div id="box-rigth" class="box-section">
+        <div class="flex flex-row justify-between">
+          <h4>Software engineer</h4>
+          <span>February 2022 / Present</span>
         </div>
-    </div>
+        <p>
+          Tech leader in charge of supervising my team members, ensuring that
+          tasks are completed on time and take decisions abour our tools and
+          software architecture. I also perform maintenance and quality tasks on
+          our systems.
+        </p>
+      </div>
+    </div></a
+  >
 </div>
 
 <style>
-    .container-section {
-        align-items: flex-start;
-        justify-content: flex-start;
-        width: 90%;
+  :root {
+    --text-company: #cccccc;
+    --text-company-info: #5e636e;
+    --text-other: #8f96a3;
+  }
+  .container-section {
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 90%;
+  }
+  .box-experience {
+    min-width: 100%;
+    border: 1px solid var(--c-blue);
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+.box-experience:hover {
+    animation: color-change 2s linear infinite alternate, border-move 4s linear infinite;
+}
+
+@keyframes color-change {
+    0% {
+        background-color: initial;
     }
-    .box-experience {
-        min-width: 100%;
-        border: 1px solid var(--c-blue);
-        border-radius: 10px;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+    100% {
+        background-color: rgb(var(--raw-blue) / 8%);
     }
+}
+
+@keyframes border-move {
+    0% {
+        border-image: linear-gradient(90deg, var(--c-blue) 0%, transparent 100%) 1;
+        border-radius: 20px;
+    }
+    25% {
+        border-image: linear-gradient(180deg, var(--c-blue) 0%, transparent 100%) 1;
+        border-radius: 20px;
+    }
+    50% {
+        border-image: linear-gradient(270deg, var(--c-blue) 0%, transparent 100%) 1;
+        border-radius: 20px;
+    }
+    75% {
+        border-image: linear-gradient(360deg, var(--c-blue) 0%, transparent 100%) 1;
+        border-radius: 20px;
+    }
+    100% {
+        border-image: linear-gradient(90deg, var(--c-blue) 0%, transparent 100%) 1;
+        border-radius: 20px;
+    }
+}
+
+  .box-section {
+    margin: 1rem;
+    padding: 0 2rem;
+    display: grid;
+  }
+  #box-left div h3 {
+    font-size: 4vh;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+  #box-left p {
+    opacity: 0.8;
+    font-weight: 500;
+    font-family: monospace;
+  }
+  #box-rigth {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  #box-rigth > div {
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+  #box-rigth > p {
+    opacity: 0.5;
+  }
+
+  .link-icon {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  #box:hover .link-icon {
+    opacity: 1;
+  }
 </style>

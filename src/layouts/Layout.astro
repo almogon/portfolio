@@ -24,6 +24,7 @@ const { title }: LayoutProps = Astro.props as LayoutProps;
   :root {
     --background: #0e100f;
     --text: #ffffff;
+    --text-grey: #cccccc;
     --space-xs: clamp(1rem, 2vw, 1.5rem);
     --space-sm: clamp(1.5rem, 3vw, 2rem);
     --space-md: clamp(2rem, 4vw, 3rem);
@@ -32,12 +33,16 @@ const { title }: LayoutProps = Astro.props as LayoutProps;
     --space-2xl: clamp(6rem, 10vw, 8rem);
     --section-spacing: var(--space-2xl);
     --c-blue: rgb(67 114 255);
+    --raw-blue: 67 114 255;
     --c-green: rgb(0, 204, 0);
     --c-yellow: rgb(255, 255, 0);
     --c-orange: rgb(255, 102, 0);
     --c-red: rgb(204, 0, 0);
     --min-width-responsive-m: 769px;
     --min-width-responsive-xl: 1200px;
+    --h1: clamp(2.5rem, 10vw, 8rem);
+    --h2: clamp(1rem, 5vw, 4rem);
+    --h3: clamp(0.5rem, 5vw, 4rem);
   }
   html {
     font-family: system-ui, sans-serif, serif, monospace, BlinkMacSystemFont,
