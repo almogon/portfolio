@@ -13,12 +13,17 @@ const aboutMeText = `
     <h2 class="section-title">Experience</h2>
   </div>
 
-  <a href="https://schrankerl.at" target="_blank" rel="noopener">
-    <div id="box" class="box-experience">
-      <div id="box-left" class="box-section">
+  <div id="box" class="box-experience">
+    <div id="box-left" class="box-section">
+      <a
+        class="grid"
+        href="https://schrankerl.at"
+        target="_blank"
+        rel="noopener"
+      >
         <div class="flex flex-row justify-start items-center gap-2">
           <h3>Schrankerl</h3>
-          <!-- <div class="link-icon">
+          <div class="link-icon">
             <svg
               width="40px"
               height="40px"
@@ -32,28 +37,36 @@ const aboutMeText = `
                 stroke-width="2"
                 stroke-linecap="round"></path>
             </svg>
-          </div> -->
+          </div>
         </div>
 
         <p>
           Company that offers freshly and varied food for companies, preparing
           custom menus base on preferencies and profiles.
         </p>
+      </a>
+    </div>
+    <div id="box-rigth" class="box-section">
+      <div class="flex flex-row justify-between">
+        <h4>Software engineer</h4>
+        <span>February 2022 / Present</span>
       </div>
-      <div id="box-rigth" class="box-section">
-        <div class="flex flex-row justify-between">
-          <h4>Software engineer</h4>
-          <span>February 2022 / Present</span>
-        </div>
-        <p>
-          Tech leader in charge of supervising my team members, ensuring that
-          tasks are completed on time and take decisions abour our tools and
-          software architecture. I also perform maintenance and quality tasks on
-          our systems.
-        </p>
+      <p>
+        Tech leader in charge of supervising my team members, ensuring that
+        tasks are completed on time and take decisions abour our tools and
+        software architecture. I also perform maintenance and quality tasks on
+        our systems.
+      </p>
+    </div>
+    <div class="box-extra">
+      <div class="flex justify-center">
+        <button>Show more</button>
       </div>
-    </div></a
-  >
+      <div id="tech-info">TODO set here technologies we use (with icons or something), and more info about what i did.
+        Cover full width and height of the box to use max space.
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
@@ -61,6 +74,31 @@ const aboutMeText = `
     --text-company: #cccccc;
     --text-company-info: #5e636e;
     --text-other: #8f96a3;
+  }
+
+  button {
+    padding: 3px;
+    margin-bottom: 1px;
+    width: 85%;
+    background-color: var(--c-blue);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition:
+      background-color 0.3s,
+      transform 0.3s;
+  }
+
+  button:hover {
+    background-color: darken(var(--c-blue), 10%);
+    /* transform: scale(1.05); */
+  }
+
+  button:active {
+    background-color: darken(var(--c-blue), 20%);
+    transform: scale(0.95);
   }
   .container-section {
     align-items: flex-start;
@@ -73,50 +111,61 @@ const aboutMeText = `
     border-radius: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 70px;
   }
 
-.box-experience:hover {
-    animation: color-change 2s linear infinite alternate, border-move 4s linear infinite;
-}
+  .box-experience:hover {
+    animation:
+      color-change 2s linear infinite alternate,
+      /* border-move 4s linear infinite; */
+  }
 
-@keyframes color-change {
+  @keyframes color-change {
     0% {
-        background-color: initial;
+      background-color: initial;
     }
     100% {
-        background-color: rgb(var(--raw-blue) / 8%);
+      background-color: rgb(var(--raw-blue) / 13%);
     }
-}
+  }
 
-@keyframes border-move {
+  @keyframes border-move {
     0% {
-        border-image: linear-gradient(90deg, var(--c-blue) 0%, transparent 100%) 1;
-        border-radius: 20px;
+      border-image: linear-gradient(90deg, var(--c-blue) 0%, transparent 100%) 1;
+      border-radius: 20px;
     }
     25% {
-        border-image: linear-gradient(180deg, var(--c-blue) 0%, transparent 100%) 1;
-        border-radius: 20px;
+      border-image: linear-gradient(180deg, var(--c-blue) 0%, transparent 100%)
+        1;
+      border-radius: 20px;
     }
     50% {
-        border-image: linear-gradient(270deg, var(--c-blue) 0%, transparent 100%) 1;
-        border-radius: 20px;
+      border-image: linear-gradient(270deg, var(--c-blue) 0%, transparent 100%)
+        1;
+      border-radius: 20px;
     }
     75% {
-        border-image: linear-gradient(360deg, var(--c-blue) 0%, transparent 100%) 1;
-        border-radius: 20px;
+      border-image: linear-gradient(360deg, var(--c-blue) 0%, transparent 100%)
+        1;
+      border-radius: 20px;
     }
     100% {
-        border-image: linear-gradient(90deg, var(--c-blue) 0%, transparent 100%) 1;
-        border-radius: 20px;
+      border-image: linear-gradient(90deg, var(--c-blue) 0%, transparent 100%) 1;
+      border-radius: 20px;
     }
-}
+  }
 
   .box-section {
     margin: 1rem;
     padding: 0 2rem;
     display: grid;
   }
-  #box-left div h3 {
+
+  .box-extra {
+    grid-column: span 2 / span 2;
+    align-content: end;
+  }
+  #box-left h3 {
     font-size: 4vh;
     font-weight: 600;
     opacity: 0.8;
@@ -144,7 +193,11 @@ const aboutMeText = `
     transition: opacity 0.3s;
   }
 
-  #box:hover .link-icon {
+  #box-left:hover .link-icon {
     opacity: 1;
+  }
+
+  #tech-info {
+    display: none;
   }
 </style>
