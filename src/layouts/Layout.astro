@@ -1,4 +1,5 @@
 ---
+import  SpeedInsights  from "@vercel/speed-insights/astro"
 interface LayoutProps {
   title: string;
 }
@@ -16,6 +17,7 @@ const { title }: LayoutProps = Astro.props as LayoutProps;
     <title>{title}</title>
   </head>
   <body>
+    <SpeedInsights />
     <slot />
   </body>
 </html>
