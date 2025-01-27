@@ -1,0 +1,12 @@
+---
+export interface Props {
+    icon: string
+    attributes?: Record<string, string>
+}
+
+const {icon, attributes} = Astro.props as Props
+const svgPath = `/src/assets/logos/${icon}.svg`;
+
+---
+<!-- Render the SVG dynamically -->
+<img src={svgPath} alt={`${icon} logo`} loading="lazy" {...attributes} />
