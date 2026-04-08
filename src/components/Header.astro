@@ -23,35 +23,84 @@ const styleDeFlag = {
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const menuTextItems = document.querySelectorAll('.menu-item');
-    const svgElement = document.querySelector('.rotating-svg');
+    const navigation = document.querySelector('.navigation');
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
 
     // Function to rotate the SVG
     let currentRotation = 0;
-    const rotateSvg = (element) => {
-      currentRotation += 180; // Increment the rotation by 180 degrees
-      element.style.transform = `rotate(${currentRotation}deg)`;
-      element.style.transition = 'transform 0.5s ease'; // Smooth rotation
-    };
 
     menuTextItems.forEach((menuText) => {
       menuText.addEventListener('mouseenter', () => {
-        rotateSvg(svgElement);
+        const currentSvg = document.querySelector('.rotating-svg');
+        if (!(currentSvg instanceof SVGSVGElement)) {
+          return;
+        }
+
+        const svgPath = currentSvg.querySelector('path');
+        if (!(svgPath instanceof SVGElement)) {
+          return;
+        }
+
+        currentRotation += 180;
+        currentSvg.style.transform = `rotate(${currentRotation}deg)`;
+        currentSvg.style.transition = 'transform 0.5s ease';
+
         if (menuText.classList.contains('experience')) {
-          svgElement.querySelector('path').style.fill = 'var(--c-blue)';
+          svgPath.style.fill = 'var(--c-blue)';
         } else if (menuText.classList.contains('education')) {
-          svgElement.querySelector('path').style.fill = 'var(--c-green)';
+          svgPath.style.fill = 'var(--c-green)';
         } else if (menuText.classList.contains('skills')) {
-          svgElement.querySelector('path').style.fill = 'var(--c-yellow)';
+          svgPath.style.fill = 'var(--c-yellow)';
         } else if (menuText.classList.contains('references')) {
-          svgElement.querySelector('path').style.fill = 'var(--c-orange)';
+          svgPath.style.fill = 'var(--c-orange)';
         } else if (menuText.classList.contains('contact')) {
-          svgElement.querySelector('path').style.fill = 'var(--c-red)';
+          svgPath.style.fill = 'var(--c-red)';
         }
       });
 
       menuText.addEventListener('mouseleave', () => {
-        // rotateSvg(svgElement);
-        svgElement.querySelector('path').style.fill = 'white';
+        const currentSvg = document.querySelector('.rotating-svg');
+        if (!(currentSvg instanceof SVGSVGElement)) {
+          return;
+        }
+
+        const svgPath = currentSvg.querySelector('path');
+        if (!(svgPath instanceof SVGElement)) {
+          return;
+        }
+
+        svgPath.style.fill = 'white';
+      });
+    });
+
+    anchorLinks.forEach((anchorLink) => {
+      anchorLink.addEventListener('click', (event) => {
+        if (!(anchorLink instanceof HTMLAnchorElement)) {
+          return;
+        }
+
+        const hash = anchorLink.getAttribute('href');
+
+        if (!hash || hash === '#') {
+          return;
+        }
+
+        const target = document.querySelector(hash);
+        if (!target || !(navigation instanceof HTMLElement)) {
+          return;
+        }
+
+        event.preventDefault();
+        const headerHeight = navigation.getBoundingClientRect().height;
+        const extraOffset = 0;
+        const targetTop = target.getBoundingClientRect().top + window.scrollY;
+
+        window.scrollTo({
+          top: targetTop - headerHeight - extraOffset,
+          behavior: 'smooth',
+        });
+
+        window.history.replaceState(null, '', hash);
       });
     });
   });
