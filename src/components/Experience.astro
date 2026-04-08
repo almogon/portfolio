@@ -279,24 +279,14 @@
     display: grid;
     grid-template-columns: 40% 60%;
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     /* grid-template-rows: 1fr 70px; */
   }
 
   .box-experience:hover {
+    background: rgba(67, 114, 255, 0.08);
+    border-color: var(--c-blue);
     box-shadow: 0 28px 96px rgba(0, 0, 0, 0.24);
-    animation:
-      color-change 2s linear infinite alternate,
-      /* border-move 4s linear infinite; */
-  }
-
-  @keyframes color-change {
-    0% {
-      background-color: initial;
-    }
-    100% {
-      background-color: rgb(var(--raw-blue) / 13%);
-    }
   }
 
   @keyframes border-move {

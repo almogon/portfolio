@@ -25,9 +25,55 @@ const styleDeFlag = {
     const menuTextItems = document.querySelectorAll('.menu-item');
     const navigation = document.querySelector('.navigation');
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    const sections = Array.from(document.querySelectorAll('main section[id]'));
+    const sectionColors = {
+      'about-me': 'white',
+      experience: 'var(--c-blue)',
+      education: 'var(--c-green)',
+      skills: 'var(--c-yellow)',
+      references: 'var(--c-orange)',
+      contact: 'var(--c-red)',
+    };
 
     // Function to rotate the SVG
     let currentRotation = 0;
+    let activeSectionId = 'about-me';
+
+    const setHeaderAccent = (sectionId) => {
+      activeSectionId = sectionId in sectionColors ? sectionId : 'about-me';
+
+      const currentSvg = document.querySelector('.rotating-svg');
+      if (currentSvg instanceof SVGSVGElement) {
+        const svgPath = currentSvg.querySelector('path');
+        if (svgPath instanceof SVGElement) {
+          svgPath.style.fill = sectionColors[activeSectionId];
+        }
+      }
+
+      menuTextItems.forEach((menuText) => {
+        menuText.classList.remove('active');
+        if (menuText.classList.contains(activeSectionId)) {
+          menuText.classList.add('active');
+        }
+      });
+    };
+
+    const syncActiveSection = () => {
+      if (!(navigation instanceof HTMLElement) || sections.length === 0) {
+        return;
+      }
+
+      const triggerY = window.scrollY + navigation.getBoundingClientRect().height + 8;
+      let currentSection = sections[0];
+
+      sections.forEach((section) => {
+        if (section.offsetTop <= triggerY) {
+          currentSection = section;
+        }
+      });
+
+      setHeaderAccent(currentSection.id);
+    };
 
     menuTextItems.forEach((menuText) => {
       menuText.addEventListener('mouseenter', () => {
@@ -46,30 +92,20 @@ const styleDeFlag = {
         currentSvg.style.transition = 'transform 0.5s ease';
 
         if (menuText.classList.contains('experience')) {
-          svgPath.style.fill = 'var(--c-blue)';
+          svgPath.style.fill = sectionColors.experience;
         } else if (menuText.classList.contains('education')) {
-          svgPath.style.fill = 'var(--c-green)';
+          svgPath.style.fill = sectionColors.education;
         } else if (menuText.classList.contains('skills')) {
-          svgPath.style.fill = 'var(--c-yellow)';
+          svgPath.style.fill = sectionColors.skills;
         } else if (menuText.classList.contains('references')) {
-          svgPath.style.fill = 'var(--c-orange)';
+          svgPath.style.fill = sectionColors.references;
         } else if (menuText.classList.contains('contact')) {
-          svgPath.style.fill = 'var(--c-red)';
+          svgPath.style.fill = sectionColors.contact;
         }
       });
 
       menuText.addEventListener('mouseleave', () => {
-        const currentSvg = document.querySelector('.rotating-svg');
-        if (!(currentSvg instanceof SVGSVGElement)) {
-          return;
-        }
-
-        const svgPath = currentSvg.querySelector('path');
-        if (!(svgPath instanceof SVGElement)) {
-          return;
-        }
-
-        svgPath.style.fill = 'white';
+        setHeaderAccent(activeSectionId);
       });
     });
 
@@ -100,9 +136,13 @@ const styleDeFlag = {
           behavior: 'smooth',
         });
 
+        setHeaderAccent(hash.slice(1));
         window.history.replaceState(null, '', hash);
       });
     });
+
+    syncActiveSection();
+    window.addEventListener('scroll', syncActiveSection, { passive: true });
   });
 </script>
 
@@ -218,9 +258,16 @@ const styleDeFlag = {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.8;
-    background: var(--background);
-    filter: blur(10px);
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(14, 16, 15, 1) 0%,
+      rgba(14, 16, 15, 0.78) 35%,
+      rgba(14, 16, 15, 0.35) 70%,
+      rgba(14, 16, 15, 0) 100%
+    );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   .nav-content {
@@ -269,6 +316,30 @@ const styleDeFlag = {
     color: var(--c-orange);
   }
   .menu-item.contact:hover .menu-text {
+    color: var(--c-red);
+  }
+
+  .menu-item.active .menu-link {
+    opacity: 1;
+  }
+
+  .menu-item.active.experience .menu-text {
+    color: var(--c-blue);
+  }
+
+  .menu-item.active.education .menu-text {
+    color: var(--c-green);
+  }
+
+  .menu-item.active.skills .menu-text {
+    color: var(--c-yellow);
+  }
+
+  .menu-item.active.references .menu-text {
+    color: var(--c-orange);
+  }
+
+  .menu-item.active.contact .menu-text {
     color: var(--c-red);
   }
 
