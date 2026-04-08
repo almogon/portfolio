@@ -1,0 +1,140 @@
+---
+const references = [
+  {
+    name: 'Lucia Fernandez',
+    role: 'Engineering Manager',
+    company: 'Frontend Lead at Northstar Labs',
+    description: 'Worked closely on frontend architecture, delivery planning, and product collaboration.',
+    email: 'lucia.fernandez@example.com',
+  },
+  {
+    name: 'David Romero',
+    role: 'Technical Mentor',
+    company: 'Senior Software Architect at BrightForge',
+    description: 'Can speak about backend design decisions, mentoring, and code quality standards.',
+    email: 'david.romero@example.com',
+  },
+  {
+    name: 'Sara Molina',
+    role: 'Project Manager',
+    company: 'Delivery Manager at Horizon Digital',
+    description: 'Can provide context on communication, ownership, and delivery under deadlines.',
+    email: 'sara.molina@example.com',
+  },
+];
+---
+
+<div class="container-section references-section">
+  <div>
+    <h2 class="section-title">References</h2>
+  </div>
+
+  {
+    references.map((reference) => (
+      <div class="box-reference">
+        <div class="box-pane box-pane-left">
+          <div>
+            <p class="box-eyebrow">{reference.role}</p>
+            <h3>{reference.name}</h3>
+          </div>
+          <p>{reference.description}</p>
+        </div>
+
+        <div class="box-pane box-pane-right">
+          <div class="reference-company">{reference.company}</div>
+          <a class="reference-link" href={`mailto:${reference.email}`}>
+            {reference.email}
+          </a>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .references-section {
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 90%;
+    gap: 3rem;
+  }
+
+  .box-reference {
+    width: 100%;
+    border: 1px solid rgba(255, 102, 0, 0.8);
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .box-reference:hover {
+    background: rgba(255, 102, 0, 0.08);
+    border-color: var(--c-orange);
+  }
+
+  .box-pane {
+    padding: 1rem 3rem 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .box-pane-left h3 {
+    font-size: 4vh;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+
+  .box-pane-left p {
+    opacity: 0.8;
+    font-weight: 500;
+    font-family: monospace;
+    text-align: justify;
+  }
+
+  .box-eyebrow {
+    color: var(--c-orange);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .box-pane-right {
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .reference-company {
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .reference-link {
+    color: var(--text);
+    opacity: 0.85;
+    text-decoration: none;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    word-break: break-word;
+    width: fit-content;
+    border-bottom: 1px solid rgba(255, 102, 0, 0.35);
+    transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .reference-link:hover {
+    opacity: 1;
+    color: var(--c-orange);
+    border-color: var(--c-orange);
+  }
+
+  @media (max-width: 900px) {
+    .box-reference {
+      grid-template-columns: 1fr;
+    }
+
+    .box-pane {
+      padding: 1.5rem;
+    }
+  }
+</style>

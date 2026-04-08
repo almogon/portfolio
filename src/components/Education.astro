@@ -1,15 +1,143 @@
 ---
+const education = [
+  {
+    degree: "Bachelor's Degree in Software Engineering",
+    institution: 'Universidad Politécnica de Madrid',
+    period: '2010 – 2015',
+    url: 'https://www.upm.es/internacional/Students/StudiesDegrees/OfficialUndergraduateDegrees/Relationed%20Articles?fmt=detail&prefmt=articulo&id=3388060c9abe0210VgnVCM10000009c7648a____',
+    description:
+      'Comprehensive education in software design, algorithms, data structures, systems programming, and software architecture. Final thesis focused on mobile application development.',
+  },
+];
 ---
 
-<div class="container-section">
-    <div class="">
-      <h2 class="section-title">Education</h2>
-    </div>
-    <div>
-        Bachelor's degree in Software Engineering - Univesidad Politecnica de Madrid
-        https://www.upm.es/internacional/Students/StudiesDegrees/OfficialUndergraduateDegrees/Relationed%20Articles?fmt=detail&prefmt=articulo&id=3388060c9abe0210VgnVCM10000009c7648a____    
-    </div>
-    <div>
-      Poner la imagen del diploma y un efecto como de pergamino doblandose y encogiendose
-    </div>
+<div class="container-section education-section">
+  <div>
+    <h2 class="section-title">Education</h2>
+  </div>
+
+  <div class="education-list">
+    {
+      education.map((item) => (
+        <div class="box-education">
+          <div class="box-pane box-pane-left">
+            <div>
+              <p class="box-eyebrow">Bachelor's Degree</p>
+              <h3>{item.degree.replace("Bachelor's Degree in ", '')}</h3>
+            </div>
+            <p>{item.description}</p>
+          </div>
+
+          <div class="box-pane box-pane-right">
+            <div class="education-meta">{item.period}</div>
+            <a
+              class="education-link"
+              href={item.url}
+              target="_blank"
+              rel="noopener"
+            >
+              {item.institution}
+            </a>
+          </div>
+        </div>
+      ))
+    }
+  </div>
 </div>
+
+<style>
+  .education-section {
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 90%;
+    gap: 3rem;
+  }
+
+  .education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .box-education {
+    width: 100%;
+    border: 1px solid rgba(0, 204, 0, 0.8);
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .box-education:hover {
+    background: rgba(0, 204, 0, 0.08);
+    border-color: var(--c-green);
+    box-shadow: 0 28px 96px rgba(0, 0, 0, 0.24);
+  }
+
+  .box-pane {
+    padding: 1rem 3rem 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .box-pane-left h3 {
+    font-size: 4vh;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+
+  .box-pane-left p {
+    opacity: 0.8;
+    font-weight: 500;
+    font-family: monospace;
+    text-align: justify;
+  }
+
+  .box-eyebrow {
+    color: var(--c-green);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .box-pane-right {
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .education-meta {
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .education-link {
+    color: var(--text);
+    opacity: 0.85;
+    text-decoration: none;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    word-break: break-word;
+    width: fit-content;
+    border-bottom: 1px solid rgba(0, 204, 0, 0.35);
+    transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .education-link:hover {
+    opacity: 1;
+    color: var(--c-green);
+    border-color: var(--c-green);
+  }
+
+  @media (max-width: 900px) {
+    .box-education {
+      grid-template-columns: 1fr;
+    }
+
+    .box-pane {
+      padding: 1.5rem;
+    }
+  }
+</style>

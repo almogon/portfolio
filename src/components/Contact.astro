@@ -1,0 +1,145 @@
+---
+const contacts = [
+  {
+    type: 'Email',
+    label: 'Professional inbox',
+    description: 'Best option for project proposals, interviews, and long-form conversations.',
+    value: 'alvaro.morales.dev@example.com',
+    href: 'mailto:alvaro.morales.dev@example.com',
+  },
+  {
+    type: 'Phone',
+    label: 'Direct line',
+    description: 'Available for quick calls, recruiter outreach, and follow-up conversations.',
+    value: '+34 600 111 222',
+    href: 'tel:+34600111222',
+  },
+  {
+    type: 'LinkedIn',
+    label: 'Professional profile',
+    description: 'Useful for networking, work history, and keeping in touch professionally.',
+    value: 'linkedin.com/in/alvaro-morales-dev',
+    href: 'https://www.linkedin.com/in/alvaro-morales-dev',
+  },
+];
+---
+
+<div class="container-section contact-section">
+  <div>
+    <h2 class="section-title">Contact</h2>
+  </div>
+
+  {
+    contacts.map((contact) => (
+      <div class="box-contact">
+        <div class="box-pane box-pane-left">
+          <div>
+            <p class="box-eyebrow">{contact.type}</p>
+            <h3>{contact.label}</h3>
+          </div>
+          <p>{contact.description}</p>
+        </div>
+
+        <div class="box-pane box-pane-right">
+          <div class="contact-meta">Contact detail</div>
+          <a
+            class="contact-link"
+            href={contact.href}
+            target={contact.type === 'LinkedIn' ? '_blank' : undefined}
+            rel={contact.type === 'LinkedIn' ? 'noreferrer' : undefined}
+          >
+            {contact.value}
+          </a>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .contact-section {
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 90%;
+    gap: 3rem;
+  }
+
+  .box-contact {
+    width: 100%;
+    border: 1px solid rgba(204, 0, 0, 0.8);
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .box-contact:hover {
+    background: rgba(204, 0, 0, 0.08);
+    border-color: var(--c-red);
+  }
+
+  .box-pane {
+    padding: 1rem 3rem 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .box-pane-left h3 {
+    font-size: 4vh;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+
+  .box-pane-left p {
+    opacity: 0.8;
+    font-weight: 500;
+    font-family: monospace;
+    text-align: justify;
+  }
+
+  .box-eyebrow {
+    color: var(--c-red);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .box-pane-right {
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .contact-meta {
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .contact-link {
+    color: var(--text);
+    opacity: 0.85;
+    text-decoration: none;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    word-break: break-word;
+    width: fit-content;
+    border-bottom: 1px solid rgba(204, 0, 0, 0.35);
+    transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .contact-link:hover {
+    opacity: 1;
+    color: var(--c-red);
+    border-color: var(--c-red);
+  }
+
+  @media (max-width: 900px) {
+    .box-contact {
+      grid-template-columns: 1fr;
+    }
+
+    .box-pane {
+      padding: 1.5rem;
+    }
+  }
+</style>
