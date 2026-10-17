@@ -1,59 +1,142 @@
 ---
-const contacts = [
-  {
-    type: 'Email',
-    label: 'Professional inbox',
-    description: 'Best option for project proposals, interviews, and long-form conversations.',
-    value: 'alvaromoralesgonzalez92@gmail.com',
-    href: 'mailto:alvaromoralesgonzalez92@gmail.com',
-  },
-  {
-    type: 'Phone',
-    label: 'Direct line',
-    description: 'Available for quick calls, recruiter outreach, and follow-up conversations.',
-    value: '+43 68181 741 443',
-    href: 'tel:+4368181741443',
-  },
-  {
-    type: 'LinkedIn',
-    label: 'Professional profile',
-    description: 'Useful for networking, work history, and keeping in touch professionally.',
-    value: 'linkedin.com/in/alvaro-morales-dev',
-    href: 'https://www.linkedin.com/in/%C3%A1lvaro-morales',
-  },
-];
+import Icon from './Icon.astro';
+import { profile } from '../data/profile';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = useTranslations(lang).contact;
+const [emailUser, emailDomain] = profile.email.split('@');
 ---
 
 <div class="container-section section-list accent-red">
   <div>
-    <h2 class="section-title">Contact</h2>
+    <h2 class="section-title">{t.title}</h2>
   </div>
 
-  <div class="card-list">
-    {
-      contacts.map((contact) => (
-        <div class="card">
-          <div class="card-pane">
-            <div>
-              <p class="card-eyebrow">{contact.type}</p>
-              <h3 class="card-title">{contact.label}</h3>
-            </div>
-            <p class="card-text">{contact.description}</p>
-          </div>
+  <div class="card contact-panel">
+    <div class="card-pane contact-main">
+      <p class="contact-lead">{t.lead}</p>
+      <p class="card-body">{t.body}</p>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href={`mailto:${profile.email}`}>
+          <Icon name="mail" />
+          {t.sendEmail}
+        </a>
+        <a class="btn" href={profile.linkedIn} target="_blank" rel="noopener noreferrer">
+          <Icon name="linkedin" />
+          {t.connect}
+        </a>
+      </div>
+    </div>
 
-          <div class="card-pane card-pane-right">
-            <div class="card-meta">Detail</div>
-            <a
-              class="card-link"
-              href={contact.href}
-              target={contact.type === 'LinkedIn' ? '_blank' : undefined}
-              rel={contact.type === 'LinkedIn' ? 'noreferrer' : undefined}
-            >
-              {contact.value}
+    <div class="card-pane card-pane-right">
+      <ul class="contact-details">
+        <li>
+          <span class="detail-icon"><Icon name="mail" /></span>
+          <span class="detail-text">
+            <span class="detail-label">{t.email}</span>
+            <a class="card-link" href={`mailto:${profile.email}`}>{emailUser}<wbr />@{emailDomain}</a>
+          </span>
+        </li>
+        <li>
+          <span class="detail-icon"><Icon name="linkedin" /></span>
+          <span class="detail-text">
+            <span class="detail-label">LinkedIn</span>
+            <a class="card-link" href={profile.linkedIn} target="_blank" rel="noopener noreferrer">
+              {profile.linkedInLabel}
             </a>
-          </div>
-        </div>
-      ))
-    }
+          </span>
+        </li>
+        <li>
+          <span class="detail-icon"><Icon name="github" /></span>
+          <span class="detail-text">
+            <span class="detail-label">GitHub</span>
+            <a class="card-link" href={profile.github} target="_blank" rel="noopener noreferrer">
+              {profile.githubLabel}
+            </a>
+          </span>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
+
+<style>
+  .contact-panel {
+    grid-template-columns: 3fr 2fr;
+  }
+
+  @media (max-width: 1023px) {
+    .contact-panel {
+      grid-template-columns: 1fr;
+    }
+    .contact-panel .card-pane-right {
+      padding-top: 0;
+    }
+  }
+
+  .contact-main {
+    gap: 1.25rem;
+  }
+
+  .contact-lead {
+    font-size: clamp(1.6rem, 1.2rem + 2vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .contact-main .card-body {
+    text-align: left;
+    max-width: 50ch;
+  }
+
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-details li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .detail-icon {
+    display: inline-flex;
+    margin-top: 0.15rem;
+    color: var(--accent-text);
+  }
+
+  .detail-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  .detail-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .contact-details .card-link {
+    font-size: 1rem;
+    overflow-wrap: normal;
+  }
+</style>

@@ -1,10 +1,14 @@
 ---
-const intro = `
-    Hi, I'm Alvaro, software engineer and gamer in my free time.
-`;
-const work = `
-    I am always looking for new challenges, technologies and opportunities.
-`;
+import Icon from './Icon.astro';
+import { profile, yearsOfExperience } from '../data/profile';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = useTranslations(lang).hero;
 ---
 
 <div class="container-section">
@@ -13,35 +17,38 @@ const work = `
       >inee</span
     ><span class="red">r</span>
   </h1>
-  <h2 class="subtitle">& full stack developer</h2>
+  <p class="subtitle">{t.subtitle}</p>
 
   <div class="intro-container">
     <div class="intro-borders intro-top-left"></div>
     <div class="intro-borders intro-bottom-right"></div>
     <div class="intro-text">
       <p>
-        Hi, I'm Alvaro, software engineer and gamer in my free time.
-        <br />I am always looking for new challenges, technologies and
-        opportunities.
+        {t.intro(yearsOfExperience)}
+        <br />{t.intro2}
       </p>
     </div>
   </div>
-</div>
-<div class="scroll-indicator">
-    <span class="scroll-text">Scroll to see more</span>
-    <svg
-      class="scroll-arrow"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-      <path
-        d="M12 4V20M12 20L18 14M12 20L6 14"
-        stroke="currentColor"
-        stroke-width="2"></path>
-    </svg>
+
+  <div class="cta">
+    <a class="btn btn-primary" href="#contact">
+      <Icon name="mail" />
+      {t.cta}
+    </a>
+    <a class="btn" href={profile.linkedIn} target="_blank" rel="noopener noreferrer">
+      <Icon name="linkedin" />
+      LinkedIn
+    </a>
+    <a class="btn" href={profile.github} target="_blank" rel="noopener noreferrer">
+      <Icon name="github" />
+      GitHub
+    </a>
   </div>
+</div>
+<div class="scroll-indicator" aria-hidden="true">
+  <span class="scroll-text">{t.scroll}</span>
+  <span class="scroll-arrow"><Icon name="arrow-down" size={24} /></span>
+</div>
 
 <style>
   .title {
@@ -49,7 +56,6 @@ const work = `
     line-height: 1;
     font-weight: 700;
     letter-spacing: -0.02em;
-    font-family: 'lato';
   }
   .title span {
     opacity: 0.8;
@@ -57,11 +63,13 @@ const work = `
   .title .blue-green {
     background: linear-gradient(to right, var(--c-blue), var(--c-green));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .title .yellow-orange {
     background: linear-gradient(to right, var(--c-yellow), var(--c-orange));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .title .red {
@@ -69,7 +77,7 @@ const work = `
   }
   .subtitle {
     font-size: var(--h2);
-    line-height: 1;
+    line-height: 1.1;
     font-weight: 300;
     letter-spacing: -0.02em;
     margin-bottom: var(--space-md);
@@ -148,12 +156,27 @@ const work = `
     right: 0;
   }
 
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: var(--space-sm);
+  }
+
+  @media (max-width: 767px) {
+    .cta {
+      justify-content: flex-start;
+    }
+  }
+
   .scroll-indicator {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-xs);
+    margin-top: var(--space-md);
     z-index: 1;
     opacity: 0;
     animation: fade-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;

@@ -1,23 +1,21 @@
 ---
-const styleFlag = {
-  objectFit: 'none',
-  borderRadius: '20%',
-  zoom: '25%',
-  width: '120px',
-  height: '80px',
-};
-const styleEnFlag = {
-  ...styleFlag,
-  objectPosition: '-570px -45px',
-};
-const styleEsFlag = {
-  ...styleFlag,
-  objectPosition: '-568px -233px',
-};
-const styleDeFlag = {
-  ...styleFlag,
-  objectPosition: '-370px -421px',
-};
+import { profile } from '../data/profile';
+import { langs, localePath, useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = useTranslations(lang).nav;
+
+const menuItems = [
+  { id: 'experience', label: t.experience },
+  { id: 'skills', label: t.skills },
+  { id: 'education', label: t.education },
+  { id: 'references', label: t.references },
+  { id: 'contact', label: t.contact },
+] as const;
 ---
 
 <script>
@@ -27,6 +25,7 @@ const styleDeFlag = {
     const menuToggle = document.querySelector('.menu-toggle');
     const menuOverlay = document.querySelector('.menu-overlay');
     const mobileQuery = window.matchMedia('(max-width: 899px)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     const setMenuOpen = (open: boolean) => {
       if (!(menuToggle instanceof HTMLButtonElement) || !(navigation instanceof HTMLElement)) {
@@ -34,7 +33,10 @@ const styleDeFlag = {
       }
       navigation.classList.toggle('menu-open', open);
       menuToggle.setAttribute('aria-expanded', String(open));
-      menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menuToggle.setAttribute(
+        'aria-label',
+        (open ? menuToggle.dataset.labelClose : menuToggle.dataset.labelOpen) ?? ''
+      );
     };
 
     menuToggle?.addEventListener('click', () => {
@@ -146,25 +148,17 @@ const styleDeFlag = {
         }
 
         const svgPath = currentSvg.querySelector('path');
-        if (!(svgPath instanceof SVGElement)) {
+        if (!(svgPath instanceof SVGElement) || !(menuText instanceof HTMLElement)) {
           return;
         }
 
-        currentRotation += 180;
-        currentSvg.style.transform = `rotate(${currentRotation}deg)`;
-        currentSvg.style.transition = 'transform 0.5s ease';
-
-        if (menuText.classList.contains('experience')) {
-          svgPath.style.fill = getSectionColor('experience');
-        } else if (menuText.classList.contains('education')) {
-          svgPath.style.fill = getSectionColor('education');
-        } else if (menuText.classList.contains('skills')) {
-          svgPath.style.fill = getSectionColor('skills');
-        } else if (menuText.classList.contains('references')) {
-          svgPath.style.fill = getSectionColor('references');
-        } else if (menuText.classList.contains('contact')) {
-          svgPath.style.fill = getSectionColor('contact');
+        if (!reducedMotion.matches) {
+          currentRotation += 180;
+          currentSvg.style.transform = `rotate(${currentRotation}deg)`;
+          currentSvg.style.transition = 'transform 0.5s ease';
         }
+
+        svgPath.style.fill = getSectionColor(menuText.dataset.section ?? '');
       });
 
       menuText.addEventListener('mouseleave', () => {
@@ -196,7 +190,7 @@ const styleDeFlag = {
 
         window.scrollTo({
           top: targetTop - headerHeight - extraOffset,
-          behavior: 'smooth',
+          behavior: reducedMotion.matches ? 'auto' : 'smooth',
         });
 
         setHeaderAccent(hash.slice(1));
@@ -238,8 +232,8 @@ const styleDeFlag = {
             </g>
           </svg>
         </div>
-        <a href="#about-me" class="logo-link" aria-label="Back to top">
-          <span class="font-fantasy">Alvaro Morales</span>
+        <a href="#about-me" class="logo-link" aria-label={`${profile.name}, ${t.backToTop}`}>
+          {profile.name}
         </a>
       </div>
 
@@ -248,7 +242,9 @@ const styleDeFlag = {
         class="menu-toggle"
         aria-controls="site-menu"
         aria-expanded="false"
-        aria-label="Open menu"
+        aria-label={t.openMenu}
+        data-label-open={t.openMenu}
+        data-label-close={t.closeMenu}
       >
         <span class="menu-toggle-bar"></span>
         <span class="menu-toggle-bar"></span>
@@ -258,46 +254,35 @@ const styleDeFlag = {
       <div class="menu-overlay" id="site-menu">
         <div class="menu-container">
           <ul class="menu">
-            <li class="menu-item experience">
-              <a href="#experience" class="menu-link">
-                <span class="menu-text">Experience</span>
-              </a>
-            </li>
-            <li class="menu-item education">
-              <a href="#education" class="menu-link">
-                <span class="menu-text">Education</span>
-              </a>
-            </li>
-            <li class="menu-item skills">
-              <a href="#skills" class="menu-link">
-                <span class="menu-text">Skills</span>
-              </a>
-            </li>
-            <li class="menu-item references">
-              <a href="#references" class="menu-link">
-                <span class="menu-text">References</span>
-              </a>
-            </li>
-            <li class="menu-item contact">
-              <a href="#contact" class="menu-link">
-                <span class="menu-text">Contact</span>
-              </a>
-            </li>
+            {
+              menuItems.map((item) => (
+                <li class={`menu-item ${item.id}`} data-section={item.id}>
+                  <a href={`#${item.id}`} class="menu-link">
+                    <span class="menu-text">{item.label}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <ul class="lang-switch" aria-label={t.language}>
+            {
+              langs.map((code) => (
+                <li>
+                  <a
+                    class="lang-link"
+                    href={localePath(code)}
+                    hreflang={code}
+                    lang={code}
+                    aria-current={code === lang ? 'page' : undefined}
+                  >
+                    {code.toUpperCase()}
+                  </a>
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>
-
-      <!-- <div class="box-flag">
-        <button>
-          <Image src={flagsImage} alt="English" style={styleEnFlag} />
-        </button>
-        <button>
-          <Image src={flagsImage} alt="Español" style={styleEsFlag} />
-        </button>
-        <button>
-          <Image src={flagsImage} alt="Deutsch" style={styleDeFlag} />
-        </button>
-      </div> -->
     </div>
   </nav>
 </header>
@@ -312,12 +297,6 @@ const styleDeFlag = {
   svg path {
     fill: white;
     transition: fill 0.5s ease;
-  }
-
-  .box-flag {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
   }
 
   .navigation {
@@ -408,7 +387,7 @@ const styleDeFlag = {
   }
   .menu-item.contact:hover .menu-text,
   .menu-item.active.contact .menu-text {
-    color: var(--c-red);
+    color: var(--c-red-text);
   }
 
   .menu-item.active .menu-link {
@@ -428,10 +407,41 @@ const styleDeFlag = {
     opacity: 1;
   }
 
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    margin-left: clamp(0.5rem, 1.5vw, 1rem);
+    padding-left: clamp(0.5rem, 1.5vw, 1rem);
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .lang-link {
+    display: block;
+    padding: 0.35rem 0.45rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .lang-link:hover {
+    color: var(--text);
+  }
+
+  .lang-link[aria-current='page'] {
+    color: var(--background);
+    background: var(--text);
+  }
+
   .logo-link {
     display: flex;
     align-items: center;
-    font-size: clamp(1.4rem, 3vw, 1.875rem);
+    font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+    font-weight: 900;
+    letter-spacing: -0.01em;
     line-height: 1;
     white-space: nowrap;
     color: var(--text);
@@ -518,7 +528,22 @@ const styleDeFlag = {
     }
 
     .menu-container {
-      justify-content: flex-start;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .lang-switch {
+      margin: 0;
+      padding: 1rem 0 0;
+      border-left: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 0.5rem;
+    }
+
+    .lang-link {
+      padding: 0.55rem 0.9rem;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .menu {

@@ -1,52 +1,42 @@
 ---
-const skillGroups = [
-  {
-    label: 'Frameworks',
-    color: 'yellow',
-    skills: ['Angular', 'Astro', 'Node.js', 'React', 'Spring Boot', 'Ionic'],
-  },
-  {
-    label: 'Languages',
-    color: 'yellow',
-    skills: ['Python', 'Java', 'TypeScript', 'JavaScript', 'SQL'],
-  },
-  {
-    label: 'Databases',
-    color: 'yellow',
-    skills: ['Oracle', 'MySQL', 'DynamoDB', 'MongoDB', 'PostgreSQL'],
-  },
-  {
-    label: 'Cloud & DevOps',
-    color: 'yellow',
-    skills: ['AWS', 'Firebase', 'Oracle Apex', 'Vercel', 'Odoo.sh', 'Docker'],
-  },
-];
+import { skillGroups } from '../data/skills';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = useTranslations(lang).skills;
 ---
 
 <div class="container-section section-list accent-yellow">
   <div>
-    <h2 class="section-title">Skills</h2>
+    <h2 class="section-title">{t.title}</h2>
+    <p class="section-intro">{t.intro}</p>
   </div>
-
-  <p class="intro">
-    As a full stack developer, I have had the privilege of working with a wide range of
-    technologies across the entire stack.
-  </p>
 
   <div class="skills-grid">
     {
       skillGroups.map((group) => (
-        <div class={`card card-single accent-${group.color}`}>
+        <div class:list={['card', 'card-single', { wide: group.wide }]}>
           <div class="card-pane">
             <div class="group-header">
               <span class="group-dot" />
-              <h3 class="group-label">{group.label}</h3>
+              <h3 class="group-label">{group.label[lang]}</h3>
             </div>
-            <ul class="skill-list">
-              {group.skills.map((skill) => (
-                <li class="skill-tag">{skill}</li>
-              ))}
+            <ul class="tag-list">
+              {group.skills.map((skill) => {
+                const label = typeof skill === 'string' ? skill : skill[lang];
+                return <li class:list={['tag', { 'tag-main': group.main?.includes(label) }]}>{label}</li>;
+              })}
             </ul>
+            {group.main && (
+              <p class="main-legend">
+                <span class="main-swatch" aria-hidden="true" />
+                {t.main}
+              </p>
+            )}
           </div>
         </div>
       ))
@@ -55,18 +45,15 @@ const skillGroups = [
 </div>
 
 <style>
-  .intro {
-    opacity: 0.6;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    max-width: 60ch;
-  }
-
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-sm);
     width: 100%;
+  }
+
+  .wide {
+    grid-column: 1 / -1;
   }
 
   @media (max-width: 767px) {
@@ -90,38 +77,40 @@ const skillGroups = [
   }
 
   .group-label {
-    color: var(--accent);
+    color: var(--accent-text);
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    opacity: 0.9;
   }
 
-  .skill-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .main-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: -0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
   }
 
-  .skill-tag {
-    padding: 0.35rem 0.9rem;
-    border-radius: 999px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    background: rgb(var(--accent-rgb) / 0.08);
-    border: 1px solid rgb(var(--accent-rgb) / 0.3);
-    color: var(--accent);
-    opacity: 0.8;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    cursor: default;
+  .main-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
   }
 
-  .skill-tag:hover {
-    opacity: 1;
+  .tag {
+    transition: transform 0.2s ease;
+  }
+
+  .tag:hover {
     transform: translateY(-2px);
+  }
+
+  .tag-main {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--background);
   }
 </style>

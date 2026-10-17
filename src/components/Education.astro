@@ -1,19 +1,18 @@
 ---
-const education = [
-  {
-    degree: "Bachelor's Degree in Software Engineering",
-    institution: 'Universidad Politécnica de Madrid',
-    period: '2010 – 2015',
-    url: 'https://www.upm.es/internacional/Students/StudiesDegrees/OfficialUndergraduateDegrees/Relationed%20Articles?fmt=detail&prefmt=articulo&id=3388060c9abe0210VgnVCM10000009c7648a____',
-    description:
-      'Comprehensive education in software design, algorithms, data structures, systems programming, and software architecture. Final thesis focused on good architecture practices and how to choose the best option during development.',
-  },
-];
+import { education } from '../data/education';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = useTranslations(lang).education;
 ---
 
 <div class="container-section section-list accent-green">
   <div>
-    <h2 class="section-title">Education</h2>
+    <h2 class="section-title">{t.title}</h2>
   </div>
 
   <div class="card-list">
@@ -22,10 +21,10 @@ const education = [
         <div class="card">
           <div class="card-pane">
             <div>
-              <p class="card-eyebrow">Bachelor's Degree</p>
-              <h3 class="card-title">{item.degree.replace("Bachelor's Degree in ", '')}</h3>
+              <p class="card-eyebrow">{item.degreeType[lang]}</p>
+              <h3 class="card-title">{item.degree[lang]}</h3>
             </div>
-            <p class="card-text">{item.description}</p>
+            <p class="card-text">{item.description[lang]}</p>
           </div>
 
           <div class="card-pane card-pane-right">

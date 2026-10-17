@@ -1,186 +1,123 @@
 ---
-const references = [
-  {
-    name: 'Alberto Salamanca Rico',
-    role: 'Direct Manager',
-    company: 'Babel S.I',
-    description: 'Can speak about my growth and adaptability.',
-    email: '',
-    linkedIn: 'https://es.linkedin.com/in/albertosalamanca',
-  },
-  {
-    name: 'Senen González',
-    role: 'Senior expert for Data Management and Analysis',
-    company: 'Track Machines Connected',
-    description: 'Can speak about backend design decisions, mentoring, and impact on the team.',
-    email: 'senen.gonzalez@tmc.at',
-    linkedIn: 'https://at.linkedin.com/in/dr-senen-gonzalez-62394b172'
-  },
-  {
-    name: 'Sara Mari-Strasser',
-    role: 'CEO',
-    company: 'Schrankerl',
-    description: 'Can provide context on communication, ownership, and delivery under deadlines as a tech leader.',
-    email: 'sara@schrankerl.at',
-    linkedIn: 'https://at.linkedin.com/in/sara-mari-strasser'
-  },
-];
+import Icon from './Icon.astro';
+import { references } from '../data/references';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = useTranslations(lang).references;
 ---
 
 <div class="container-section section-list accent-orange">
   <div>
-    <h2 class="section-title">References</h2>
+    <h2 class="section-title">{t.title}</h2>
+    <p class="section-intro">{t.intro}</p>
   </div>
 
-  <div class="card-list">
-  {
-    references.map((reference) => (
-      <div class="card">
-        <div class="card-pane">
-          <div>
-            <p class="card-eyebrow">{reference.role}</p>
-            <h3 class="card-title">{reference.name}</h3>
-          </div>
-          <p class="card-text">{reference.description}</p>
-        </div>
-
-        <div class="card-pane card-pane-right">
-          <div class="reference-header">
-            <div class="card-meta">{reference.company}</div>
-            <div class="reference-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M7 11C8.65685 11 10 9.65685 10 8C10 6.34315 8.65685 5 7 5C5.34315 5 4 6.34315 4 8C4 9.65685 5.34315 11 7 11Z"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                />
-                <path
-                  d="M17 10C18.3807 10 19.5 8.88071 19.5 7.5C19.5 6.11929 18.3807 5 17 5C15.6193 5 14.5 6.11929 14.5 7.5C14.5 8.88071 15.6193 10 17 10Z"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                />
-                <path
-                  d="M2.5 18C2.5 15.7909 4.29086 14 6.5 14H7.5C9.70914 14 11.5 15.7909 11.5 18"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M13.5 18C13.5 16.067 15.067 14.5 17 14.5C18.933 14.5 20.5 16.067 20.5 18"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                />
-              </svg>
+  <div class="references-grid">
+    {
+      references.map((reference) => (
+        <article class="card card-single">
+          <div class="card-pane">
+            <div>
+              <p class="card-eyebrow">{reference.role[lang]}</p>
+              <h3 class="card-title">{reference.name}</h3>
             </div>
-          </div>
-
-          <div class="reference-links">
-            {
-              reference.email && (
-                <a class="card-link reference-link" href={`mailto:${reference.email}`}>
-                  <span class="reference-link-icon" aria-hidden="true">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M4 7H20C20.5523 7 21 7.44772 21 8V16C21 16.5523 20.5523 17 20 17H4C3.44772 17 3 16.5523 3 16V8C3 7.44772 3.44772 7 4 7Z"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                      />
-                      <path
-                        d="M4 8L12 13L20 8"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <span>{reference.email}</span>
-                </a>
-              )
-            }
-
-            {
-              reference.linkedIn && (
+            <p class="card-text">{reference.description[lang]}</p>
+            <div class="reference-footer">
+              <span class="reference-company">
+                <span class="reference-icon">
+                  <Icon name="people" size={20} />
+                </span>
+                {reference.company}
+              </span>
+              <div class="reference-links">
+                {reference.email && (
+                  <a
+                    class="card-link reference-link"
+                    href={`mailto:${reference.email}`}
+                    aria-label={t.emailTo(reference.name)}
+                  >
+                    <Icon name="mail" />
+                    <span>{reference.email.split('@')[0]}<wbr />@{reference.email.split('@')[1]}</span>
+                  </a>
+                )}
                 <a
                   class="card-link reference-link"
                   href={reference.linkedIn}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={t.onLinkedIn(reference.name)}
                 >
-                  <span class="reference-link-icon" aria-hidden="true">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M7 9H4V20H7V9Z"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M5.5 6.5C6.32843 6.5 7 5.82843 7 5C7 4.17157 6.32843 3.5 5.5 3.5C4.67157 3.5 4 4.17157 4 5C4 5.82843 4.67157 6.5 5.5 6.5Z"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                      />
-                      <path
-                        d="M12 20V13.5C12 11.8431 13.3431 10.5 15 10.5C16.6569 10.5 18 11.8431 18 13.5V20"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M12 14V9H15V10.5"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <span>LinkedIn</span>
+                  <Icon name="linkedin" />
+                  LinkedIn
                 </a>
-              )
-            }
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    ))
-  }
+        </article>
+      ))
+    }
   </div>
 </div>
 
 <style>
-  .reference-header {
+  .references-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-sm);
+    width: 100%;
+  }
+
+  @media (max-width: 1023px) {
+    .references-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .references-grid .card-text {
+    text-align: left;
+    flex-grow: 1;
+  }
+
+  .reference-footer {
     display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgb(var(--accent-rgb) / 0.2);
+  }
+
+  .reference-company {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    gap: 0.5rem;
+    color: var(--text-grey);
   }
 
   .reference-icon {
-    color: var(--accent);
-    opacity: 0.85;
-    flex-shrink: 0;
+    color: var(--accent-text);
+    display: inline-flex;
   }
 
   .reference-links {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.25rem;
   }
 
   .reference-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    overflow-wrap: normal;
   }
 
-  .reference-link-icon {
-    color: var(--accent);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  .reference-link svg {
     flex-shrink: 0;
   }
 </style>

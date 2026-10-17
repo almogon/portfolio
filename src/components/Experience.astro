@@ -1,110 +1,174 @@
 ---
-const experiences = [
-  {
-    company: 'Schrankerl',
-    url: 'https://schrankerl.at',
-    summary:
-      'Company that offers fresh and varied food for companies, preparing custom menus based on preferences and profiles.',
-    role: 'Software engineer',
-    period: 'Feb 2022 / Present',
-    description:
-      'Tech leader in charge of supervising my team members, ensuring that tasks are completed on time. I make decisions about our tools and software architecture. I also perform maintenance and quality tasks on our systems. The environment is Odoo.sh, with a backend architecture based on modules, and the frontend is developed using the latest version of Angular.',
-  },
-  {
-    company: 'Solvistas',
-    url: 'https://www.solvistas.com/de',
-    summary:
-      'Provides data science solutions and services in classic disciplines such as analytics, data management, business intelligence and digitalization.',
-    role: 'Software engineer',
-    period: 'Sep 2020 / Feb 2022',
-    description:
-      'Participated in many projects, working mainly with Java Spring and Angular. Backend tasks included creating REST APIs, testing and documentation. Design and implementation of new components, models and views for the web application using Angular and TypeScript. Worked with React Native implementing the Relv.io app. Led the team, taking architecture decisions, managing team tasks and implementing features as well. The environment was based on the Firebase cloud. Worked as Scrum Master for half a year.',
-  },
-  {
-    company: 'TMC',
-    url: 'https://www.tmconnected.com/en/home/',
-    summary: 'Focused on solutions for rail infrastructure and rail traffic management.',
-    role: 'Full Stack Developer',
-    period: 'Jul 2018 / Sep 2020',
-    description:
-      'Design and development of several projects in backend and frontend. Backend tasks can be summarized as the creation of web services using REST protocols for communication and the implementation of cloud data structures using Amazon Web Services (AWS) tools and environment. Design and implementation of new views and components for the web application using Angular and TypeScript.',
-  },
-  {
-    company: 'Babel S.I',
-    url: 'https://babelgroup.com/en/',
-    summary: 'Helps companies improve their business processes and digital transformation.',
-    role: 'Full Stack Developer',
-    period: 'Sep 2015 / Jul 2018',
-    description:
-      'Design and implementation of services using Spring Boot and Maven for backend operations; modelling and creating new databases in Oracle; implementation of hybrid apps based on microservices and components using Ionic.',
-  },
-  {
-    company: 'Babel S.I',
-    url: 'https://babelgroup.com/en/',
-    summary: 'Helps companies improve their business processes and digital transformation.',
-    role: 'Intern',
-    period: 'Mar 2015 / Sep 2015',
-    description:
-      'Worked on several projects learning the basics of delivering results, where the most important actions were: defining when a project starts, deciding the best technologies and architecture, and implementing the resulting services in frontend and backend.',
-  },
-];
+import Icon from './Icon.astro';
+import { experiences } from '../data/experience';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = useTranslations(lang).experience;
+
+const toDate = (value?: string) => {
+  if (!value) {
+    return new Date();
+  }
+  const [year, month] = value.split('-');
+  return new Date(Number(year), month ? Number(month) - 1 : 0);
+};
+
+const monthYear = new Intl.DateTimeFormat(lang, { month: 'short', year: 'numeric' });
+
+const formatDate = (value: string) => {
+  if (!value.includes('-')) {
+    return value;
+  }
+  const formatted = monthYear.format(toDate(value));
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+};
+
+const formatDuration = (start: string, end?: string) => {
+  const from = toDate(start);
+  const to = toDate(end);
+  const months = (to.getFullYear() - from.getFullYear()) * 12 + to.getMonth() - from.getMonth();
+  const years = Math.floor(months / 12);
+  const rest = months % 12;
+  return [years > 0 && t.years(years), rest > 0 && t.months(rest)].filter(Boolean).join(' ');
+};
 ---
 
 <div class="container-section section-list accent-blue">
   <div>
-    <h2 class="section-title">Experience</h2>
+    <h2 class="section-title">{t.title}</h2>
   </div>
 
-  <div class="card-list">
+  <ol class="timeline">
     {
-      experiences.map((item) => (
-        <div class="card">
-          <a
-            class="card-pane company-link"
-            href={item.url}
-            target="_blank"
-            rel="noopener"
-          >
-            <div class="company-header">
-              <h3 class="card-title">{item.company}</h3>
-              <span class="link-icon" aria-hidden="true">
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 22"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M14 12C14 14.7614 11.7614 17 9 17H7C4.23858 17 2 14.7614 2 12C2 9.23858 4.23858 7 7 7H7.5M10 12C10 9.23858 12.2386 7 15 7H17C19.7614 7 22 9.23858 22 12C22 14.7614 19.7614 17 17 17H16.5"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                  />
-                </svg>
-              </span>
-            </div>
-            <p class="card-text">{item.summary}</p>
-          </a>
+      experiences.map((item) => {
+        const first = item.roles[item.roles.length - 1];
+        const latest = item.roles[0];
+        const hasProgression = item.roles.length > 1;
+        return (
+          <li class="timeline-item">
+            <span class:list={['timeline-dot', { current: !latest.end }]} aria-hidden="true" />
+            <article class="card">
+              <div class="card-pane">
+                <div class="company-header">
+                  <a class="company-link" href={item.url} target="_blank" rel="noopener">
+                    <h3 class="card-title">{item.company}</h3>
+                    <span class="link-icon">
+                      <Icon name="link" size={24} />
+                    </span>
+                  </a>
+                  <span class="duration">{formatDuration(first.start, latest.end)}</span>
+                </div>
+                <p class="company-summary">{item.summary[lang]}</p>
 
-          <div class="card-pane">
-            <div class="role-header">
-              <h4 class="card-meta">{item.role}</h4>
-              <span class="role-period">{item.period}</span>
-            </div>
-            <p class="card-body">{item.description}</p>
-          </div>
-        </div>
-      ))
+                {hasProgression && <p class="card-eyebrow progression-label">{t.progression}</p>}
+                <ol class:list={['roles', { progression: hasProgression }]}>
+                  {item.roles.map((role) => (
+                    <li class:list={['role', { current: !role.end }]}>
+                      <span class="role-node" aria-hidden="true" />
+                      <div class="role-content">
+                        <p class="role-title">
+                          {role.title[lang]}
+                          {!role.end && <span class="current-badge">{t.current}</span>}
+                        </p>
+                        <p class="role-period">
+                          <time datetime={role.start}>{formatDate(role.start)}</time>
+                          {' – '}
+                          {role.end ? <time datetime={role.end}>{formatDate(role.end)}</time> : t.present}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              <div class="card-pane">
+                <ul class="highlights">
+                  {item.highlights[lang].map((highlight) => (
+                    <li>{highlight}</li>
+                  ))}
+                </ul>
+                <ul class="tag-list" aria-label={t.stack(item.company)}>
+                  {item.stack.map((tech) => (
+                    <li class="tag">{tech}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          </li>
+        );
+      })
     }
-  </div>
+  </ol>
 </div>
 
 <style>
+  /* Vertical rail connecting the companies */
+  .timeline {
+    --rail-x: clamp(0.5rem, 1.5vw, 0.75rem);
+    --rail-gap: clamp(1.75rem, 4vw, 3rem);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    width: 100%;
+    padding-left: var(--rail-gap);
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: var(--rail-x);
+    width: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, var(--accent), rgb(var(--accent-rgb) / 0.15));
+  }
+
+  .timeline-item {
+    position: relative;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    top: calc(var(--card-padding-y) + 0.6rem);
+    left: calc(var(--rail-x) - var(--rail-gap));
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--background);
+    border: 2px solid var(--accent);
+  }
+
+  .timeline-dot.current {
+    background: var(--accent);
+    box-shadow: 0 0 0 5px rgb(var(--accent-rgb) / 0.2);
+  }
+
+  /* Company */
   .company-header {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+  }
+
+  .company-link {
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  .company-link:hover .card-title,
+  .company-link:focus-visible .card-title {
+    color: var(--text);
   }
 
   .link-icon {
@@ -126,17 +190,127 @@ const experiences = [
     }
   }
 
-  .role-header {
+  .duration {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .company-summary {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .progression-label {
+    margin: 0.25rem 0 -0.25rem;
+  }
+
+  /* Roles: a single role or a stepper showing the progression */
+  .roles {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .role {
+    --node: 14px;
+    position: relative;
+    display: flex;
+    gap: 0.9rem;
+    padding-bottom: 1.1rem;
+  }
+
+  .role:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Connector between steps, fading towards the earliest role */
+  .progression .role:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--node) + 0.35rem);
+    bottom: 0.15rem;
+    left: calc(var(--node) / 2);
+    width: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, var(--accent), rgb(var(--accent-rgb) / 0.3));
+  }
+
+  .role-node {
+    flex-shrink: 0;
+    width: var(--node);
+    height: var(--node);
+    margin-top: 0.3rem;
+    border-radius: 50%;
+    border: 2px solid rgb(var(--accent-rgb) / 0.7);
+    background: var(--background);
+  }
+
+  .role.current .role-node {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgb(var(--accent-rgb) / 0.2);
+  }
+
+  .role-title {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 0.25rem 1rem;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
+    font-weight: 700;
+    color: var(--text-grey);
+  }
+
+  .role.current .role-title {
+    color: var(--text);
+  }
+
+  .current-badge {
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    background: rgb(var(--accent-rgb) / 0.12);
+    border: 1px solid rgb(var(--accent-rgb) / 0.4);
   }
 
   .role-period {
-    font-size: 0.95rem;
-    opacity: 0.6;
-    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* Highlights */
+  .highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    color: var(--text-grey);
+    line-height: 1.6;
+  }
+
+  .highlights li {
+    position: relative;
+    padding-left: 1.25rem;
+  }
+
+  .highlights li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 0.5rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+
+  .tag-list {
+    margin-top: auto;
+    padding-top: 0.5rem;
   }
 </style>
