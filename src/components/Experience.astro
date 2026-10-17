@@ -1,368 +1,142 @@
 ---
+const experiences = [
+  {
+    company: 'Schrankerl',
+    url: 'https://schrankerl.at',
+    summary:
+      'Company that offers fresh and varied food for companies, preparing custom menus based on preferences and profiles.',
+    role: 'Software engineer',
+    period: 'Feb 2022 / Present',
+    description:
+      'Tech leader in charge of supervising my team members, ensuring that tasks are completed on time. I make decisions about our tools and software architecture. I also perform maintenance and quality tasks on our systems. The environment is Odoo.sh, with a backend architecture based on modules, and the frontend is developed using the latest version of Angular.',
+  },
+  {
+    company: 'Solvistas',
+    url: 'https://www.solvistas.com/de',
+    summary:
+      'Provides data science solutions and services in classic disciplines such as analytics, data management, business intelligence and digitalization.',
+    role: 'Software engineer',
+    period: 'Sep 2020 / Feb 2022',
+    description:
+      'Participated in many projects, working mainly with Java Spring and Angular. Backend tasks included creating REST APIs, testing and documentation. Design and implementation of new components, models and views for the web application using Angular and TypeScript. Worked with React Native implementing the Relv.io app. Led the team, taking architecture decisions, managing team tasks and implementing features as well. The environment was based on the Firebase cloud. Worked as Scrum Master for half a year.',
+  },
+  {
+    company: 'TMC',
+    url: 'https://www.tmconnected.com/en/home/',
+    summary: 'Focused on solutions for rail infrastructure and rail traffic management.',
+    role: 'Full Stack Developer',
+    period: 'Jul 2018 / Sep 2020',
+    description:
+      'Design and development of several projects in backend and frontend. Backend tasks can be summarized as the creation of web services using REST protocols for communication and the implementation of cloud data structures using Amazon Web Services (AWS) tools and environment. Design and implementation of new views and components for the web application using Angular and TypeScript.',
+  },
+  {
+    company: 'Babel S.I',
+    url: 'https://babelgroup.com/en/',
+    summary: 'Helps companies improve their business processes and digital transformation.',
+    role: 'Full Stack Developer',
+    period: 'Sep 2015 / Jul 2018',
+    description:
+      'Design and implementation of services using Spring Boot and Maven for backend operations; modelling and creating new databases in Oracle; implementation of hybrid apps based on microservices and components using Ionic.',
+  },
+  {
+    company: 'Babel S.I',
+    url: 'https://babelgroup.com/en/',
+    summary: 'Helps companies improve their business processes and digital transformation.',
+    role: 'Intern',
+    period: 'Mar 2015 / Sep 2015',
+    description:
+      'Worked on several projects learning the basics of delivering results, where the most important actions were: defining when a project starts, deciding the best technologies and architecture, and implementing the resulting services in frontend and backend.',
+  },
+];
 ---
 
-<div class="container-section">
+<div class="container-section section-list accent-blue">
   <div>
     <h2 class="section-title">Experience</h2>
   </div>
 
-  <div id="box-schrankerl" class="box-experience">
-    <div id="box-left" class="box-section">
-      <a
-        href="https://schrankerl.at"
-        target="_blank"
-        rel="noopener"
-      >
-        <div class="flex flex-row justify-start items-center gap-2">
-          <h3>Schrankerl</h3>
-          <div class="link-icon">
-            <svg
-              width="40px"
-              height="40px"
-              viewBox="0 0 24 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14 12C14 14.7614 11.7614 17 9 17H7C4.23858 17 2 14.7614 2 12C2 9.23858 4.23858 7 7 7H7.5M10 12C10 9.23858 12.2386 7 15 7H17C19.7614 7 22 9.23858 22 12C22 14.7614 19.7614 17 17 17H16.5"
-                stroke="#cccccc"
-                stroke-width="2"
-                stroke-linecap="round"></path>
-            </svg>
+  <div class="card-list">
+    {
+      experiences.map((item) => (
+        <div class="card">
+          <a
+            class="card-pane company-link"
+            href={item.url}
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="company-header">
+              <h3 class="card-title">{item.company}</h3>
+              <span class="link-icon" aria-hidden="true">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14 12C14 14.7614 11.7614 17 9 17H7C4.23858 17 2 14.7614 2 12C2 9.23858 4.23858 7 7 7H7.5M10 12C10 9.23858 12.2386 7 15 7H17C19.7614 7 22 9.23858 22 12C22 14.7614 19.7614 17 17 17H16.5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+            </div>
+            <p class="card-text">{item.summary}</p>
+          </a>
+
+          <div class="card-pane">
+            <div class="role-header">
+              <h4 class="card-meta">{item.role}</h4>
+              <span class="role-period">{item.period}</span>
+            </div>
+            <p class="card-body">{item.description}</p>
           </div>
         </div>
-
-        <p>
-          Company that offers freshly and varied food for companies, preparing
-          custom menus base on preferencies and profiles.
-        </p>
-      </a>
-    </div>
-    <div id="box-rigth" class="box-section">
-      <div class="flex flex-row justify-between">
-        <h4>Software engineer</h4>
-        <span>Feb 2022 / Present</span>
-      </div>
-      <p>
-        Tech leader in charge of supervising my team members, ensuring that
-        tasks are completed on time. Take decisions abour our tools and
-        software architecture. I also perform maintenance and quality tasks on
-        our systems. Environment is in Odoo.sh, with a backend architecture base on
-        modules, and the frontend is developed using latest version of Angular.
-      </p>
-    </div>
-  </div>
-  <div id="box-solvistas" class="box-experience">
-    <div id="box-left" class="box-section">
-      <a
-        class="grid"
-        href="https://www.solvistas.com/de"
-        target="_blank"
-        rel="noopener"
-      >
-        <div class="flex flex-row justify-start items-center gap-2">
-          <h3>Solvistas</h3>
-          <div class="link-icon">
-            <svg
-              width="40px"
-              height="40px"
-              viewBox="0 0 24 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14 12C14 14.7614 11.7614 17 9 17H7C4.23858 17 2 14.7614 2 12C2 9.23858 4.23858 7 7 7H7.5M10 12C10 9.23858 12.2386 7 15 7H17C19.7614 7 22 9.23858 22 12C22 14.7614 19.7614 17 17 17H16.5"
-                stroke="#cccccc"
-                stroke-width="2"
-                stroke-linecap="round"></path>
-            </svg>
-          </div>
-        </div>
-
-        <p>
-          Provide data science solutions and services in the classic disciplines such as analytics, data management, business intelligence and digitalization.
-        </p>
-      </a>
-    </div>
-    <div id="box-rigth" class="box-section">
-      <div class="flex flex-row justify-between">
-        <h4>Software engineer</h4>
-        <span>Sep 2020 / Feb 2022</span>
-      </div>
-      <p>
-        Participate on many projects, working with Java Spring and Angular mainly. The task
-        in backend were create REST API's, testing and documentation.
-        Design and implementation of new components, models and views for the web application using Angular and TypeScript.
-        Work with React Native implementing Relv.io App. Lead of the team, taking architecture decisions, managing the team tasks
-        and implementing features as well. Environment were using firebase cloud environment.
-        Worked as Scrum Master for a period of half year.
-      </p>
-    </div>
-  
-  </div>
-  <div id="box-tmc" class="box-experience">
-    <div id="box-left" class="box-section">
-      <a
-        class="grid"
-        href="https://www.tmconnected.com/en/home/"
-        target="_blank"
-        rel="noopener"
-      >
-        <div class="flex flex-row justify-start items-center gap-2">
-          <h3>TMC</h3>
-          <div class="link-icon">
-            <svg
-              width="40px"
-              height="40px"
-              viewBox="0 0 24 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14 12C14 14.7614 11.7614 17 9 17H7C4.23858 17 2 14.7614 2 12C2 9.23858 4.23858 7 7 7H7.5M10 12C10 9.23858 12.2386 7 15 7H17C19.7614 7 22 9.23858 22 12C22 14.7614 19.7614 17 17 17H16.5"
-                stroke="#cccccc"
-                stroke-width="2"
-                stroke-linecap="round"></path>
-            </svg>
-          </div>
-        </div>
-
-        <p>
-          Focus on solutions for rail-infrastructure and rail-traffic management.
-        </p>
-      </a>
-    </div>
-    <div id="box-rigth" class="box-section">
-      <div class="flex flex-row justify-between">
-        <h4>Full Stack Developer</h4>
-        <span>Jul 2018 / Sept 2020</span>
-      </div>
-      <p>
-        Desing and development of several projects in backend and frontend. The tasks in backend related projects 
-        be summarized in the creation of web services using rest protocols for communication and the implementation
-        of cloud data structures using Amazon Web Services (AWS) tools and environment. 
-        Desing and implementation of new views and components for the web application using Angular and TypeScript.
-      </p>
-    </div>
-  </div>
-  <div id="box-babel" class="box-experience">
-    <div id="box-left" class="box-section">
-      <a
-        class="grid"
-        href="https://babelgroup.com/en/"
-        target="_blank"
-        rel="noopener"
-      >
-        <div class="flex flex-row justify-start items-center gap-2">
-          <h3>Babel S.I</h3>
-          <div class="link-icon">
-            <svg
-              width="40px"
-              height="40px"
-              viewBox="0 0 24 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14 12C14 14.7614 11.7614 17 9 17H7C4.23858 17 2 14.7614 2 12C2 9.23858 4.23858 7 7 7H7.5M10 12C10 9.23858 12.2386 7 15 7H17C19.7614 7 22 9.23858 22 12C22 14.7614 19.7614 17 17 17H16.5"
-                stroke="#cccccc"
-                stroke-width="2"
-                stroke-linecap="round"></path>
-            </svg>
-          </div>
-        </div>
-
-        <p>
-          Help companies to improve their business processes and digital transformation.
-        </p>
-      </a>
-    </div>
-    <div id="box-rigth" class="box-section">
-      <div class="flex flex-row justify-between">
-        <h4>Full Stack Developer</h4>
-        <span>Sept 2015 / Jul 2018</span>
-      </div>
-      <p>
-        Design and implementation of services using Spring Boot and Maven for backend operations; modelling
-        and creating new data bases in Oracle; implementation of hybrid apps based on microservices and components
-        using Ionic. 
-      </p>
-    </div>
-  </div>
-  <div id="box-babel" class="box-experience">
-    <div id="box-left" class="box-section">
-      <a
-        class="grid"
-        href="https://babelgroup.com/en/"
-        target="_blank"
-        rel="noopener"
-      >
-        <div class="flex flex-row justify-start items-center gap-2">
-          <h3>Babel S.I</h3>
-          <div class="link-icon">
-            <svg
-              width="40px"
-              height="40px"
-              viewBox="0 0 24 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14 12C14 14.7614 11.7614 17 9 17H7C4.23858 17 2 14.7614 2 12C2 9.23858 4.23858 7 7 7H7.5M10 12C10 9.23858 12.2386 7 15 7H17C19.7614 7 22 9.23858 22 12C22 14.7614 19.7614 17 17 17H16.5"
-                stroke="#cccccc"
-                stroke-width="2"
-                stroke-linecap="round"></path>
-            </svg>
-          </div>
-        </div>
-
-        <p>
-          Help companies to improve their business processes and digital transformation.
-        </p>
-      </a>
-    </div>
-    <div id="box-rigth" class="box-section">
-      <div class="flex flex-row justify-between">
-        <h4>Intern</h4>
-        <span>Mar 2015 / Sept 2018</span>
-      </div>
-      <p>
-        Worked in several projects learning the basic points to deliver results, where the most important
-        actions were: define when a project starts, decide the best technologies and architecture and implement the consequent 
-        services in frontend and backend.
-      </p>
-    </div>
+      ))
+    }
   </div>
 </div>
 
 <style>
-  :root {
-    --text-company: #cccccc;
-    --text-company-info: #5e636e;
-    --text-other: #8f96a3;
-  }
-
-  button {
-    padding: 3px;
-    margin-bottom: 1px;
-    width: 85%;
-    background-color: var(--c-blue);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 0.75rem;
-    cursor: pointer;
-    transition:
-      background-color 0.3s,
-      transform 0.3s;
-  }
-
-  button:hover {
-    background-color: darken(var(--c-blue), 10%);
-    /* transform: scale(1.05); */
-  }
-
-  button:active {
-    background-color: darken(var(--c-blue), 20%);
-    transform: scale(0.95);
-  }
-  .container-section {
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 90%;
-    gap: 3rem;
-  }
-  .box-experience {
-    min-width: 100%;
-    border: 1px solid var(--c-blue);
-    border-radius: 20px;
-    display: grid;
-    grid-template-columns: 40% 60%;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    /* grid-template-rows: 1fr 70px; */
-  }
-
-  .box-experience:hover {
-    background: rgba(67, 114, 255, 0.08);
-    border-color: var(--c-blue);
-    box-shadow: 0 28px 96px rgba(0, 0, 0, 0.24);
-  }
-
-  @keyframes border-move {
-    0% {
-      border-image: linear-gradient(90deg, var(--c-blue) 0%, transparent 100%) 1;
-      border-radius: 20px;
-    }
-    25% {
-      border-image: linear-gradient(180deg, var(--c-blue) 0%, transparent 100%)
-        1;
-      border-radius: 20px;
-    }
-    50% {
-      border-image: linear-gradient(270deg, var(--c-blue) 0%, transparent 100%)
-        1;
-      border-radius: 20px;
-    }
-    75% {
-      border-image: linear-gradient(360deg, var(--c-blue) 0%, transparent 100%)
-        1;
-      border-radius: 20px;
-    }
-    100% {
-      border-image: linear-gradient(90deg, var(--c-blue) 0%, transparent 100%) 1;
-      border-radius: 20px;
-    }
-  }
-
-  .box-section {
-    padding: 1rem 3rem 1.5rem 3rem;
-    display: grid;
-  }
-
-  #box-left h3 {
-    font-size: 4vh;
-    font-weight: 600;
-    opacity: 0.8;
-  }
-  #box-left p {
-    opacity: 0.8;
-    font-weight: 500;
-    font-family: monospace;
-  }
-
-  #box-left > a {
-    display: grid;
-    row-gap: 1rem;
-    margin-bottom: 10px;
-  }
-  #box-rigth {
+  .company-header {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     gap: 0.5rem;
-  }
-  #box-rigth > div {
-    font-size: 1.5rem;
-    opacity: 0.7;
-  }
-  #box-rigth > p {
-    opacity: 0.5;
   }
 
   .link-icon {
+    display: inline-flex;
+    color: var(--text-grey);
     opacity: 0;
     transition: opacity 0.3s;
   }
 
-  #box-left:hover {
-    cursor: pointer;
-  }
-
-  #box-left:hover .link-icon {
+  .company-link:hover .link-icon,
+  .company-link:focus-visible .link-icon {
     opacity: 1;
   }
 
-  p {
-    text-align: justify;
+  /* Touch devices have no hover: keep the link hint visible */
+  @media (hover: none) {
+    .link-icon {
+      opacity: 0.7;
+    }
+  }
+
+  .role-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.25rem 1rem;
+  }
+
+  .role-period {
+    font-size: 0.95rem;
+    opacity: 0.6;
+    white-space: nowrap;
   }
 </style>

@@ -23,7 +23,7 @@ const skillGroups = [
 ];
 ---
 
-<div class="container-section skills-section">
+<div class="container-section section-list accent-yellow">
   <div>
     <h2 class="section-title">Skills</h2>
   </div>
@@ -36,16 +36,18 @@ const skillGroups = [
   <div class="skills-grid">
     {
       skillGroups.map((group) => (
-        <div class={`skill-group group-${group.color}`}>
-          <div class="group-header">
-            <span class={`group-dot dot-${group.color}`} />
-            <h3 class={`group-label label-${group.color}`}>{group.label}</h3>
+        <div class={`card card-single accent-${group.color}`}>
+          <div class="card-pane">
+            <div class="group-header">
+              <span class="group-dot" />
+              <h3 class="group-label">{group.label}</h3>
+            </div>
+            <ul class="skill-list">
+              {group.skills.map((skill) => (
+                <li class="skill-tag">{skill}</li>
+              ))}
+            </ul>
           </div>
-          <ul class="skill-list">
-            {group.skills.map((skill) => (
-              <li class={`skill-tag tag-${group.color}`}>{skill}</li>
-            ))}
-          </ul>
         </div>
       ))
     }
@@ -53,45 +55,30 @@ const skillGroups = [
 </div>
 
 <style>
-  .skills-section {
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 90%;
-    gap: 3rem;
-  }
-
   .intro {
     opacity: 0.6;
     font-size: 1.1rem;
+    line-height: 1.6;
     max-width: 60ch;
-    margin-bottom: var(--space-md);
   }
 
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm);
     width: 100%;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .skills-grid {
       grid-template-columns: 1fr;
     }
-  }
-
-  .skill-group {
-    border-radius: 16px;
-    padding: 1.5rem 2rem;
-    border: 1px solid transparent;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
   }
 
   .group-header {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-bottom: 1rem;
   }
 
   .group-dot {
@@ -99,9 +86,11 @@ const skillGroups = [
     height: 12px;
     border-radius: 3px;
     flex-shrink: 0;
+    background: var(--accent);
   }
 
   .group-label {
+    color: var(--accent);
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -123,61 +112,16 @@ const skillGroups = [
     border-radius: 999px;
     font-size: 0.875rem;
     font-weight: 500;
-    border: 1px solid transparent;
+    background: rgb(var(--accent-rgb) / 0.08);
+    border: 1px solid rgb(var(--accent-rgb) / 0.3);
+    color: var(--accent);
+    opacity: 0.8;
     transition: opacity 0.2s ease, transform 0.2s ease;
     cursor: default;
   }
 
   .skill-tag:hover {
-    opacity: 1 !important;
+    opacity: 1;
     transform: translateY(-2px);
-  }
-
-  /* Yellow — Skills */
-  .dot-yellow { background: var(--c-yellow); }
-  .label-yellow { color: var(--c-yellow); }
-  .group-yellow { border-color: rgba(255, 255, 0, 0.15); }
-  .group-yellow:hover { background: rgba(255, 255, 0, 0.05); border-color: rgba(255, 255, 0, 0.3); }
-  .tag-yellow {
-    background: rgba(255, 255, 0, 0.08);
-    border-color: rgba(255, 255, 0, 0.3);
-    color: var(--c-yellow);
-    opacity: 0.8;
-  }
-
-  /* Blue — Languages */
-  .dot-blue { background: var(--c-blue); }
-  .label-blue { color: var(--c-blue); }
-  .group-blue { border-color: rgba(67, 114, 255, 0.15); }
-  .group-blue:hover { background: rgba(67, 114, 255, 0.05); border-color: rgba(67, 114, 255, 0.3); }
-  .tag-blue {
-    background: rgba(67, 114, 255, 0.08);
-    border-color: rgba(67, 114, 255, 0.3);
-    color: var(--c-blue);
-    opacity: 0.8;
-  }
-
-  /* Orange — Databases */
-  .dot-orange { background: var(--c-orange); }
-  .label-orange { color: var(--c-orange); }
-  .group-orange { border-color: rgba(255, 102, 0, 0.15); }
-  .group-orange:hover { background: rgba(255, 102, 0, 0.05); border-color: rgba(255, 102, 0, 0.3); }
-  .tag-orange {
-    background: rgba(255, 102, 0, 0.08);
-    border-color: rgba(255, 102, 0, 0.3);
-    color: var(--c-orange);
-    opacity: 0.8;
-  }
-
-  /* Red — Cloud */
-  .dot-red { background: var(--c-red); }
-  .label-red { color: var(--c-red); }
-  .group-red { border-color: rgba(204, 0, 0, 0.15); }
-  .group-red:hover { background: rgba(204, 0, 0, 0.05); border-color: rgba(204, 0, 0, 0.3); }
-  .tag-red {
-    background: rgba(204, 0, 0, 0.08);
-    border-color: rgba(204, 0, 0, 0.3);
-    color: var(--c-red);
-    opacity: 0.8;
   }
 </style>

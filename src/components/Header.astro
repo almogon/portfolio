@@ -24,6 +24,50 @@ const styleDeFlag = {
   document.addEventListener('DOMContentLoaded', () => {
     const menuTextItems = document.querySelectorAll('.menu-item');
     const navigation = document.querySelector('.navigation');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    const mobileQuery = window.matchMedia('(max-width: 899px)');
+
+    const setMenuOpen = (open: boolean) => {
+      if (!(menuToggle instanceof HTMLButtonElement) || !(navigation instanceof HTMLElement)) {
+        return;
+      }
+      navigation.classList.toggle('menu-open', open);
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+
+    menuToggle?.addEventListener('click', () => {
+      setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (
+        navigation instanceof HTMLElement &&
+        event.target instanceof Node &&
+        !navigation.contains(event.target)
+      ) {
+        setMenuOpen(false);
+      }
+    });
+
+    mobileQuery.addEventListener('change', (event) => {
+      if (!event.matches) {
+        setMenuOpen(false);
+      }
+    });
+
+    menuOverlay?.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('a')) {
+        setMenuOpen(false);
+      }
+    });
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     const sections = Array.from(document.querySelectorAll('main section[id]')).filter(
       (section) => section instanceof HTMLElement
@@ -169,7 +213,7 @@ const styleDeFlag = {
   <nav class="navigation">
     <div id="filter-background"></div>
     <div class="nav-content">
-      <div class="flex direction-row items-center gap-4">
+      <div class="brand">
         <div class="svg-container">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -177,6 +221,7 @@ const styleDeFlag = {
             width="50"
             height="50"
             class="rotating-svg"
+            aria-hidden="true"
           >
             <g>
               <g>
@@ -193,12 +238,24 @@ const styleDeFlag = {
             </g>
           </svg>
         </div>
-        <a href="#about-me" class="logo-link text-3xl" aria-label="Back to top">
+        <a href="#about-me" class="logo-link" aria-label="Back to top">
           <span class="font-fantasy">Alvaro Morales</span>
         </a>
       </div>
 
-      <div class="menu-overlay">
+      <button
+        type="button"
+        class="menu-toggle"
+        aria-controls="site-menu"
+        aria-expanded="false"
+        aria-label="Open menu"
+      >
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+      </button>
+
+      <div class="menu-overlay" id="site-menu">
         <div class="menu-container">
           <ul class="menu">
             <li class="menu-item experience">
@@ -291,13 +348,25 @@ const styleDeFlag = {
 
   .nav-content {
     position: relative;
-    padding: 2rem;
+    max-width: calc(var(--content-max) + 2 * var(--page-gutter));
+    margin: 0 auto;
+    padding: clamp(1rem, 2.5vw, 2rem) var(--page-gutter);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
   }
 
-  .menu-overlay {
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+    min-width: 0;
+  }
+
+  .rotating-svg {
+    width: clamp(36px, 5vw, 50px);
+    height: auto;
   }
 
   .menu-container {
@@ -305,7 +374,6 @@ const styleDeFlag = {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
   }
 
   .menu {
@@ -319,22 +387,27 @@ const styleDeFlag = {
 
   .menu-item {
     overflow: hidden;
-    padding: 0px 10px;
+    padding: 0 clamp(0.4rem, 1vw, 0.75rem);
   }
 
-  .menu-item.experience:hover .menu-text {
-    color: var(--c-blue); 
+  .menu-item.experience:hover .menu-text,
+  .menu-item.active.experience .menu-text {
+    color: var(--c-blue);
   }
-  .menu-item.education:hover .menu-text {
+  .menu-item.education:hover .menu-text,
+  .menu-item.active.education .menu-text {
     color: var(--c-green);
   }
-  .menu-item.skills:hover .menu-text {
+  .menu-item.skills:hover .menu-text,
+  .menu-item.active.skills .menu-text {
     color: var(--c-yellow);
   }
-  .menu-item.references:hover .menu-text {
+  .menu-item.references:hover .menu-text,
+  .menu-item.active.references .menu-text {
     color: var(--c-orange);
   }
-  .menu-item.contact:hover .menu-text {
+  .menu-item.contact:hover .menu-text,
+  .menu-item.active.contact .menu-text {
     color: var(--c-red);
   }
 
@@ -342,28 +415,8 @@ const styleDeFlag = {
     opacity: 1;
   }
 
-  .menu-item.active.experience .menu-text {
-    color: var(--c-blue);
-  }
-
-  .menu-item.active.education .menu-text {
-    color: var(--c-green);
-  }
-
-  .menu-item.active.skills .menu-text {
-    color: var(--c-yellow);
-  }
-
-  .menu-item.active.references .menu-text {
-    color: var(--c-orange);
-  }
-
-  .menu-item.active.contact .menu-text {
-    color: var(--c-red);
-  }
-
   .menu-link {
-    font-size: clamp(1.5rem, 10vw, 1rem);
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
     text-decoration: none;
     color: var(--text);
     font-weight: 500;
@@ -376,10 +429,11 @@ const styleDeFlag = {
   }
 
   .logo-link {
-    min-width: 200px;
-    height: 2rem;
     display: flex;
     align-items: center;
+    font-size: clamp(1.4rem, 3vw, 1.875rem);
+    line-height: 1;
+    white-space: nowrap;
     color: var(--text);
     opacity: 0.7;
   }
@@ -388,14 +442,99 @@ const styleDeFlag = {
     opacity: 1;
   }
 
-  @media (min-width: var(--min-width-responsive-m)) {
-    .nav-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 5%;
+  /* Hamburger button, only shown on small screens */
+  .menu-toggle {
+    display: none;
+    position: relative;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .menu-toggle:hover,
+  .menu-toggle:focus-visible {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .menu-toggle-bar {
+    position: absolute;
+    left: 11px;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--text);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  .menu-toggle-bar:nth-child(1) { top: 14px; }
+  .menu-toggle-bar:nth-child(2) { top: 20px; }
+  .menu-toggle-bar:nth-child(3) { top: 26px; }
+
+  .menu-open .menu-toggle-bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .menu-open .menu-toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-open .menu-toggle-bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* Phone and portrait tablet: collapse the menu behind the hamburger */
+  @media (max-width: 899px) {
+    .menu-toggle {
+      display: block;
     }
-    .logo-link {
-      height: 2.5rem;
+
+    .menu-overlay {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: 0 var(--page-gutter) var(--space-xs);
+      background: var(--background);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+    }
+
+    .menu-open .menu-overlay {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
+    }
+
+    .menu-open #filter-background {
+      background: var(--background);
+    }
+
+    .menu-container {
+      justify-content: flex-start;
+    }
+
+    .menu {
+      width: 100%;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .menu-item {
+      padding: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .menu-link {
+      font-size: 1.25rem;
+      padding: 1rem 0;
     }
   }
 </style>

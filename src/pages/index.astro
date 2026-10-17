@@ -70,13 +70,10 @@ const sections = [
     scroll-margin-top: var(--anchor-offset);
   }
 
-  section:not(:first-of-type) > .container-section {
-    min-height: auto;
-    justify-content: flex-start;
-  }
-
   section:first-of-type {
     min-height: 100vh;
+    min-height: 100svh;
     justify-content: center;
+    padding-top: var(--header-height);
   }
 </style>

@@ -11,7 +11,7 @@ const { title }: LayoutProps = Astro.props as LayoutProps;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -23,6 +23,12 @@ const { title }: LayoutProps = Astro.props as LayoutProps;
 </html>
 
 <style is:global>
+  /*
+   * Breakpoints (CSS variables cannot be used inside media queries):
+   *   phone   < 768px
+   *   tablet  768px – 1023px
+   *   desktop >= 1024px
+   */
   :root {
     --background: #0e100f;
     --text: #ffffff;
@@ -37,17 +43,24 @@ const { title }: LayoutProps = Astro.props as LayoutProps;
     --c-blue: rgb(67 114 255);
     --raw-blue: 67 114 255;
     --c-green: rgb(0, 204, 0);
+    --raw-green: 0 204 0;
     --c-yellow: rgb(255, 255, 0);
+    --raw-yellow: 255 255 0;
     --c-orange: rgb(255, 102, 0);
+    --raw-orange: 255 102 0;
     --c-red: rgb(204, 0, 0);
-    --header-height: clamp(6rem, 10vw, 8rem);
+    --raw-red: 204 0 0;
+    --header-height: clamp(5rem, 10vw, 8rem);
     --section-gap: clamp(1.5rem, 3vw, 2.25rem);
     --anchor-offset: var(--header-height);
-    --min-width-responsive-m: 769px;
-    --min-width-responsive-xl: 1200px;
+    --content-max: 1200px;
+    --page-gutter: clamp(1rem, 5vw, 3rem);
+    --radius-card: clamp(14px, 2vw, 20px);
+    --card-padding-x: clamp(1.25rem, 3.5vw, 3rem);
+    --card-padding-y: clamp(1.25rem, 2vw, 1.5rem);
     --h1: clamp(2.5rem, 10vw, 8rem);
-    --h2: clamp(1rem, 5vw, 4rem);
-    --h3: clamp(0.5rem, 5vw, 4rem);
+    --h2: clamp(1.25rem, 5vw, 4rem);
+    --h3: clamp(1.25rem, 2.5vw, 2rem);
   }
   html {
     font-family: system-ui, sans-serif, serif, monospace, BlinkMacSystemFont,
@@ -59,12 +72,14 @@ const { title }: LayoutProps = Astro.props as LayoutProps;
     width: 100%;
     scroll-behavior: smooth;
     scroll-padding-top: var(--anchor-offset);
+    -webkit-text-size-adjust: 100%;
   }
   body {
     height: inherit;
     width: inherit;
     background: var(--background);
     color: var(--text);
+    overflow-x: hidden;
   }
 
   .container {
@@ -75,19 +90,145 @@ const { title }: LayoutProps = Astro.props as LayoutProps;
     width: 100%;
   }
 
+  /* Shared content column: header, hero and every section align to it */
   .container-section {
-    /* min-height: 50vh; */
-    width: 90vw;
+    width: 100%;
+    max-width: calc(var(--content-max) + 2 * var(--page-gutter));
+    padding-inline: var(--page-gutter);
+    margin-inline: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 5%;
+  }
+
+  /* Sections that list cards below their title */
+  .section-list {
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--space-md);
   }
 
   .section-title {
     font-size: clamp(2.5rem, 8vw, 5rem);
     font-weight: 700;
-    margin-bottom: 2rem;
+    line-height: 1.1;
+  }
+
+  /* Accent color per section */
+  .accent-blue { --accent: var(--c-blue); --accent-rgb: var(--raw-blue); }
+  .accent-green { --accent: var(--c-green); --accent-rgb: var(--raw-green); }
+  .accent-yellow { --accent: var(--c-yellow); --accent-rgb: var(--raw-yellow); }
+  .accent-orange { --accent: var(--c-orange); --accent-rgb: var(--raw-orange); }
+  .accent-red { --accent: var(--c-red); --accent-rgb: var(--raw-red); }
+
+  /* Shared card used by Experience, Education, Skills, References and Contact */
+  .card-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    width: 100%;
+  }
+
+  .card {
+    width: 100%;
+    border: 1px solid rgb(var(--accent-rgb, 255 255 255) / 0.8);
+    border-radius: var(--radius-card);
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card-single {
+    grid-template-columns: 1fr;
+  }
+
+  .card:hover {
+    background: rgb(var(--accent-rgb, 255 255 255) / 0.08);
+    border-color: var(--accent);
+    box-shadow: 0 28px 96px rgba(0, 0, 0, 0.24);
+  }
+
+  .card-pane {
+    padding: var(--card-padding-y) var(--card-padding-x);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .card-pane-right {
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .card-eyebrow {
+    color: var(--accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-size: var(--h3);
+    font-weight: 600;
+    line-height: 1.2;
+    opacity: 0.8;
+  }
+
+  .card-text {
+    opacity: 0.8;
+    font-weight: 500;
+    font-family: monospace;
+    line-height: 1.6;
+  }
+
+  .card-body {
+    opacity: 0.65;
+    line-height: 1.6;
+  }
+
+  .card-meta {
+    font-size: clamp(1.1rem, 1rem + 0.6vw, 1.5rem);
+    opacity: 0.7;
+  }
+
+  .card-link {
+    color: var(--text);
+    opacity: 0.85;
+    text-decoration: none;
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+    overflow-wrap: anywhere;
+    width: fit-content;
+    max-width: 100%;
+    border-bottom: 1px solid rgb(var(--accent-rgb, 255 255 255) / 0.35);
+    transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .card-link:hover,
+  .card-link:focus-visible {
+    opacity: 1;
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* Desktop: justified paragraphs (narrower columns get large word gaps) */
+  @media (min-width: 1024px) {
+    .card-text,
+    .card-body {
+      text-align: justify;
+    }
+  }
+
+  /* Phone: stack the card panes */
+  @media (max-width: 767px) {
+    .card {
+      grid-template-columns: 1fr;
+    }
+    .card-pane-right {
+      padding-top: 0;
+    }
   }
 
   @font-face {
