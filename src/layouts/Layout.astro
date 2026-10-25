@@ -7,12 +7,14 @@ interface LayoutProps {
   title: string;
   description: string;
   lang: Lang;
+  /** Pages outside the home (e.g. app privacy policies) pass their own path and have no language alternates */
+  path?: string;
 }
 
-const { title, description, lang }: LayoutProps = Astro.props as LayoutProps;
+const { title, description, lang, path }: LayoutProps = Astro.props as LayoutProps;
 const t = useTranslations(lang);
 const site = Astro.site ?? new URL('https://almogon.com');
-const canonical = new URL(localePath(lang), site).href;
+const canonical = new URL(path ?? localePath(lang), site).href;
 const ogImage = new URL('/og-image.png', site).href;
 
 // Structured data so search engines understand who the page is about
@@ -41,13 +43,13 @@ const personSchema = {
     <meta name="author" content={profile.name} />
     <meta name="theme-color" content="#0e100f" />
     <link rel="canonical" href={canonical} />
-    {langs.map((code) => <link rel="alternate" hreflang={code} href={new URL(localePath(code), site).href} />)}
-    <link rel="alternate" hreflang="x-default" href={new URL(localePath(defaultLang), site).href} />
+    {!path && langs.map((code) => <link rel="alternate" hreflang={code} href={new URL(localePath(code), site).href} />)}
+    {!path && <link rel="alternate" hreflang="x-default" href={new URL(localePath(defaultLang), site).href} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap.xml" />
     <link rel="preload" href="/fonts/Lato/Lato-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Lato/Lato-Bold.woff2" as="font" type="font/woff2" crossorigin />
-    <meta property="og:type" content="profile" />
+    <meta property="og:type" content={path ? 'website' : 'profile'} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

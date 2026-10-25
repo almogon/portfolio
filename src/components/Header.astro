@@ -13,7 +13,7 @@ const menuItems = [
   { id: 'experience', label: t.experience },
   { id: 'skills', label: t.skills },
   { id: 'education', label: t.education },
-  { id: 'references', label: t.references },
+  { id: 'apps', label: t.apps },
   { id: 'contact', label: t.contact },
 ] as const;
 ---
@@ -88,7 +88,7 @@ const menuItems = [
       if (sectionId === 'skills') {
         return 'var(--c-yellow)';
       }
-      if (sectionId === 'references') {
+      if (sectionId === 'apps') {
         return 'var(--c-orange)';
       }
       if (sectionId === 'contact') {
@@ -381,8 +381,8 @@ const menuItems = [
   .menu-item.active.skills .menu-text {
     color: var(--c-yellow);
   }
-  .menu-item.references:hover .menu-text,
-  .menu-item.active.references .menu-text {
+  .menu-item.apps:hover .menu-text,
+  .menu-item.active.apps .menu-text {
     color: var(--c-orange);
   }
   .menu-item.contact:hover .menu-text,

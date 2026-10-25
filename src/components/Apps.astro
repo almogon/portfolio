@@ -1,0 +1,172 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { apps } from '../data/apps';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const t = useTranslations(lang).apps;
+---
+
+<div class="container-section section-list accent-orange">
+  <div>
+    <h2 class="section-title">{t.title}</h2>
+    <p class="section-intro">{t.intro}</p>
+  </div>
+
+  <div class="apps-grid">
+    {
+      apps.map((app) => (
+        <article class="card card-single">
+          <div class="card-pane">
+            <div class="app-header">
+              <Image
+                class="app-icon"
+                src={app.icon}
+                alt={t.iconAlt(app.name)}
+                width={96}
+                height={96}
+                densities={[1, 2]}
+              />
+              <div class="app-heading">
+                <p class="card-eyebrow">{app.tagline[lang]}</p>
+                <h3 class="card-title">{app.name}</h3>
+                <p class="app-meta">
+                  <span class="status-badge">{app.status[lang]}</span>
+                  <span class="platforms">{app.platforms.join(' · ')}</span>
+                </p>
+              </div>
+            </div>
+
+            <p class="card-text">{app.description[lang]}</p>
+
+            <ul class="tag-list" aria-label={t.stack(app.name)}>
+              {app.stack.map((tech) => (
+                <li class="tag">{tech}</li>
+              ))}
+            </ul>
+
+            <div class="app-footer">
+              {app.website && (
+                <a class="card-link app-link" href={app.website} target="_blank" rel="noopener">
+                  <Icon name="arrow-up-right" />
+                  {t.website}
+                </a>
+              )}
+              {app.privacy && (
+                <a class="card-link app-link" href={app.privacy}>
+                  <Icon name="shield" />
+                  {t.privacy}
+                </a>
+              )}
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .apps-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm);
+    width: 100%;
+  }
+
+  @media (max-width: 1023px) {
+    .apps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .apps-grid .card-pane {
+    height: 100%;
+  }
+
+  .apps-grid .card-text {
+    text-align: left;
+    flex-grow: 1;
+  }
+
+  .app-header {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 1.5rem);
+  }
+
+  /* iOS-style rounded square with a thin ring in the section color */
+  .app-icon {
+    flex-shrink: 0;
+    width: clamp(72px, 9vw, 96px);
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 22%;
+    box-shadow:
+      0 0 0 1px rgb(var(--accent-rgb) / 0.45),
+      0 12px 32px rgba(0, 0, 0, 0.35);
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover .app-icon {
+    transform: rotate(-4deg) scale(1.04);
+  }
+
+  .app-heading {
+    min-width: 0;
+  }
+
+  .app-heading .card-eyebrow {
+    margin-bottom: 0.25rem;
+  }
+
+  .app-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .status-badge {
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    background: rgb(var(--accent-rgb) / 0.12);
+    border: 1px solid rgb(var(--accent-rgb) / 0.4);
+  }
+
+  .platforms {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .app-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgb(var(--accent-rgb) / 0.2);
+  }
+
+  .app-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .app-link svg {
+    flex-shrink: 0;
+  }
+</style>

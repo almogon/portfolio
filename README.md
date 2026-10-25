@@ -10,14 +10,15 @@ Personal portfolio of Álvaro Morales, tech lead and full stack developer, live 
 
 ## Design decisions
 
-- **One accent color per section.** Experience is blue, Skills yellow, Education green, References orange and Contact red. Each section sets `--accent` with an `accent-*` class, and the shared card, tag and link styles pick it up. The logo in the header changes to the color of the section in view.
+- **One accent color per section.** Experience is blue, Skills yellow, Education green, Apps orange and Contact red. Each section sets `--accent` with an `accent-*` class, and the shared card, tag and link styles pick it up. The logo in the header changes to the color of the section in view.
 - **Shared components instead of copies.** Every section is built from the same card (`.card`, `.card-pane`, `.card-title`, …) defined once in `src/layouts/Layout.astro`.
-- **Data-driven content.** Experience, skills, education and references live in `src/data/`, and personal details (name, links, career start) in `src/data/profile.ts`, so content changes never touch markup.
+- **Data-driven content.** Experience, skills, education and apps live in `src/data/`, and personal details (name, links, career start) in `src/data/profile.ts`, so content changes never touch markup.
 - **Three languages.** `src/pages/[...lang].astro` generates `/`, `/es/` and `/de/`. Interface strings live in `src/i18n/index.ts`, and every translatable content field is a `{ en, es, de }` object next to the rest of its data, so translations stay together. Each page has `hreflang` alternates and the sitemap lists all three.
 - **Career timeline.** Experience is a timeline; companies with several roles show a stepper of the progression, with durations and localized dates computed from the data.
 - **Responsive by default.** Fluid type and spacing with `clamp()`, three breakpoints (phone < 768px, tablet < 1024px, desktop), and a hamburger menu below 900px.
 - **Accessible.** WCAG AA color contrast, a skip link, visible focus states, semantic landmarks and `prefers-reduced-motion` support.
-- **Fast.** Self-hosted Lato in WOFF2 with preloading, an SVG favicon, and no images on the page.
+- **Fast.** Self-hosted Lato in WOFF2 with preloading, an SVG favicon, and the only images (app icons) optimized at build time with `astro:assets`.
+- **App pages.** Privacy policies of my apps live under `/apps/<app>/privacy/` (e.g. `src/pages/apps/duellum/privacy.astro`), outside the one-page cube, so the stores can link to them.
 - **Discoverable.** Canonical URLs, Open Graph and Twitter cards with a preview image, Person structured data (schema.org), `sitemap.xml` and `robots.txt`.
 
 ## Project structure
@@ -25,10 +26,11 @@ Personal portfolio of Álvaro Morales, tech lead and full stack developer, live 
 ```text
 src/
 ├── components/   # One component per section, plus Header, Footer and Icon
-├── data/         # Content: profile, experience, skills, education, references
+├── assets/apps/  # App icons, optimized by astro:assets
+├── data/         # Content: profile, experience, skills, education, apps
 ├── i18n/         # Languages, routing helpers and interface strings
 ├── layouts/      # Layout.astro: <head>, SEO tags, design tokens and shared styles
-└── pages/        # [...lang].astro (one page per language) and sitemap.xml.ts
+└── pages/        # [...lang].astro (one page per language), apps/ and sitemap.xml.ts
 public/
 ├── fonts/Lato/   # WOFF2 font files (SIL Open Font License)
 ├── favicon.svg
