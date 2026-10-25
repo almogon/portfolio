@@ -3,6 +3,12 @@ import type { Localized } from '../i18n';
 import duellumIcon from '../assets/apps/duellum.png';
 import rosterProIcon from '../assets/apps/rosterpro.png';
 
+// Owner and contact registered in the app stores (used by the app privacy and support pages)
+export const appOwner = {
+  name: 'Álvaro Morales González',
+  email: 'morales_rivas@hotmail.com',
+};
+
 // Store links (App Store / Google Play) are added here once the apps are live.
 export interface App {
   name: string;
@@ -14,6 +20,7 @@ export interface App {
   stack: string[];
   website?: string;
   privacy?: string;
+  support?: string;
 }
 
 export const apps: App[] = [
@@ -52,5 +59,6 @@ export const apps: App[] = [
     platforms: ['iOS'],
     stack: ['Flutter', 'Supabase', 'Riverpod'],
     privacy: '/apps/duellum/privacy/',
+    support: '/apps/duellum/support/',
   },
 ];

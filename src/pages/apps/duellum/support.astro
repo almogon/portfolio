@@ -1,0 +1,102 @@
+---
+import AppDocument from '../../../layouts/AppDocument.astro';
+import duellumIcon from '../../../assets/apps/duellum.png';
+import { appOwner } from '../../../data/apps';
+
+// Support page of the Duellum iOS app (Support URL in App Store Connect).
+const email = appOwner.email;
+const mailto = `mailto:${email}?subject=Duellum`;
+---
+
+<AppDocument
+  title="Duellum · Soporte · Support"
+  description="Ayuda y contacto de la app Duellum / Hilfe und Kontakt für die App Duellum / Help and contact for the Duellum app"
+  path="/apps/duellum/support/"
+  appName="Duellum"
+  icon={duellumIcon}
+  subtitle="Soporte · Support"
+  sections={[
+    { href: '#es', label: 'Español', hreflang: 'es' },
+    { href: '#de', label: 'Deutsch', hreflang: 'de' },
+    { href: '#en', label: 'English', hreflang: 'en' },
+    { href: '/apps/duellum/privacy/', label: 'Privacidad / Datenschutz / Privacy' },
+  ]}
+  owner={appOwner.name}
+>
+  <section id="es" lang="es">
+    <h2>Soporte (español)</h2>
+
+    <div class="box">
+      <strong>¿Necesitas ayuda?</strong> Escríbeme a <a href={mailto}>{email}</a> contando qué ha pasado y, si puedes, con una captura de pantalla. Respondo lo antes posible.
+    </div>
+
+    <h3>No encuentro cómo crear una cuenta</h3>
+    <p>Duellum es una app privada y no tiene registro abierto: las cuentas las crea el administrador. Si deberías tener acceso, escríbeme y te la creo.</p>
+
+    <h3>He olvidado mi contraseña</h3>
+    <ul>
+      <li>En la pantalla de inicio de sesión, pulsa <em>"¿Olvidaste tu contraseña?"</em> y escribe tu email.</li>
+      <li>Te llegará un email con un <strong>código</strong> (mira también en la carpeta de spam). Caduca en 1 hora.</li>
+      <li>Escribe el código en la app junto con tu contraseña nueva (mínimo 6 caracteres) y entrarás directamente.</li>
+    </ul>
+
+    <h3>No puedo hablar o escuchar ahora</h3>
+    <p>En los ejercicios de hablar y de escuchar tienes los botones <em>"No puedo hablar ahora"</em> y <em>"No puedo escuchar ahora"</em>. Saltan esos ejercicios durante 1 hora sin penalización. El micrófono solo se usa si das permiso.</p>
+
+    <h3>El Duelo no muestra a mi pareja</h3>
+    <p>Los dos tenéis que estar en el mismo grupo. Quien creó el Duelo tiene el código de invitación en <em>Perfil</em>; la otra persona se une con ese código.</p>
+
+    <h3>He hecho lecciones sin conexión</h3>
+    <p>No pasa nada: el progreso se guarda en el dispositivo y se sincroniza solo cuando vuelve la conexión.</p>
+
+    <h3>Quiero eliminar mi cuenta</h3>
+    <p>Ve a <em>Perfil → Eliminar cuenta</em> y confirma. Se borran tu cuenta, tu progreso y tu pertenencia al Duelo, sin tener que escribir a nadie. Más detalles en la <a href="/apps/duellum/privacy/#es">política de privacidad</a>.</p>
+  </section>
+
+  <section id="de" lang="de">
+    <h2>Support (Deutsch)</h2>
+
+    <div class="box">
+      <strong>Brauchst du Hilfe?</strong> Schreib mir an <a href={mailto}>{email}</a>, was passiert ist, wenn möglich mit einem Screenshot. Ich antworte so schnell wie möglich.
+    </div>
+
+    <h3>Ich finde keine Registrierung</h3>
+    <p>Duellum ist eine private App ohne offene Registrierung: Die Konten legt der Administrator an. Wenn du Zugang haben solltest, schreib mir und ich lege dein Konto an.</p>
+
+    <h3>Ich habe mein Passwort vergessen</h3>
+    <ul>
+      <li>Tippe auf dem Anmeldebildschirm auf <em>„Passwort vergessen?“</em> und gib deine E-Mail-Adresse ein.</li>
+      <li>Du bekommst eine E-Mail mit einem <strong>Code</strong> (schau auch im Spam-Ordner nach). Er ist 1 Stunde gültig.</li>
+      <li>Gib den Code zusammen mit deinem neuen Passwort (mindestens 6 Zeichen) in der App ein, dann bist du direkt angemeldet.</li>
+    </ul>
+
+    <h3>Ich kann gerade nicht sprechen oder zuhören</h3>
+    <p>Bei den Sprech- und Hörübungen gibt es die Schaltflächen <em>„Ich kann gerade nicht sprechen“</em> und <em>„Ich kann gerade nicht zuhören“</em>. Damit werden diese Übungen 1 Stunde lang ohne Nachteil übersprungen. Das Mikrofon wird nur mit deiner Erlaubnis genutzt.</p>
+
+    <h3>Im Duell sehe ich meinen Partner nicht</h3>
+    <p>Ihr müsst beide in derselben Gruppe sein. Wer das Duell erstellt hat, findet den Einladungscode unter <em>Profil</em>; die andere Person tritt mit diesem Code bei.</p>
+
+    <h3>Ich habe offline Lektionen gemacht</h3>
+    <p>Kein Problem: Der Fortschritt wird auf dem Gerät gespeichert und automatisch synchronisiert, sobald du wieder online bist.</p>
+
+    <h3>Ich möchte mein Konto löschen</h3>
+    <p>Geh zu <em>Profil → Konto löschen</em> und bestätige. Dein Konto, dein Fortschritt und deine Duell-Mitgliedschaft werden gelöscht, ohne dass du jemandem schreiben musst. Mehr dazu in der <a href="/apps/duellum/privacy/#de">Datenschutzerklärung</a>.</p>
+  </section>
+
+  <section id="en" lang="en">
+    <h2>Support (English)</h2>
+
+    <div class="box">
+      <strong>Need help?</strong> Email me at <a href={mailto}>{email}</a> with what happened and, if you can, a screenshot. I reply as soon as possible.
+    </div>
+
+    <ul>
+      <li><strong>No sign-up:</strong> Duellum is a private app; the administrator creates every account. If you should have access, email me.</li>
+      <li><strong>Forgot your password:</strong> on the sign-in screen tap "¿Olvidaste tu contraseña? · Passwort vergessen?", enter your email, then type the <strong>code</strong> you receive (check your spam folder; valid for 1 hour) together with a new password of at least 6 characters.</li>
+      <li><strong>Can't speak or listen right now:</strong> the "No puedo hablar / escuchar ahora" ("Ich kann gerade nicht sprechen / zuhören") buttons skip those exercises for 1 hour with no penalty. The microphone is only used with your permission.</li>
+      <li><strong>Your partner is missing from the Duel:</strong> both of you must be in the same group. The person who created it finds the invite code in the Profile tab (Perfil / Profil).</li>
+      <li><strong>Lessons done offline:</strong> progress is saved on the device and synced automatically when you are back online.</li>
+      <li><strong>Delete your account:</strong> Perfil → Eliminar cuenta (Profil → Konto löschen), then confirm. See the <a href="/apps/duellum/privacy/#en">privacy policy</a>.</li>
+    </ul>
+  </section>
+</AppDocument>

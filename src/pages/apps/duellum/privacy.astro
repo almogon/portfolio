@@ -1,395 +1,186 @@
 ---
-import { Image } from 'astro:assets';
-import Layout from '../../../layouts/Layout.astro';
+import AppDocument from '../../../layouts/AppDocument.astro';
 import duellumIcon from '../../../assets/apps/duellum.png';
+import { appOwner } from '../../../data/apps';
 
 // Privacy policy of the Duellum iOS app, linked from App Store Connect.
 // Source of truth for the text: duellum/docs/release/privacidad.html; keep both in sync.
-// Controller and contact are the ones registered for the app, not the portfolio profile.
 const updated = '25/10/2026';
-const controller = 'Álvaro Morales González';
-const email = 'morales_rivas@hotmail.com';
+const controller = appOwner.name;
+const email = appOwner.email;
 const region = { es: 'eu-west-1 (Irlanda, UE)', de: 'eu-west-1 (Irland, EU)', en: 'eu-west-1 (Ireland, EU)' };
 ---
 
-<Layout
+<AppDocument
   title="Duellum · Privacidad · Datenschutz · Privacy"
   description="Política de privacidad de la app Duellum / Datenschutzerklärung der App Duellum / Privacy policy of the Duellum app"
-  lang="es"
   path="/apps/duellum/privacy/"
+  appName="Duellum"
+  icon={duellumIcon}
+  subtitle="Política de privacidad · Datenschutzerklärung · Privacy policy"
+  sections={[
+    { href: '#es', label: 'Español', hreflang: 'es' },
+    { href: '#de', label: 'Deutsch', hreflang: 'de' },
+    { href: '#en', label: 'English', hreflang: 'en' },
+    { href: '/apps/duellum/support/', label: 'Soporte / Support' },
+  ]}
+  updated={updated}
+  owner={controller}
 >
-  <header class="policy-header container-section accent-orange">
-    <a class="back-link" href="/es/#apps">
-      <span class="back-arrow" aria-hidden="true">←</span>
-      almogon.com
-    </a>
-    <div class="app-title">
-      <Image class="app-icon" src={duellumIcon} alt="" width={72} height={72} densities={[1, 2]} />
-      <div>
-        <h1>Duellum</h1>
-        <p class="muted">Política de privacidad · Datenschutzerklärung · Privacy policy</p>
-      </div>
+  <section id="es" lang="es">
+    <h2>Política de privacidad (español)</h2>
+
+    <p>Duellum es una app privada para aprender idiomas en pareja. No tiene registro abierto: solo pueden entrar las cuentas que crea el administrador. No muestra anuncios, no tiene compras dentro de la app, no usa herramientas de analítica y no hace seguimiento (<i>tracking</i>) de ningún tipo.</p>
+
+    <h3>1. Responsable del tratamiento</h3>
+    <div class="box">
+      <strong>{controller}</strong><br />
+      Email: <a href={`mailto:${email}`}>{email}</a>
     </div>
-    <nav class="lang-nav" aria-label="Idioma / Sprache / Language">
-      <a href="#es" hreflang="es">Español</a>
-      <a href="#de" hreflang="de">Deutsch</a>
-      <a href="#en" hreflang="en">English</a>
-      <a href="#contacto">Contacto / Kontakt</a>
-    </nav>
-    <p class="muted">Última actualización / Letzte Aktualisierung / Last updated: <strong>{updated}</strong></p>
-  </header>
 
-  <main id="main" tabindex="-1" class="policy container-section accent-orange">
-    <section id="es" lang="es">
-      <h2>Política de privacidad (español)</h2>
+    <h3>2. Qué datos tratamos</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Dato</th><th>Ejemplo</th><th>Origen</th></tr>
+        <tr><td>Email de la cuenta</td><td>nombre@ejemplo.com</td><td>Lo introduce el administrador al crear la cuenta.</td></tr>
+        <tr><td>Contraseña</td><td>Se guarda solo cifrada (hash); nadie puede leerla.</td><td>Administrador / usuario al restablecerla.</td></tr>
+        <tr><td>ID de usuario</td><td>Identificador interno aleatorio (UUID)</td><td>Se genera automáticamente.</td></tr>
+        <tr><td>Nombre visible</td><td>El nombre que ve tu pareja en el Duelo</td><td>Administrador o usuario.</td></tr>
+        <tr><td>Progreso de aprendizaje</td><td>XP, racha, lecciones completadas, objetivo diario, corazones, gemas, errores para repasar, resultados del test de nivel, grupo de pareja</td><td>Se genera al usar la app.</td></tr>
+      </table>
+    </div>
+    <p><strong>No tratamos</strong>: ubicación, contactos, fotos, datos de pago, identificadores publicitarios ni datos de uso con fines de analítica. Tampoco guardamos grabaciones de voz (ver apartado 6).</p>
 
-      <p>Duellum es una app privada para aprender idiomas en pareja. No tiene registro abierto: solo pueden entrar las cuentas que crea el administrador. No muestra anuncios, no tiene compras dentro de la app, no usa herramientas de analítica y no hace seguimiento (<i>tracking</i>) de ningún tipo.</p>
+    <h3>3. Para qué los usamos</h3>
+    <ul>
+      <li>Permitirte iniciar sesión y mantener tu cuenta.</li>
+      <li>Guardar y sincronizar tu progreso entre dispositivos (y conservarlo sin conexión).</li>
+      <li>Mostrar a tu pareja, dentro del Duelo, tu nombre visible, tu racha, tu XP y tu unidad actual, y a ti los suyos.</li>
+      <li>Enviarte, si lo pides, un email para restablecer la contraseña.</li>
+    </ul>
+    <p>No usamos los datos para publicidad, perfiles comerciales ni decisiones automatizadas, y no los vendemos ni los cedemos a terceros.</p>
 
-      <h3>1. Responsable del tratamiento</h3>
-      <div class="box">
-        <strong>{controller}</strong><br />
-        Email: <a href={`mailto:${email}`}>{email}</a>
-      </div>
+    <h3>4. Base legal (RGPD)</h3>
+    <ul>
+      <li><strong>Ejecución del contrato</strong> (art. 6.1.b RGPD): prestar el servicio que pides al usar la app (cuenta, progreso, Duelo).</li>
+      <li><strong>Interés legítimo</strong> (art. 6.1.f RGPD): la seguridad básica del servicio (por ejemplo, registros técnicos del proveedor para evitar abusos).</li>
+    </ul>
 
-      <h3>2. Qué datos tratamos</h3>
-      <div class="table-wrap">
-        <table>
-          <tr><th>Dato</th><th>Ejemplo</th><th>Origen</th></tr>
-          <tr><td>Email de la cuenta</td><td>nombre@ejemplo.com</td><td>Lo introduce el administrador al crear la cuenta.</td></tr>
-          <tr><td>Contraseña</td><td>Se guarda solo cifrada (hash); nadie puede leerla.</td><td>Administrador / usuario al restablecerla.</td></tr>
-          <tr><td>ID de usuario</td><td>Identificador interno aleatorio (UUID)</td><td>Se genera automáticamente.</td></tr>
-          <tr><td>Nombre visible</td><td>El nombre que ve tu pareja en el Duelo</td><td>Administrador o usuario.</td></tr>
-          <tr><td>Progreso de aprendizaje</td><td>XP, racha, lecciones completadas, objetivo diario, corazones, gemas, errores para repasar, resultados del test de nivel, grupo de pareja</td><td>Se genera al usar la app.</td></tr>
-        </table>
-      </div>
-      <p><strong>No tratamos</strong>: ubicación, contactos, fotos, datos de pago, identificadores publicitarios ni datos de uso con fines de analítica. Tampoco guardamos grabaciones de voz (ver apartado 6).</p>
+    <h3>5. Encargado del tratamiento</h3>
+    <p>Los datos se alojan en <strong>Supabase</strong> (Supabase, Inc., EE. UU.), que actúa como encargado del tratamiento con un acuerdo de tratamiento de datos (DPA). Región del servidor: <strong>{region.es}</strong>. Si hubiera transferencias fuera del Espacio Económico Europeo, se amparan en las cláusulas contractuales tipo de la Comisión Europea incluidas en el DPA de Supabase. La comunicación entre la app y el servidor va siempre cifrada (HTTPS). Los emails para restablecer la contraseña se envían a través de <strong>Resend</strong>.</p>
 
-      <h3>3. Para qué los usamos</h3>
-      <ul>
-        <li>Permitirte iniciar sesión y mantener tu cuenta.</li>
-        <li>Guardar y sincronizar tu progreso entre dispositivos (y conservarlo sin conexión).</li>
-        <li>Mostrar a tu pareja, dentro del Duelo, tu nombre visible, tu racha, tu XP y tu unidad actual, y a ti los suyos.</li>
-        <li>Enviarte, si lo pides, un email para restablecer la contraseña.</li>
-      </ul>
-      <p>No usamos los datos para publicidad, perfiles comerciales ni decisiones automatizadas, y no los vendemos ni los cedemos a terceros.</p>
+    <h3>6. Micrófono, reconocimiento de voz y texto a voz</h3>
+    <ul>
+      <li>El micrófono solo se usa en los ejercicios de hablar, y solo si das permiso. Es opcional: con el botón <em>"No puedo hablar ahora"</em> puedes saltar esos ejercicios.</li>
+      <li>El reconocimiento de voz lo hace el <strong>servicio de reconocimiento de voz del sistema de Apple</strong> (iOS). Según la configuración del dispositivo, puede hacerse en el propio iPhone o en los servidores de Apple, con la <a href="https://www.apple.com/legal/privacy/" rel="noopener">política de privacidad de Apple</a>.</li>
+      <li>La app solo recibe el texto reconocido, lo compara con la frase del ejercicio en el dispositivo y lo descarta. <strong>Duellum no guarda ni envía grabaciones de voz ni transcripciones</strong> a sus servidores.</li>
+      <li>La lectura en voz alta (texto a voz) usa las voces del sistema y se hace en el dispositivo.</li>
+    </ul>
 
-      <h3>4. Base legal (RGPD)</h3>
-      <ul>
-        <li><strong>Ejecución del contrato</strong> (art. 6.1.b RGPD): prestar el servicio que pides al usar la app (cuenta, progreso, Duelo).</li>
-        <li><strong>Interés legítimo</strong> (art. 6.1.f RGPD): la seguridad básica del servicio (por ejemplo, registros técnicos del proveedor para evitar abusos).</li>
-      </ul>
+    <h3>7. Cuánto tiempo los conservamos</h3>
+    <p>Mientras tu cuenta exista. Si la eliminas, se borran de forma inmediata tu cuenta y todo tu progreso. Si el proveedor conserva copias de seguridad automáticas, los datos borrados desaparecen de ellas cuando se sustituyen, según los plazos de retención de Supabase. Los datos guardados en caché en tu dispositivo se borran al cerrar sesión, al eliminar la cuenta o al desinstalar la app.</p>
 
-      <h3>5. Encargado del tratamiento</h3>
-      <p>Los datos se alojan en <strong>Supabase</strong> (Supabase, Inc., EE. UU.), que actúa como encargado del tratamiento con un acuerdo de tratamiento de datos (DPA). Región del servidor: <strong>{region.es}</strong>. Si hubiera transferencias fuera del Espacio Económico Europeo, se amparan en las cláusulas contractuales tipo de la Comisión Europea incluidas en el DPA de Supabase. La comunicación entre la app y el servidor va siempre cifrada (HTTPS). Los emails para restablecer la contraseña se envían a través de <strong>Resend</strong>.</p>
+    <h3>8. Tus derechos y cómo eliminar tu cuenta</h3>
+    <p>Puedes ejercer en cualquier momento tus derechos de acceso, rectificación, supresión, limitación, portabilidad y oposición escribiendo a <a href={`mailto:${email}`}>{email}</a>.</p>
+    <div class="box">
+      <strong>Eliminar la cuenta desde la app:</strong> <em>Perfil → Eliminar cuenta</em> y confirmar. Se borran tu cuenta, tu progreso y tu pertenencia al Duelo. No hace falta escribir a nadie.
+    </div>
+    <p>También puedes reclamar ante la autoridad de control: en España la <a href="https://www.aepd.es" rel="noopener">Agencia Española de Protección de Datos</a>; en Alemania, la autoridad de protección de datos de tu estado federado.</p>
 
-      <h3>6. Micrófono, reconocimiento de voz y texto a voz</h3>
-      <ul>
-        <li>El micrófono solo se usa en los ejercicios de hablar, y solo si das permiso. Es opcional: con el botón <em>"No puedo hablar ahora"</em> puedes saltar esos ejercicios.</li>
-        <li>El reconocimiento de voz lo hace el <strong>servicio de reconocimiento de voz del sistema de Apple</strong> (iOS). Según la configuración del dispositivo, puede hacerse en el propio iPhone o en los servidores de Apple, con la <a href="https://www.apple.com/legal/privacy/" rel="noopener">política de privacidad de Apple</a>.</li>
-        <li>La app solo recibe el texto reconocido, lo compara con la frase del ejercicio en el dispositivo y lo descarta. <strong>Duellum no guarda ni envía grabaciones de voz ni transcripciones</strong> a sus servidores.</li>
-        <li>La lectura en voz alta (texto a voz) usa las voces del sistema y se hace en el dispositivo.</li>
-      </ul>
+    <h3>9. Menores</h3>
+    <p>Duellum no está dirigida a menores de 16 años y no crea cuentas para ellos a sabiendas. Las cuentas solo las crea el administrador, para personas adultas concretas. Si crees que se ha creado una cuenta de un menor, escríbenos y la eliminaremos.</p>
 
-      <h3>7. Cuánto tiempo los conservamos</h3>
-      <p>Mientras tu cuenta exista. Si la eliminas, se borran de forma inmediata tu cuenta y todo tu progreso. Si el proveedor conserva copias de seguridad automáticas, los datos borrados desaparecen de ellas cuando se sustituyen, según los plazos de retención de Supabase. Los datos guardados en caché en tu dispositivo se borran al cerrar sesión, al eliminar la cuenta o al desinstalar la app.</p>
+    <h3>10. Cambios</h3>
+    <p>Si cambiamos esta política, actualizaremos la fecha de arriba y, si el cambio es importante, te avisaremos dentro de la app.</p>
 
-      <h3>8. Tus derechos y cómo eliminar tu cuenta</h3>
-      <p>Puedes ejercer en cualquier momento tus derechos de acceso, rectificación, supresión, limitación, portabilidad y oposición escribiendo a <a href={`mailto:${email}`}>{email}</a>.</p>
-      <div class="box">
-        <strong>Eliminar la cuenta desde la app:</strong> <em>Perfil → Eliminar cuenta</em> y confirmar. Se borran tu cuenta, tu progreso y tu pertenencia al Duelo. No hace falta escribir a nadie.
-      </div>
-      <p>También puedes reclamar ante la autoridad de control: en España la <a href="https://www.aepd.es" rel="noopener">Agencia Española de Protección de Datos</a>; en Alemania, la autoridad de protección de datos de tu estado federado.</p>
+    <h3 id="contacto">11. Contacto</h3>
+    <p>Para cualquier duda sobre privacidad o soporte: <a href={`mailto:${email}`}>{email}</a>.</p>
+  </section>
 
-      <h3>9. Menores</h3>
-      <p>Duellum no está dirigida a menores de 16 años y no crea cuentas para ellos a sabiendas. Las cuentas solo las crea el administrador, para personas adultas concretas. Si crees que se ha creado una cuenta de un menor, escríbenos y la eliminaremos.</p>
+  <section id="de" lang="de">
+    <h2>Datenschutzerklärung (Deutsch)</h2>
 
-      <h3>10. Cambios</h3>
-      <p>Si cambiamos esta política, actualizaremos la fecha de arriba y, si el cambio es importante, te avisaremos dentro de la app.</p>
+    <p>Duellum ist eine private App, mit der ein Paar gemeinsam Sprachen lernt. Es gibt keine offene Registrierung: Nur vom Administrator angelegte Konten können sich anmelden. Die App zeigt keine Werbung, hat keine In-App-Käufe, nutzt keine Analyse-Tools und betreibt keinerlei Tracking.</p>
 
-      <h3 id="contacto">11. Contacto</h3>
-      <p>Para cualquier duda sobre privacidad o soporte: <a href={`mailto:${email}`}>{email}</a>.</p>
-    </section>
+    <h3>1. Verantwortlicher</h3>
+    <div class="box">
+      <strong>{controller}</strong><br />
+      E-Mail: <a href={`mailto:${email}`}>{email}</a>
+    </div>
 
-    <section id="de" lang="de">
-      <h2>Datenschutzerklärung (Deutsch)</h2>
+    <h3>2. Welche Daten wir verarbeiten</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Daten</th><th>Beispiel</th><th>Herkunft</th></tr>
+        <tr><td>E-Mail-Adresse des Kontos</td><td>name@beispiel.de</td><td>Wird vom Administrator beim Anlegen des Kontos eingetragen.</td></tr>
+        <tr><td>Passwort</td><td>Wird nur verschlüsselt (Hash) gespeichert; niemand kann es lesen.</td><td>Administrator / Nutzer beim Zurücksetzen.</td></tr>
+        <tr><td>Nutzer-ID</td><td>Zufällige interne Kennung (UUID)</td><td>Wird automatisch erzeugt.</td></tr>
+        <tr><td>Anzeigename</td><td>Der Name, den dein Partner im Duell sieht</td><td>Administrator oder Nutzer.</td></tr>
+        <tr><td>Lernfortschritt</td><td>XP, Streak, abgeschlossene Lektionen, Tagesziel, Herzen, Edelsteine, Fehler zum Wiederholen, Ergebnisse des Einstufungstests, Paar-Gruppe</td><td>Entsteht bei der Nutzung der App.</td></tr>
+      </table>
+    </div>
+    <p><strong>Wir verarbeiten nicht</strong>: Standort, Kontakte, Fotos, Zahlungsdaten, Werbe-IDs oder Nutzungsdaten zu Analysezwecken. Sprachaufnahmen werden ebenfalls nicht gespeichert (siehe Abschnitt 6).</p>
 
-      <p>Duellum ist eine private App, mit der ein Paar gemeinsam Sprachen lernt. Es gibt keine offene Registrierung: Nur vom Administrator angelegte Konten können sich anmelden. Die App zeigt keine Werbung, hat keine In-App-Käufe, nutzt keine Analyse-Tools und betreibt keinerlei Tracking.</p>
+    <h3>3. Wofür wir sie verwenden</h3>
+    <ul>
+      <li>Um dir die Anmeldung zu ermöglichen und dein Konto zu führen.</li>
+      <li>Um deinen Fortschritt zu speichern und zwischen Geräten zu synchronisieren (auch offline).</li>
+      <li>Um deinem Partner im Duell deinen Anzeigenamen, deinen Streak, deine XP und deine aktuelle Einheit zu zeigen, und dir seine.</li>
+      <li>Um dir auf Wunsch eine E-Mail zum Zurücksetzen des Passworts zu schicken.</li>
+    </ul>
+    <p>Wir nutzen die Daten nicht für Werbung, kommerzielle Profile oder automatisierte Entscheidungen und verkaufen oder übermitteln sie nicht an Dritte.</p>
 
-      <h3>1. Verantwortlicher</h3>
-      <div class="box">
-        <strong>{controller}</strong><br />
-        E-Mail: <a href={`mailto:${email}`}>{email}</a>
-      </div>
+    <h3>4. Rechtsgrundlage (DSGVO)</h3>
+    <ul>
+      <li><strong>Vertragserfüllung</strong> (Art. 6 Abs. 1 lit. b DSGVO): Bereitstellung des Dienstes, den du durch die Nutzung der App anforderst (Konto, Fortschritt, Duell).</li>
+      <li><strong>Berechtigtes Interesse</strong> (Art. 6 Abs. 1 lit. f DSGVO): grundlegende Sicherheit des Dienstes (z. B. technische Protokolle des Anbieters zur Missbrauchsabwehr).</li>
+    </ul>
 
-      <h3>2. Welche Daten wir verarbeiten</h3>
-      <div class="table-wrap">
-        <table>
-          <tr><th>Daten</th><th>Beispiel</th><th>Herkunft</th></tr>
-          <tr><td>E-Mail-Adresse des Kontos</td><td>name@beispiel.de</td><td>Wird vom Administrator beim Anlegen des Kontos eingetragen.</td></tr>
-          <tr><td>Passwort</td><td>Wird nur verschlüsselt (Hash) gespeichert; niemand kann es lesen.</td><td>Administrator / Nutzer beim Zurücksetzen.</td></tr>
-          <tr><td>Nutzer-ID</td><td>Zufällige interne Kennung (UUID)</td><td>Wird automatisch erzeugt.</td></tr>
-          <tr><td>Anzeigename</td><td>Der Name, den dein Partner im Duell sieht</td><td>Administrator oder Nutzer.</td></tr>
-          <tr><td>Lernfortschritt</td><td>XP, Streak, abgeschlossene Lektionen, Tagesziel, Herzen, Edelsteine, Fehler zum Wiederholen, Ergebnisse des Einstufungstests, Paar-Gruppe</td><td>Entsteht bei der Nutzung der App.</td></tr>
-        </table>
-      </div>
-      <p><strong>Wir verarbeiten nicht</strong>: Standort, Kontakte, Fotos, Zahlungsdaten, Werbe-IDs oder Nutzungsdaten zu Analysezwecken. Sprachaufnahmen werden ebenfalls nicht gespeichert (siehe Abschnitt 6).</p>
+    <h3>5. Auftragsverarbeiter</h3>
+    <p>Die Daten werden bei <strong>Supabase</strong> (Supabase, Inc., USA) gespeichert, das als Auftragsverarbeiter auf Grundlage eines Auftragsverarbeitungsvertrags (DPA) tätig ist. Serverregion: <strong>{region.de}</strong>. Sollten Daten außerhalb des Europäischen Wirtschaftsraums übermittelt werden, geschieht dies auf Grundlage der EU-Standardvertragsklauseln im DPA von Supabase. Die Verbindung zwischen App und Server ist immer verschlüsselt (HTTPS). E-Mails zum Zurücksetzen des Passworts werden über <strong>Resend</strong> versendet.</p>
 
-      <h3>3. Wofür wir sie verwenden</h3>
-      <ul>
-        <li>Um dir die Anmeldung zu ermöglichen und dein Konto zu führen.</li>
-        <li>Um deinen Fortschritt zu speichern und zwischen Geräten zu synchronisieren (auch offline).</li>
-        <li>Um deinem Partner im Duell deinen Anzeigenamen, deinen Streak, deine XP und deine aktuelle Einheit zu zeigen, und dir seine.</li>
-        <li>Um dir auf Wunsch eine E-Mail zum Zurücksetzen des Passworts zu schicken.</li>
-      </ul>
-      <p>Wir nutzen die Daten nicht für Werbung, kommerzielle Profile oder automatisierte Entscheidungen und verkaufen oder übermitteln sie nicht an Dritte.</p>
+    <h3>6. Mikrofon, Spracherkennung und Sprachausgabe</h3>
+    <ul>
+      <li>Das Mikrofon wird nur bei den Sprechübungen genutzt und nur, wenn du es erlaubst. Es ist optional: Mit <em>„Ich kann gerade nicht sprechen“</em> überspringst du diese Übungen.</li>
+      <li>Die Spracherkennung übernimmt der <strong>Spracherkennungsdienst des Apple-Betriebssystems</strong> (iOS). Je nach Geräteeinstellung erfolgt sie auf dem iPhone selbst oder auf Servern von Apple, gemäß der <a href="https://www.apple.com/de/legal/privacy/" rel="noopener">Datenschutzrichtlinie von Apple</a>.</li>
+      <li>Die App erhält nur den erkannten Text, vergleicht ihn auf dem Gerät mit dem Satz der Übung und verwirft ihn. <strong>Duellum speichert keine Sprachaufnahmen oder Transkripte und sendet sie nicht an seine Server.</strong></li>
+      <li>Das Vorlesen (Sprachausgabe) nutzt die Systemstimmen und erfolgt auf dem Gerät.</li>
+    </ul>
 
-      <h3>4. Rechtsgrundlage (DSGVO)</h3>
-      <ul>
-        <li><strong>Vertragserfüllung</strong> (Art. 6 Abs. 1 lit. b DSGVO): Bereitstellung des Dienstes, den du durch die Nutzung der App anforderst (Konto, Fortschritt, Duell).</li>
-        <li><strong>Berechtigtes Interesse</strong> (Art. 6 Abs. 1 lit. f DSGVO): grundlegende Sicherheit des Dienstes (z. B. technische Protokolle des Anbieters zur Missbrauchsabwehr).</li>
-      </ul>
+    <h3>7. Speicherdauer</h3>
+    <p>So lange dein Konto besteht. Wenn du es löschst, werden dein Konto und dein gesamter Fortschritt sofort gelöscht. Falls der Anbieter automatische Backups aufbewahrt, verschwinden gelöschte Daten daraus, sobald diese ersetzt werden, gemäß den Aufbewahrungsfristen von Supabase. Im Cache deines Geräts gespeicherte Daten werden beim Abmelden, beim Löschen des Kontos oder beim Deinstallieren der App entfernt.</p>
 
-      <h3>5. Auftragsverarbeiter</h3>
-      <p>Die Daten werden bei <strong>Supabase</strong> (Supabase, Inc., USA) gespeichert, das als Auftragsverarbeiter auf Grundlage eines Auftragsverarbeitungsvertrags (DPA) tätig ist. Serverregion: <strong>{region.de}</strong>. Sollten Daten außerhalb des Europäischen Wirtschaftsraums übermittelt werden, geschieht dies auf Grundlage der EU-Standardvertragsklauseln im DPA von Supabase. Die Verbindung zwischen App und Server ist immer verschlüsselt (HTTPS). E-Mails zum Zurücksetzen des Passworts werden über <strong>Resend</strong> versendet.</p>
+    <h3>8. Deine Rechte und Löschung des Kontos</h3>
+    <p>Du kannst jederzeit deine Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch geltend machen: <a href={`mailto:${email}`}>{email}</a>.</p>
+    <div class="box">
+      <strong>Konto in der App löschen:</strong> <em>Profil → Konto löschen</em> und bestätigen. Dein Konto, dein Fortschritt und deine Duell-Mitgliedschaft werden gelöscht. Du musst niemandem schreiben.
+    </div>
+    <p>Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, in Deutschland bei der Behörde deines Bundeslandes, in Spanien bei der <a href="https://www.aepd.es" rel="noopener">AEPD</a>.</p>
 
-      <h3>6. Mikrofon, Spracherkennung und Sprachausgabe</h3>
-      <ul>
-        <li>Das Mikrofon wird nur bei den Sprechübungen genutzt und nur, wenn du es erlaubst. Es ist optional: Mit <em>„Ich kann gerade nicht sprechen“</em> überspringst du diese Übungen.</li>
-        <li>Die Spracherkennung übernimmt der <strong>Spracherkennungsdienst des Apple-Betriebssystems</strong> (iOS). Je nach Geräteeinstellung erfolgt sie auf dem iPhone selbst oder auf Servern von Apple, gemäß der <a href="https://www.apple.com/de/legal/privacy/" rel="noopener">Datenschutzrichtlinie von Apple</a>.</li>
-        <li>Die App erhält nur den erkannten Text, vergleicht ihn auf dem Gerät mit dem Satz der Übung und verwirft ihn. <strong>Duellum speichert keine Sprachaufnahmen oder Transkripte und sendet sie nicht an seine Server.</strong></li>
-        <li>Das Vorlesen (Sprachausgabe) nutzt die Systemstimmen und erfolgt auf dem Gerät.</li>
-      </ul>
+    <h3>9. Minderjährige</h3>
+    <p>Duellum richtet sich nicht an Personen unter 16 Jahren, und wir legen wissentlich keine Konten für sie an. Konten werden nur vom Administrator für bestimmte Erwachsene angelegt. Falls du glaubst, dass ein Konto für eine minderjährige Person angelegt wurde, schreib uns, und wir löschen es.</p>
 
-      <h3>7. Speicherdauer</h3>
-      <p>So lange dein Konto besteht. Wenn du es löschst, werden dein Konto und dein gesamter Fortschritt sofort gelöscht. Falls der Anbieter automatische Backups aufbewahrt, verschwinden gelöschte Daten daraus, sobald diese ersetzt werden, gemäß den Aufbewahrungsfristen von Supabase. Im Cache deines Geräts gespeicherte Daten werden beim Abmelden, beim Löschen des Kontos oder beim Deinstallieren der App entfernt.</p>
+    <h3>10. Änderungen</h3>
+    <p>Wenn wir diese Erklärung ändern, aktualisieren wir das Datum oben und informieren dich bei wichtigen Änderungen in der App.</p>
 
-      <h3>8. Deine Rechte und Löschung des Kontos</h3>
-      <p>Du kannst jederzeit deine Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch geltend machen: <a href={`mailto:${email}`}>{email}</a>.</p>
-      <div class="box">
-        <strong>Konto in der App löschen:</strong> <em>Profil → Konto löschen</em> und bestätigen. Dein Konto, dein Fortschritt und deine Duell-Mitgliedschaft werden gelöscht. Du musst niemandem schreiben.
-      </div>
-      <p>Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, in Deutschland bei der Behörde deines Bundeslandes, in Spanien bei der <a href="https://www.aepd.es" rel="noopener">AEPD</a>.</p>
+    <h3 id="kontakt">11. Kontakt</h3>
+    <p>Bei Fragen zum Datenschutz oder für Support: <a href={`mailto:${email}`}>{email}</a>.</p>
+  </section>
 
-      <h3>9. Minderjährige</h3>
-      <p>Duellum richtet sich nicht an Personen unter 16 Jahren, und wir legen wissentlich keine Konten für sie an. Konten werden nur vom Administrator für bestimmte Erwachsene angelegt. Falls du glaubst, dass ein Konto für eine minderjährige Person angelegt wurde, schreib uns, und wir löschen es.</p>
-
-      <h3>10. Änderungen</h3>
-      <p>Wenn wir diese Erklärung ändern, aktualisieren wir das Datum oben und informieren dich bei wichtigen Änderungen in der App.</p>
-
-      <h3 id="kontakt">11. Kontakt</h3>
-      <p>Bei Fragen zum Datenschutz oder für Support: <a href={`mailto:${email}`}>{email}</a>.</p>
-    </section>
-
-    <section id="en" lang="en">
-      <h2>Privacy policy (English summary)</h2>
-      <p>This is a summary. The Spanish and German versions above are the full text.</p>
-      <ul>
-        <li><strong>Controller:</strong> {controller}, <a href={`mailto:${email}`}>{email}</a>.</li>
-        <li><strong>Private app:</strong> there is no public sign-up. The administrator creates every account. No ads, no in-app purchases, no analytics, no tracking.</li>
-        <li><strong>Data:</strong> account email, hashed password, user ID, display name and learning progress (XP, streak, lessons, daily goal, hearts, gems, mistakes to review, level-test results, couple group). Used only to provide the service and the weekly couple "Duel". Never sold or shared.</li>
-        <li><strong>Legal basis (GDPR):</strong> performance of a contract (Art. 6(1)(b)) and legitimate interest in basic security (Art. 6(1)(f)).</li>
-        <li><strong>Processors:</strong> Supabase, Inc., under a DPA, server region {region.en}; password-reset emails are sent through Resend. All traffic uses HTTPS.</li>
-        <li><strong>Microphone and speech:</strong> optional, only for speaking exercises ("Can't speak now" skips them). Speech recognition is performed by Apple's system speech recognition service. The app only receives the recognized text, compares it on the device and discards it. No audio or transcripts are stored or sent to our servers. Text-to-speech uses on-device system voices.</li>
-        <li><strong>Retention:</strong> while the account exists. Deleted immediately when the account is deleted; any provider backups are replaced according to Supabase's retention periods.</li>
-        <li><strong>Your rights and account deletion:</strong> access, rectification, erasure, restriction, portability and objection by email. You can delete your account in the app: <em>Profile → Delete account</em>.</li>
-        <li><strong>Children:</strong> not directed at children under 16.</li>
-        <li><strong>Contact:</strong> <a href={`mailto:${email}`}>{email}</a>.</li>
-      </ul>
-    </section>
-  </main>
-
-  <footer class="policy-footer container-section">
-    <p>© {new Date().getFullYear()} {controller}</p>
-    <a href="/es/#apps">almogon.com</a>
-  </footer>
-</Layout>
-
-<style>
-  /* Header, text and footer share one narrow reading column */
-  .policy-header,
-  .policy,
-  .policy-footer {
-    max-width: calc(820px + 2 * var(--page-gutter));
-  }
-
-  .policy-header {
-    gap: var(--space-xs);
-    padding-top: var(--space-md);
-    padding-bottom: var(--space-sm);
-  }
-
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    width: fit-content;
-    color: var(--text-muted);
-    font-weight: 700;
-    transition: color 0.2s ease;
-  }
-
-  .back-link:hover {
-    color: var(--accent-text);
-  }
-
-  .app-title {
-    display: flex;
-    align-items: center;
-    gap: clamp(1rem, 2.5vw, 1.5rem);
-  }
-
-  .app-icon {
-    flex-shrink: 0;
-    width: clamp(56px, 8vw, 72px);
-    height: auto;
-    border-radius: 22%;
-    box-shadow: 0 0 0 1px rgb(var(--accent-rgb) / 0.45);
-  }
-
-  h1 {
-    font-size: clamp(2.25rem, 7vw, 4rem);
-    font-weight: 700;
-    line-height: 1.1;
-  }
-
-  .muted {
-    color: var(--text-muted);
-  }
-
-  .lang-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .lang-nav a {
-    padding: 0.35rem 0.9rem;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--accent-text);
-    background: rgb(var(--accent-rgb) / 0.08);
-    border: 1px solid rgb(var(--accent-rgb) / 0.3);
-    transition: background-color 0.2s ease;
-  }
-
-  .lang-nav a:hover {
-    background: rgb(var(--accent-rgb) / 0.18);
-  }
-
-  .policy {
-    padding-bottom: var(--space-lg);
-    color: var(--text-grey);
-    line-height: 1.7;
-  }
-
-  .policy section {
-    padding-top: var(--space-md);
-    scroll-margin-top: 1rem;
-  }
-
-  .policy section + section {
-    margin-top: var(--space-md);
-    border-top: 2px solid rgb(var(--accent-rgb) / 0.35);
-  }
-
-  .policy h2 {
-    color: var(--text);
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-  }
-
-  .policy h3 {
-    color: var(--text);
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin: 1.75rem 0 0.5rem;
-    scroll-margin-top: 1rem;
-  }
-
-  .policy p + p {
-    margin-top: 0.75rem;
-  }
-
-  .policy ul {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    margin: 0.5rem 0;
-  }
-
-  .policy li {
-    position: relative;
-    padding-left: 1.25rem;
-  }
-
-  .policy li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.8em;
-    width: 0.5rem;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--accent);
-  }
-
-  .policy a {
-    color: var(--text);
-    border-bottom: 1px solid rgb(var(--accent-rgb) / 0.5);
-    overflow-wrap: anywhere;
-  }
-
-  .policy a:hover {
-    color: var(--accent-text);
-  }
-
-  .box {
-    margin: 0.75rem 0;
-    padding: 0.9rem 1.1rem;
-    border-radius: 12px;
-    background: rgb(var(--accent-rgb) / 0.06);
-    border: 1px solid rgb(var(--accent-rgb) / 0.3);
-  }
-
-  .table-wrap {
-    overflow-x: auto;
-    margin: 0.75rem 0;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem;
-  }
-
-  th,
-  td {
-    text-align: left;
-    vertical-align: top;
-    padding: 0.6rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  th {
-    color: var(--text);
-    background: rgb(var(--accent-rgb) / 0.08);
-  }
-
-  .policy-footer {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem 1.5rem;
-    padding-block: var(--space-sm);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--text-muted);
-    font-size: 0.9rem;
-  }
-
-  .policy-footer a {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-</style>
+  <section id="en" lang="en">
+    <h2>Privacy policy (English summary)</h2>
+    <p>This is a summary. The Spanish and German versions above are the full text.</p>
+    <ul>
+      <li><strong>Controller:</strong> {controller}, <a href={`mailto:${email}`}>{email}</a>.</li>
+      <li><strong>Private app:</strong> there is no public sign-up. The administrator creates every account. No ads, no in-app purchases, no analytics, no tracking.</li>
+      <li><strong>Data:</strong> account email, hashed password, user ID, display name and learning progress (XP, streak, lessons, daily goal, hearts, gems, mistakes to review, level-test results, couple group). Used only to provide the service and the weekly couple "Duel". Never sold or shared.</li>
+      <li><strong>Legal basis (GDPR):</strong> performance of a contract (Art. 6(1)(b)) and legitimate interest in basic security (Art. 6(1)(f)).</li>
+      <li><strong>Processors:</strong> Supabase, Inc., under a DPA, server region {region.en}; password-reset emails are sent through Resend. All traffic uses HTTPS.</li>
+      <li><strong>Microphone and speech:</strong> optional, only for speaking exercises ("Can't speak now" skips them). Speech recognition is performed by Apple's system speech recognition service. The app only receives the recognized text, compares it on the device and discards it. No audio or transcripts are stored or sent to our servers. Text-to-speech uses on-device system voices.</li>
+      <li><strong>Retention:</strong> while the account exists. Deleted immediately when the account is deleted; any provider backups are replaced according to Supabase's retention periods.</li>
+      <li><strong>Your rights and account deletion:</strong> access, rectification, erasure, restriction, portability and objection by email. You can delete your account in the app: <em>Profile → Delete account</em>.</li>
+      <li><strong>Children:</strong> not directed at children under 16.</li>
+      <li><strong>Contact:</strong> <a href={`mailto:${email}`}>{email}</a>.</li>
+    </ul>
+  </section>
+</AppDocument>
