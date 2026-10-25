@@ -33,7 +33,7 @@ export const ui = {
       experience: 'Experience',
       skills: 'Skills',
       education: 'Education',
-      references: 'References',
+      apps: 'Apps',
       contact: 'Contact',
       openMenu: 'Open menu',
       closeMenu: 'Close menu',
@@ -66,11 +66,13 @@ export const ui = {
     education: {
       title: 'Education',
     },
-    references: {
-      title: 'References',
-      intro: 'People I have worked with who can talk about how I work.',
-      onLinkedIn: (name: string) => `${name} on LinkedIn`,
-      emailTo: (name: string) => `Email ${name}`,
+    apps: {
+      title: 'Apps',
+      intro: 'Apps I design, build and ship on my own, from the idea to the store.',
+      iconAlt: (name: string) => `${name} app icon`,
+      stack: (name: string) => `${name} tech stack`,
+      website: 'Website',
+      privacy: 'Privacy policy',
     },
     contact: {
       title: 'Contact',
@@ -95,7 +97,7 @@ export const ui = {
       experience: 'Experiencia',
       skills: 'Habilidades',
       education: 'Formación',
-      references: 'Referencias',
+      apps: 'Apps',
       contact: 'Contacto',
       openMenu: 'Abrir menú',
       closeMenu: 'Cerrar menú',
@@ -128,11 +130,13 @@ export const ui = {
     education: {
       title: 'Formación',
     },
-    references: {
-      title: 'Referencias',
-      intro: 'Personas con las que he trabajado y que pueden hablar de cómo trabajo.',
-      onLinkedIn: (name: string) => `${name} en LinkedIn`,
-      emailTo: (name: string) => `Escribir a ${name}`,
+    apps: {
+      title: 'Apps',
+      intro: 'Apps que diseño, construyo y publico por mi cuenta, de la idea a la tienda.',
+      iconAlt: (name: string) => `Icono de la app ${name}`,
+      stack: (name: string) => `Tecnologías de ${name}`,
+      website: 'Web',
+      privacy: 'Política de privacidad',
     },
     contact: {
       title: 'Contacto',
@@ -157,7 +161,7 @@ export const ui = {
       experience: 'Erfahrung',
       skills: 'Kenntnisse',
       education: 'Ausbildung',
-      references: 'Referenzen',
+      apps: 'Apps',
       contact: 'Kontakt',
       openMenu: 'Menü öffnen',
       closeMenu: 'Menü schließen',
@@ -191,11 +195,13 @@ export const ui = {
     education: {
       title: 'Ausbildung',
     },
-    references: {
-      title: 'Referenzen',
-      intro: 'Menschen, mit denen ich zusammengearbeitet habe und die erzählen können, wie ich arbeite.',
-      onLinkedIn: (name: string) => `${name} auf LinkedIn`,
-      emailTo: (name: string) => `E-Mail an ${name}`,
+    apps: {
+      title: 'Apps',
+      intro: 'Apps, die ich eigenständig entwerfe, entwickle und veröffentliche – von der Idee bis in den Store.',
+      iconAlt: (name: string) => `App-Icon von ${name}`,
+      stack: (name: string) => `Tech-Stack von ${name}`,
+      website: 'Website',
+      privacy: 'Datenschutzerklärung',
     },
     contact: {
       title: 'Kontakt',
