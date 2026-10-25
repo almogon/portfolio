@@ -63,6 +63,12 @@ const t = useTranslations(lang).apps;
                   {t.privacy}
                 </a>
               )}
+              {app.support && (
+                <a class="card-link app-link" href={app.support}>
+                  <Icon name="help" />
+                  {t.support}
+                </a>
+              )}
             </div>
           </div>
         </article>

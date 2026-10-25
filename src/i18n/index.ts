@@ -73,6 +73,7 @@ export const ui = {
       stack: (name: string) => `${name} tech stack`,
       website: 'Website',
       privacy: 'Privacy policy',
+      support: 'Support',
     },
     contact: {
       title: 'Contact',
@@ -137,6 +138,7 @@ export const ui = {
       stack: (name: string) => `Tecnologías de ${name}`,
       website: 'Web',
       privacy: 'Política de privacidad',
+      support: 'Soporte',
     },
     contact: {
       title: 'Contacto',
@@ -202,6 +204,7 @@ export const ui = {
       stack: (name: string) => `Tech-Stack von ${name}`,
       website: 'Website',
       privacy: 'Datenschutzerklärung',
+      support: 'Support',
     },
     contact: {
       title: 'Kontakt',

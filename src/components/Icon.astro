@@ -1,6 +1,6 @@
 ---
 interface IconProps {
-  name: 'mail' | 'linkedin' | 'github' | 'link' | 'arrow-down' | 'people' | 'shield' | 'arrow-up-right';
+  name: 'mail' | 'linkedin' | 'github' | 'link' | 'arrow-down' | 'people' | 'shield' | 'arrow-up-right' | 'help';
   size?: number;
 }
 
@@ -44,6 +44,13 @@ const { name, size = 18 }: IconProps = Astro.props as IconProps;
   )}
   {name === 'arrow-down' && <path d="M12 4V20M12 20L18 14M12 20L6 14" />}
   {name === 'arrow-up-right' && <path d="M7 17L17 7M17 7H9M17 7V15" />}
+  {name === 'help' && (
+    <>
+      <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" />
+      <path d="M9.5 9.5C9.5 8.11929 10.6193 7 12 7C13.3807 7 14.5 8.11929 14.5 9.5C14.5 10.7 13.6 11.3 12.8 11.8C12.3 12.1 12 12.5 12 13V13.5" />
+      <path d="M12 17H12.01" />
+    </>
+  )}
   {name === 'shield' && (
     <>
       <path d="M12 3L19 6V11.5C19 15.9 16 19.6 12 21C8 19.6 5 15.9 5 11.5V6L12 3Z" />

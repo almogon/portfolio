@@ -18,7 +18,7 @@ Personal portfolio of Álvaro Morales, tech lead and full stack developer, live 
 - **Responsive by default.** Fluid type and spacing with `clamp()`, three breakpoints (phone < 768px, tablet < 1024px, desktop), and a hamburger menu below 900px.
 - **Accessible.** WCAG AA color contrast, a skip link, visible focus states, semantic landmarks and `prefers-reduced-motion` support.
 - **Fast.** Self-hosted Lato in WOFF2 with preloading, an SVG favicon, and the only images (app icons) optimized at build time with `astro:assets`.
-- **App pages.** Privacy policies of my apps live under `/apps/<app>/privacy/` (e.g. `src/pages/apps/duellum/privacy.astro`), outside the one-page cube, so the stores can link to them.
+- **App pages.** Privacy policy and support pages of my apps live under `/apps/<app>/` (e.g. `src/pages/apps/duellum/privacy.astro` and `support.astro`), outside the one-page cube, so the stores can link to them. They share `src/layouts/AppDocument.astro`.
 - **Discoverable.** Canonical URLs, Open Graph and Twitter cards with a preview image, Person structured data (schema.org), `sitemap.xml` and `robots.txt`.
 
 ## Project structure
