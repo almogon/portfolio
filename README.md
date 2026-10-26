@@ -50,3 +50,9 @@ Requires Node.js 18.17+ (20+ recommended).
 | `npm run preview` | Preview the production build locally        |
 
 Every push and pull request runs the production build in GitHub Actions (`.github/workflows/build.yml`).
+
+## License
+
+The **source code** is dedicated to the public domain under [CC0 1.0](LICENSE).
+
+The **content is not**: texts and personal data (`src/data/`, `src/i18n/`), images, logos and app icons (`src/assets/`, `public/og-image.png`) and the app pages (`src/pages/apps/`: privacy policies and support) are © Álvaro Morales González, all rights reserved. "RosterPro" and "Duellum" are trademarks of their owner. Third-party files keep their own licenses (Lato: SIL Open Font License).

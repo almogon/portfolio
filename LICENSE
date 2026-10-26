@@ -119,3 +119,25 @@ express Statement of Purpose.
  d. Affirmer understands and acknowledges that Creative Commons is not a
     party to this document and has no duty or obligation with respect to
     this CC0 or use of the Work.
+
+----------------------------------------------------------------------
+
+SCOPE OF THIS LICENSE
+
+The CC0 dedication above applies only to the source code of this
+website. It does not apply to the following content, which is
+(c) Álvaro Morales González, all rights reserved:
+
+  - texts and personal data in src/data/ and src/i18n/
+  - images, logos and app icons in src/assets/ and public/og-image.png
+  - the app pages in src/pages/apps/ (privacy policies and support)
+
+The names and logos "RosterPro" and "Duellum" are trademarks of their
+owner and are not licensed for any use (see also section 4a above).
+Third-party files keep their own licenses (the Lato font in
+public/fonts/Lato/ is under the SIL Open Font License).
+
+ALCANCE DE ESTA LICENCIA: la CC0 solo cubre el código fuente de esta
+web. Los textos, imágenes, logotipos, iconos de las apps y las páginas
+de las apps indicados arriba no están cubiertos por ella:
+(c) Álvaro Morales González, todos los derechos reservados.
