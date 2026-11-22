@@ -23,7 +23,7 @@ ${alternates}
     .join('\n');
 
   // Standalone pages without language alternates
-  const pages = ['/apps/duellum/privacy/', '/apps/duellum/support/']
+  const pages = ['/apps/duellum/privacy/', '/apps/duellum/support/', '/tcg-trader/']
     .map(
       (path) => `  <url>
     <loc>${url(path)}</loc>

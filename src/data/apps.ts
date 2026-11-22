@@ -2,6 +2,7 @@ import type { ImageMetadata } from 'astro';
 import type { Localized } from '../i18n';
 import duellumIcon from '../assets/apps/duellum.png';
 import rosterProIcon from '../assets/apps/rosterpro.png';
+import tcgTraderIcon from '../assets/apps/tcgtrader.png';
 
 // Owner and contact registered in the app stores (used by the app privacy and support pages)
 export const appOwner = {
@@ -9,7 +10,6 @@ export const appOwner = {
   email: 'morales_rivas@hotmail.com',
 };
 
-// Store links (App Store / Google Play) are added here once the apps are live.
 export interface App {
   name: string;
   icon: ImageMetadata;
@@ -19,6 +19,8 @@ export interface App {
   platforms: string[];
   stack: string[];
   website?: string;
+  appStore?: string;
+  playStore?: string;
   privacy?: string;
   support?: string;
 }
@@ -33,14 +35,19 @@ export const apps: App[] = [
       de: 'Teammanager für Trainer',
     },
     description: {
-      en: 'Coaches manage their teams and players, record matches live with per-player stats and turn them into a season leaderboard. Supports football, basketball and volleyball, with subscription plans.',
-      es: 'Los entrenadores gestionan sus equipos y jugadores, registran los partidos en directo con estadísticas por jugador y las convierten en una clasificación de temporada. Fútbol, baloncesto y vóley, con planes de suscripción.',
-      de: 'Trainer verwalten ihre Teams und Spieler, erfassen Spiele live mit Statistiken pro Spieler und machen daraus eine Saisonrangliste. Für Fußball, Basketball und Volleyball, mit Abo-Modellen.',
+      en: 'Coaches manage their teams and players, record matches live with per-player stats and turn them into a season leaderboard.',
+      es: 'Los entrenadores gestionan sus equipos y jugadores, registran los partidos en directo con estadísticas por jugador y las convierten en una clasificación de temporada.',
+      de: 'Trainer verwalten ihre Teams und Spieler, erfassen Spiele live mit Statistiken pro Spieler und machen daraus eine Saisonrangliste.',
     },
-    status: { en: 'Coming soon to the stores', es: 'Próximamente en las tiendas', de: 'Bald in den Stores' },
+    status: {
+      en: 'Available on the App Store and Google Play',
+      es: 'Disponible en App Store y Google Play',
+      de: 'Im App Store und bei Google Play erhältlich',
+    },
     platforms: ['iOS', 'Android', 'Web'],
     stack: ['Flutter', 'Supabase', 'Riverpod', 'Stripe'],
-    website: 'https://www.rosterpromanager.com',
+    appStore: 'https://apps.apple.com/at/app/rosterpro/id6811548276',
+    playStore: 'https://play.google.com/store/apps/details?id=com.almogon.teamtrack',
   },
   {
     name: 'Duellum',
@@ -55,10 +62,26 @@ export const apps: App[] = [
       es: 'Una app privada para dos: lecciones cortas con ocho tipos de ejercicio, incluidos escuchar y hablar, y un Duelo semanal de XP entre los dos. Funciona sin conexión y se sincroniza al volver.',
       de: 'Eine private App für zwei: kurze Lektionen mit acht Übungstypen, darunter Hören und Sprechen, und ein wöchentliches XP-Duell zwischen beiden. Funktioniert offline und synchronisiert sich danach.',
     },
-    status: { en: 'In beta', es: 'En beta', de: 'In der Beta' },
+    status: { en: 'Private', es: 'Privada', de: 'Privat' },
     platforms: ['iOS'],
     stack: ['Flutter', 'Supabase', 'Riverpod'],
-    privacy: '/apps/duellum/privacy/',
-    support: '/apps/duellum/support/',
+  },
+  {
+    name: 'TCG Trader',
+    icon: tcgTraderIcon,
+    tagline: {
+      en: 'Balanced Pokémon card trades',
+      es: 'Intercambios equilibrados de cartas Pokémon',
+      de: 'Faire Tauschgeschäfte mit Pokémon-Karten',
+    },
+    description: {
+      en: 'Search Pokémon cards across every set, compare their lowest Near Mint price on Cardmarket by card language and put together trades where both sides get the same value.',
+      es: 'Busca cartas Pokémon de cualquier colección, compara su precio Near Mint más bajo en Cardmarket según el idioma de la carta y arma intercambios en los que ambas partes reciben el mismo valor.',
+      de: 'Pokémon-Karten aus allen Sets suchen, den niedrigsten Near-Mint-Preis auf Cardmarket je nach Kartensprache vergleichen und Tauschgeschäfte zusammenstellen, bei denen beide Seiten den gleichen Wert erhalten.',
+    },
+    status: { en: 'Available on the web', es: 'Disponible en la web', de: 'Im Web verfügbar' },
+    platforms: ['Web'],
+    stack: ['React', 'TypeScript', 'Vite', 'Vercel'],
+    website: '/tcg-trader/',
   },
 ];

@@ -74,6 +74,8 @@ export const ui = {
       website: 'Website',
       privacy: 'Privacy policy',
       support: 'Support',
+      appStore: (name: string) => `Download ${name} on the App Store`,
+      playStore: (name: string) => `Get ${name} on Google Play`,
     },
     contact: {
       title: 'Contact',
@@ -139,6 +141,8 @@ export const ui = {
       website: 'Web',
       privacy: 'Política de privacidad',
       support: 'Soporte',
+      appStore: (name: string) => `Descargar ${name} en App Store`,
+      playStore: (name: string) => `Descargar ${name} en Google Play`,
     },
     contact: {
       title: 'Contacto',
@@ -205,6 +209,8 @@ export const ui = {
       website: 'Website',
       privacy: 'Datenschutzerklärung',
       support: 'Support',
+      appStore: (name: string) => `${name} im App Store laden`,
+      playStore: (name: string) => `${name} bei Google Play herunterladen`,
     },
     contact: {
       title: 'Kontakt',
