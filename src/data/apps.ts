@@ -10,7 +10,6 @@ export const appOwner = {
   email: 'morales_rivas@hotmail.com',
 };
 
-// Store links (App Store / Google Play) are added here once the apps are live.
 export interface App {
   name: string;
   icon: ImageMetadata;
@@ -20,6 +19,8 @@ export interface App {
   platforms: string[];
   stack: string[];
   website?: string;
+  appStore?: string;
+  playStore?: string;
   privacy?: string;
   support?: string;
 }
@@ -38,10 +39,16 @@ export const apps: App[] = [
       es: 'Los entrenadores gestionan sus equipos y jugadores, registran los partidos en directo con estadísticas por jugador y las convierten en una clasificación de temporada. Fútbol, baloncesto y vóley, con planes de suscripción.',
       de: 'Trainer verwalten ihre Teams und Spieler, erfassen Spiele live mit Statistiken pro Spieler und machen daraus eine Saisonrangliste. Für Fußball, Basketball und Volleyball, mit Abo-Modellen.',
     },
-    status: { en: 'Coming soon to the stores', es: 'Próximamente en las tiendas', de: 'Bald in den Stores' },
+    status: {
+      en: 'Available on the App Store and Google Play',
+      es: 'Disponible en App Store y Google Play',
+      de: 'Im App Store und bei Google Play erhältlich',
+    },
     platforms: ['iOS', 'Android', 'Web'],
     stack: ['Flutter', 'Supabase', 'Riverpod', 'Stripe'],
     website: 'https://www.rosterpromanager.com',
+    appStore: 'https://apps.apple.com/at/app/rosterpro/id6811548276',
+    playStore: 'https://play.google.com/store/apps/details?id=com.almogon.teamtrack',
   },
   {
     name: 'Duellum',

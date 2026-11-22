@@ -3,6 +3,12 @@ import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 import { apps } from '../data/apps';
 import { useTranslations, type Lang } from '../i18n';
+import appStoreEn from '../assets/badges/app-store-en.svg';
+import appStoreEs from '../assets/badges/app-store-es.svg';
+import appStoreDe from '../assets/badges/app-store-de.svg';
+import playStoreEn from '../assets/badges/google-play-en.png';
+import playStoreEs from '../assets/badges/google-play-es.png';
+import playStoreDe from '../assets/badges/google-play-de.png';
 
 interface Props {
   lang: Lang;
@@ -10,6 +16,10 @@ interface Props {
 
 const { lang } = Astro.props as Props;
 const t = useTranslations(lang).apps;
+
+// Official store badges, localized
+const appStoreBadge = { en: appStoreEn, es: appStoreEs, de: appStoreDe }[lang];
+const playStoreBadge = { en: playStoreEn, es: playStoreEs, de: playStoreDe }[lang];
 ---
 
 <div class="container-section section-list accent-orange">
@@ -49,6 +59,21 @@ const t = useTranslations(lang).apps;
                 <li class="tag">{tech}</li>
               ))}
             </ul>
+
+            {(app.appStore || app.playStore) && (
+              <div class="store-badges">
+                {app.appStore && (
+                  <a class="store-badge" href={app.appStore} target="_blank" rel="noopener">
+                    <img class="badge-apple" src={appStoreBadge.src} alt={t.appStore(app.name)} height="40" />
+                  </a>
+                )}
+                {app.playStore && (
+                  <a class="store-badge" href={app.playStore} target="_blank" rel="noopener">
+                    <Image class="badge-google" src={playStoreBadge} alt={t.playStore(app.name)} height={60} densities={[1, 2]} />
+                  </a>
+                )}
+              </div>
+            )}
 
             <div class="app-footer">
               {app.website && (
@@ -155,6 +180,35 @@ const t = useTranslations(lang).apps;
     font-family: var(--font-mono);
     font-size: 0.8rem;
     color: var(--text-muted);
+  }
+
+  .store-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .store-badge {
+    display: inline-flex;
+    line-height: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .store-badge:hover {
+    transform: translateY(-2px);
+  }
+
+  .badge-apple {
+    height: 40px;
+    width: auto;
+  }
+
+  /* The Google Play PNG has built-in padding (badge is 168 of 250 px tall): crop it to match the 40px Apple badge */
+  .badge-google {
+    height: 60px;
+    width: auto;
+    margin: -10px;
   }
 
   .app-footer {
