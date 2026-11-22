@@ -2,6 +2,7 @@ import type { ImageMetadata } from 'astro';
 import type { Localized } from '../i18n';
 import duellumIcon from '../assets/apps/duellum.png';
 import rosterProIcon from '../assets/apps/rosterpro.png';
+import tcgTraderIcon from '../assets/apps/tcgtrader.png';
 
 // Owner and contact registered in the app stores (used by the app privacy and support pages)
 export const appOwner = {
@@ -60,5 +61,23 @@ export const apps: App[] = [
     stack: ['Flutter', 'Supabase', 'Riverpod'],
     privacy: '/apps/duellum/privacy/',
     support: '/apps/duellum/support/',
+  },
+  {
+    name: 'TCG Trader',
+    icon: tcgTraderIcon,
+    tagline: {
+      en: 'Balanced Pokémon card trades',
+      es: 'Intercambios equilibrados de cartas Pokémon',
+      de: 'Faire Tauschgeschäfte mit Pokémon-Karten',
+    },
+    description: {
+      en: 'Search Pokémon cards across every set, compare their lowest Near Mint price on Cardmarket by card language and put together trades where both sides get the same value.',
+      es: 'Busca cartas Pokémon de cualquier colección, compara su precio Near Mint más bajo en Cardmarket según el idioma de la carta y arma intercambios en los que ambas partes reciben el mismo valor.',
+      de: 'Pokémon-Karten aus allen Sets suchen, den niedrigsten Near-Mint-Preis auf Cardmarket je nach Kartensprache vergleichen und Tauschgeschäfte zusammenstellen, bei denen beide Seiten den gleichen Wert erhalten.',
+    },
+    status: { en: 'Available on the web', es: 'Disponible en la web', de: 'Im Web verfügbar' },
+    platforms: ['Web'],
+    stack: ['React', 'TypeScript', 'Vite', 'Vercel'],
+    website: '/tcg-trader/',
   },
 ];

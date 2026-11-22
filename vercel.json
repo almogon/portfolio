@@ -3,5 +3,9 @@
       "deploymentEnabled": {
         "master": true
       }
-    }
+    },
+    "rewrites": [
+      { "source": "/tcg-trader", "destination": "https://tcg-trader.vercel.app/tcg-trader" },
+      { "source": "/tcg-trader/:path*", "destination": "https://tcg-trader.vercel.app/tcg-trader/:path*" }
+    ]
   }
