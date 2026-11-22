@@ -35,9 +35,9 @@ export const apps: App[] = [
       de: 'Teammanager für Trainer',
     },
     description: {
-      en: 'Coaches manage their teams and players, record matches live with per-player stats and turn them into a season leaderboard. Supports football, basketball and volleyball, with subscription plans.',
-      es: 'Los entrenadores gestionan sus equipos y jugadores, registran los partidos en directo con estadísticas por jugador y las convierten en una clasificación de temporada. Fútbol, baloncesto y vóley, con planes de suscripción.',
-      de: 'Trainer verwalten ihre Teams und Spieler, erfassen Spiele live mit Statistiken pro Spieler und machen daraus eine Saisonrangliste. Für Fußball, Basketball und Volleyball, mit Abo-Modellen.',
+      en: 'Coaches manage their teams and players, record matches live with per-player stats and turn them into a season leaderboard.',
+      es: 'Los entrenadores gestionan sus equipos y jugadores, registran los partidos en directo con estadísticas por jugador y las convierten en una clasificación de temporada.',
+      de: 'Trainer verwalten ihre Teams und Spieler, erfassen Spiele live mit Statistiken pro Spieler und machen daraus eine Saisonrangliste.',
     },
     status: {
       en: 'Available on the App Store and Google Play',
@@ -46,7 +46,6 @@ export const apps: App[] = [
     },
     platforms: ['iOS', 'Android', 'Web'],
     stack: ['Flutter', 'Supabase', 'Riverpod', 'Stripe'],
-    website: 'https://www.rosterpromanager.com',
     appStore: 'https://apps.apple.com/at/app/rosterpro/id6811548276',
     playStore: 'https://play.google.com/store/apps/details?id=com.almogon.teamtrack',
   },
@@ -63,11 +62,9 @@ export const apps: App[] = [
       es: 'Una app privada para dos: lecciones cortas con ocho tipos de ejercicio, incluidos escuchar y hablar, y un Duelo semanal de XP entre los dos. Funciona sin conexión y se sincroniza al volver.',
       de: 'Eine private App für zwei: kurze Lektionen mit acht Übungstypen, darunter Hören und Sprechen, und ein wöchentliches XP-Duell zwischen beiden. Funktioniert offline und synchronisiert sich danach.',
     },
-    status: { en: 'In beta', es: 'En beta', de: 'In der Beta' },
+    status: { en: 'Private', es: 'Privada', de: 'Privat' },
     platforms: ['iOS'],
     stack: ['Flutter', 'Supabase', 'Riverpod'],
-    privacy: '/apps/duellum/privacy/',
-    support: '/apps/duellum/support/',
   },
   {
     name: 'TCG Trader',

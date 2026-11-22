@@ -75,6 +75,7 @@ const playStoreBadge = { en: playStoreEn, es: playStoreEs, de: playStoreDe }[lan
               </div>
             )}
 
+            {(app.website || app.privacy || app.support) && (
             <div class="app-footer">
               {app.website && (
                 <a class="card-link app-link" href={app.website} target="_blank" rel="noopener">
@@ -95,6 +96,7 @@ const playStoreBadge = { en: playStoreEn, es: playStoreEs, de: playStoreDe }[lan
                 </a>
               )}
             </div>
+            )}
           </div>
         </article>
       ))
