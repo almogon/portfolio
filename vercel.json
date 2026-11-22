@@ -8,6 +8,7 @@
       { "source": "/tcg-trader", "destination": "/tcg-trader/", "permanent": true }
     ],
     "rewrites": [
+      { "source": "/tcg-trader/", "destination": "https://tcg-trader-nine.vercel.app/" },
       { "source": "/tcg-trader/:path*", "destination": "https://tcg-trader-nine.vercel.app/:path*" }
     ]
   }
