@@ -4,8 +4,10 @@
         "master": true
       }
     },
+    "redirects": [
+      { "source": "/tcg-trader", "destination": "/tcg-trader/", "permanent": true }
+    ],
     "rewrites": [
-      { "source": "/tcg-trader", "destination": "https://tcg-trader.vercel.app/tcg-trader" },
-      { "source": "/tcg-trader/:path*", "destination": "https://tcg-trader.vercel.app/tcg-trader/:path*" }
+      { "source": "/tcg-trader/:path*", "destination": "https://tcg-trader.vercel.app/:path*" }
     ]
   }
